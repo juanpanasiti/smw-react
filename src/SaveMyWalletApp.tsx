@@ -1,10 +1,14 @@
 import { BrowserRouter } from 'react-router-dom';
+
 import { AppRouter } from './router';
+import { AppTheme } from './theme';
 
 export const SaveMyWalletApp = () => {
     return (
         <BrowserRouter>
-            <AppRouter />
+            <AppTheme>
+                <AppRouter />
+            </AppTheme>
         </BrowserRouter>
     );
 };
