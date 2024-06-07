@@ -5,13 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AppRouter } from './router';
 import { AppTheme } from './theme';
 
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false,
-        },
-    },
-});
+const queryClient = new QueryClient();
 
 export const SaveMyWalletApp = () => {
     return (
