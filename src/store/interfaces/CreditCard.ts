@@ -1,13 +1,21 @@
-export interface CreditCard {
+export interface CreditCardMain {
     id: number;
     alias: string;
     limit: number;
-    nextClosingDate: string; // TODO: replace with date
-    nextExpiringDate: string; // TODO: replace with date
-    mainCreditCardId: number;
-    isMainCreitCard: boolean;
+    nextClosingDate: Date;
+    nextExpiringDate: Date;
     totalSpent: number;
+    subtotalSpent: number;
+    createdAt: Date;
+    updatedAt: Date;
     isEnabled: boolean;
-    createdAt: string; // TODO: change for datetime
-    updatedAt: string; // TODO: change for datetime
+    extensions: CreditCardExtension[];
+}
+export interface CreditCardExtension {
+    id: number;
+    alias: string;
+    totalSpent: number;
+    createdAt: Date;
+    updatedAt: Date;
+    isEnabled: boolean;
 }
