@@ -1,7 +1,7 @@
 import { StateCreator } from 'zustand';
 
 import { Purchase } from './interfaces';
-import { UserSlice, CreditCardSlice, SubscriptionSlice, PaymentSlice } from '.';
+import { CreditCardSlice, SubscriptionSlice, PaymentSlice } from '.';
 
 export interface PurchaseSlice {
     purchases: Purchase[];
@@ -11,7 +11,9 @@ export interface PurchaseSlice {
     deletePurchase: (purchase: Purchase) => void;
 }
 
-export const createPurchasesSlice: StateCreator<UserSlice & CreditCardSlice & SubscriptionSlice & PaymentSlice & PurchaseSlice, [], [], PurchaseSlice> = (set) => ({
+export const createPurchasesSlice: StateCreator<CreditCardSlice & SubscriptionSlice & PaymentSlice & PurchaseSlice, [], [], PurchaseSlice> = (
+    set
+) => ({
     purchases: [],
     setPurchases: (purchases: Purchase[]) => set({ purchases }),
     addPurchase: (purchase: Purchase) => set((state) => ({ purchases: [...state.purchases, purchase] })),
