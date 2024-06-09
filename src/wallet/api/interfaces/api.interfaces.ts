@@ -1,4 +1,4 @@
-import { ExpenseStatusApiEnum, ExpenseTypeApiEnum, PaymentStatusApiEnum } from '../enums';
+import { ExpenseStatusEnum, ExpenseTypeEnum, PaymentStatusEnum } from "../../enums";
 
 //! REQUESTS
 export interface CreditCardApiReq {
@@ -15,7 +15,7 @@ export interface ExpenseApiReq {
     cc_name: string;
     acquired_at: Date;
     amount: number;
-    type: ExpenseTypeApiEnum;
+    type: ExpenseTypeEnum;
     installments: number;
     first_payment_date: Date;
     credit_card_id: number;
@@ -27,13 +27,13 @@ export interface EditExpenseApiReq {
     credit_card_id: number;
 }
 export interface NewSubscriptionPaymentApiReq {
-    status: ExpenseStatusApiEnum;
+    status: ExpenseStatusEnum;
     month: number;
     year: number;
     amount: number;
 }
 export interface EditPaymentAPIReq {
-    status: PaymentStatusApiEnum;
+    status: PaymentStatusEnum;
     amount: number;
 }
 
@@ -57,12 +57,12 @@ export interface ExpenseApiRes {
     cc_name: string;
     acquired_at: Date;
     amount: number;
-    type: ExpenseTypeApiEnum;
+    type: ExpenseTypeEnum;
     installments: number;
     first_payment_date: Date;
     credit_card_id: number;
     id: number;
-    status: ExpenseStatusApiEnum;
+    status: ExpenseStatusEnum;
     remaining_amount: number;
     total_paid: number;
     installments_paid: number;
@@ -72,7 +72,7 @@ export interface ExpenseApiRes {
 export interface PaymentApiRes {
     id: number;
     expense_id: number;
-    status: PaymentStatusApiEnum;
+    status: PaymentStatusEnum;
     no_installment: number;
     month: number;
     year: number;

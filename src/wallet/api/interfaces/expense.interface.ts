@@ -1,20 +1,20 @@
-import { ExpenseStatusApiEnum, ExpenseTypeApiEnum } from '../enums';
+import { ExpenseStatusEnum, ExpenseTypeEnum } from '../../enums';
 import { Payment } from './payment.interface';
 
 export interface Expense {
     title: string;
-    cc_name: string;
-    acquired_at: Date;
+    ccName: string;
+    acquiredAt: Date;
     amount: number;
-    type: ExpenseTypeApiEnum;
+    type: ExpenseTypeEnum;
     installments: number;
-    first_payment_date: Date;
-    credit_card_id: number;
+    firstPaymentDate: Date;
+    creditCardId: number;
     id: number;
-    status: ExpenseStatusApiEnum;
-    remaining_amount: number;
-    total_paid: number;
-    installments_paid: number;
-    installments_pending: number;
+    status: ExpenseStatusEnum;
+    remainingAmount: number;
+    totalPaid: number;
+    installmentsPaid: number;
+    installmentsPending: number;
     payments: Payment[];
 }

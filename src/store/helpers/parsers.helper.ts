@@ -1,6 +1,7 @@
-import { CreditCard } from '../../wallet/api/interfaces';
-import { CreditCardExtension, CreditCardMain } from '../interfaces';
+import { CreditCard, Expense, Payment as PaymentApi } from '../../wallet/api/interfaces';
+import { CreditCardExtension, CreditCardMain, Purchase, Subscription, Payment } from '../interfaces';
 
+//! Credit Cards
 export const parseCreditCardListToStore = (creditCards: CreditCard[]): CreditCardMain[] => {
     const ccMainList: CreditCardMain[] = creditCards.filter((creditCard) => creditCard.isMainCreitCard).map(parseCreditCardMainToStore);
     return ccMainList.map((main) => {
@@ -13,7 +14,6 @@ export const parseCreditCardListToStore = (creditCards: CreditCard[]): CreditCar
         };
     });
 };
-
 export const parseCreditCardMainToStore = (creditCard: CreditCard): CreditCardMain => ({
     id: creditCard.id,
     alias: creditCard.alias,
@@ -27,7 +27,6 @@ export const parseCreditCardMainToStore = (creditCard: CreditCard): CreditCardMa
     isEnabled: creditCard.isEnabled,
     extensions: [],
 });
-
 export const parseCreditCardExtensionToStore = (creditCard: CreditCard): CreditCardExtension => ({
     id: creditCard.id,
     alias: creditCard.alias,
@@ -35,4 +34,44 @@ export const parseCreditCardExtensionToStore = (creditCard: CreditCard): CreditC
     createdAt: creditCard.createdAt,
     updatedAt: creditCard.updatedAt,
     isEnabled: creditCard.isEnabled,
+});
+
+//! Purchases
+export const parsePurchaseListtoStore = (purchases: Expense[]): Purchase[] => purchases.map(parsePurchaseToStore);
+export const parsePurchaseToStore = (purchase: Expense): Purchase => ({
+    id: purchase.id,
+    creditCardId: purchase.creditCardId,
+    title: purchase.title,
+    ccName: purchase.ccName,
+    acquiredAt: purchase.acquiredAt,
+    amount: purchase.amount,
+    noInstallments: purchase.installments,
+    status: purchase.status,
+    remainingAmount: purchase.remainingAmount,
+    totalPaid: purchase.totalPaid,
+    installmentsPaid: purchase.installmentsPaid,
+    installmentsPending: purchase.installmentsPending,
+});
+
+//! Subscriptions
+export const parseSubscriptionListtoStore = (subscriptions: Expense[]): Subscription[] => subscriptions.map(parseSubscriptionToStore);
+export const parseSubscriptionToStore = (subscription: Expense): Subscription => ({
+    id: subscription.id,
+    creditCardId: subscription.creditCardId,
+    title: subscription.title,
+    ccName: subscription.ccName,
+    amount: subscription.amount,
+    status: subscription.status,
+});
+
+//! Payments
+export const parsePaymentListtoStore = (payments: PaymentApi[]): Payment[] => payments.map(parsePaymentToStore);
+export const parsePaymentToStore = (payment: PaymentApi): Payment => ({
+    id: payment.id,
+    expenseId: payment.expenseId,
+    status: payment.status,
+    noInstallment: payment.noInstallment,
+    month: payment.month,
+    year: payment.year,
+    amount: payment.amount,
 });

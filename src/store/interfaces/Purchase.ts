@@ -1,12 +1,14 @@
+import { ExpenseStatusEnum } from "../../wallet/enums";
+
 export interface Purchase {
     id: number;
     creditCardId: number;
     title: string;
     ccName: string;
-    acquiredAt: string; // TODO replace with date
+    acquiredAt: Date;
     amount: number;
     noInstallments: number;
-    status: string; // TODO replace with enum
+    status: ExpenseStatusEnum;
     remainingAmount: number;
     totalPaid: number;
     installmentsPaid: number;

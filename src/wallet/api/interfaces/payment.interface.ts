@@ -1,9 +1,9 @@
-import { PaymentStatusApiEnum } from "../enums";
+import { PaymentStatusEnum } from '../../enums';
 
 export interface Payment {
     id: number;
     expenseId: number;
-    status: PaymentStatusApiEnum
+    status: PaymentStatusEnum;
     noInstallment: number;
     month: number;
     year: number;

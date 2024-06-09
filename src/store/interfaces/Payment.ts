@@ -1,8 +1,10 @@
+import { PaymentStatusEnum } from "../../wallet/enums";
+
 export interface Payment {
     id: number;
     expenseId: number;
-    creditCardId: number;
-    status: string; // TODO: replace with enum
+    // creditCardId: number; // TODO: implement
+    status: PaymentStatusEnum;
     noInstallment: number;
     month: number;
     year: number;

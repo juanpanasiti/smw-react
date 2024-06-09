@@ -20,19 +20,19 @@ export const parseCreditCardFromApi = (creditCardApi: CreditCardApiRes): CreditC
 export const parseExpenseFromApi = (expenseApi: ExpenseApiRes): Expense => {
     return {
         title: expenseApi.title,
-        cc_name: expenseApi.cc_name,
-        acquired_at: expenseApi.acquired_at,
+        ccName: expenseApi.cc_name,
+        acquiredAt: expenseApi.acquired_at,
         amount: expenseApi.amount,
         type: expenseApi.type,
         installments: expenseApi.installments,
-        first_payment_date: expenseApi.first_payment_date,
-        credit_card_id: expenseApi.credit_card_id,
+        firstPaymentDate: expenseApi.first_payment_date,
+        creditCardId: expenseApi.credit_card_id,
         id: expenseApi.id,
         status: expenseApi.status,
-        remaining_amount: expenseApi.remaining_amount,
-        total_paid: expenseApi.total_paid,
-        installments_paid: expenseApi.installments_paid,
-        installments_pending: expenseApi.installments_pending,
+        remainingAmount: expenseApi.remaining_amount,
+        totalPaid: expenseApi.total_paid,
+        installmentsPaid: expenseApi.installments_paid,
+        installmentsPending: expenseApi.installments_pending,
         payments: expenseApi.payments.map(parsePaymentFromApi),
     };
 };
