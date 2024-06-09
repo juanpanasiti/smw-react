@@ -5,7 +5,8 @@ import { createSubscriptionsSlice, SubscriptionSlice } from './subscriptionSlice
 import { createPaymentsSlice, PaymentSlice } from './paymentSlice';
 import { createPurchasesSlice, PurchaseSlice } from './purchaseSlice';
 
-export const useStore = create< CreditCardSlice & SubscriptionSlice & PaymentSlice & PurchaseSlice>((set, get, store) => ({
+export type StoreType = CreditCardSlice & SubscriptionSlice & PaymentSlice & PurchaseSlice;
+export const useStore = create<StoreType>((set, get, store) => ({
     ...cerateCreditCardsSlice(set, get, store),
     ...createPurchasesSlice(set, get, store),
     ...createSubscriptionsSlice(set, get, store),
