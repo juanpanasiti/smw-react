@@ -1,7 +1,7 @@
 import { Box, Modal, SxProps, Theme, Typography } from '@mui/material';
-// import { CreditCardForm } from './CreditCardForm';
+import { CreditCardForm } from './CreditCardForm';
 import { CreditCardMain } from '../../../store/interfaces';
-// import { parseCreditCardMainToForm } from '../../api/helpers';
+import { parseCreditCardMainToForm } from '../../api/helpers';
 
 interface Props {
 	open: boolean;
@@ -35,7 +35,7 @@ export const CreditCardModal = ({ open, handleOpen, style = {}, creditCard }: Pr
 				<Typography id='modal-modal-title' variant='h5'>
 					{title}
 				</Typography>
-				{/* <CreditCardForm creditCard={creditCard && parseCreditCardMainToForm(creditCard)} afterSubmit={handleOpen} /> */}
+				<CreditCardForm creditCard={creditCard && parseCreditCardMainToForm(creditCard)} afterSubmit={handleOpen} />
 			</Box>
 		</Modal>
 	);

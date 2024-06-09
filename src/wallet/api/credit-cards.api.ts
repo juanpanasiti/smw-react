@@ -27,6 +27,19 @@ export const createCreditCardApi = async (data: CreditCard): Promise<CreditCard>
     }
 };
 
+export const updateCreditCardApi = async (data: CreditCard): Promise<CreditCard> => {
+    try {
+        const { data: creditCard } = await apiClient.put<CreditCardApiRes, AxiosResponse<CreditCardApiRes>, CreditCardApiReq>(
+            `/credit_cards/${data.id}`,
+            parseCreditCardToApi(data)
+        );
+        return parseCreditCardFromApi(creditCard);
+    } catch (error) {
+        handleError(error as Error);
+        throw error;
+    }
+};
+
 export const deleteCreditCardApi = async (id: number): Promise<boolean> => {
     try {
         await apiClient.delete(`/credit_cards/${id}`);

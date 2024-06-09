@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-import { createCreditCardApi, deleteCreditCardApi, getCreditCardsApi } from '../wallet/api';
+import { createCreditCardApi, deleteCreditCardApi, getCreditCardsApi, updateCreditCardApi } from '../wallet/api';
 import { CreditCard } from '../wallet/api/interfaces';
 import { useStore } from '../store';
 import { parseCreditCardListToStore } from '../store/helpers';
@@ -11,7 +11,7 @@ const CREDIT_CARDS_QUERY_KEY = 'creditCards';
 const STALE_TIME = 1000 * 60 * 60;
 
 export const useWallet = () => {
-    const { creditCards, setCreditCards, addCreditCard, deleteCreditCard } = useStore();
+    const { creditCards, setCreditCards, addCreditCard, deleteCreditCard, updateCreditCard } = useStore();
 
     //! Credit Cards
     const creditCardsQuery = useQuery<CreditCard[]>({
@@ -25,6 +25,10 @@ export const useWallet = () => {
     const createCreditCardMutation = useMutation({
         mutationFn: createCreditCardApi,
         onSuccess: (creditCard) => addCreditCard(creditCard),
+    });
+    const updateCreditCardMutation = useMutation({
+        mutationFn: updateCreditCardApi,
+        onSuccess: (creditCard) => updateCreditCard(creditCard),
     });
     const deleteCreditCardMutation = useMutation({
         mutationFn: deleteCreditCardApi,
@@ -42,6 +46,7 @@ export const useWallet = () => {
     return {
         creditCards,
         createCreditCardMutation,
-        deleteCreditCardMutation
+        deleteCreditCardMutation,
+        updateCreditCardMutation,
     };
 };

@@ -1,7 +1,7 @@
 import { StateCreator } from 'zustand';
 
 import { CreditCardMain } from './interfaces';
-import { PaymentSlice, PurchaseSlice, SubscriptionSlice } from '.';
+import { StoreType } from '.';
 import { CreditCard } from '../wallet/api/interfaces';
 import { parseCreditCardExtensionToStore, parseCreditCardMainToStore } from './helpers';
 
@@ -9,13 +9,11 @@ export interface CreditCardSlice {
     creditCards: CreditCardMain[];
     setCreditCards: (creditCards: CreditCardMain[]) => void;
     addCreditCard: (creditCard: CreditCard) => void;
-    updateCreditCard: (creditCard: CreditCardMain) => void;
+    updateCreditCard: (creditCard: CreditCard) => void;
     deleteCreditCard: (cardId: number) => void;
 }
 
-export const cerateCreditCardsSlice: StateCreator<CreditCardSlice & SubscriptionSlice & PaymentSlice & PurchaseSlice, [], [], CreditCardSlice> = (
-    set
-) => ({
+export const cerateCreditCardsSlice: StateCreator<StoreType, [], [], CreditCardSlice> = (set) => ({
     creditCards: [],
     setCreditCards: (creditCards: CreditCardMain[]) => set({ creditCards }),
     addCreditCard: (creditCard: CreditCard) =>
@@ -32,8 +30,29 @@ export const cerateCreditCardsSlice: StateCreator<CreditCardSlice & Subscription
                 }),
             };
         }),
-    updateCreditCard: (creditCard: CreditCardMain) =>
-        set((state) => ({ creditCards: state.creditCards.map((cc) => (cc.id === creditCard.id ? creditCard : cc)) })),
+    updateCreditCard: (creditCard: CreditCard) =>
+        set((state) => {
+            if (creditCard.isMainCreitCard) {
+                return {
+                    creditCards: state.creditCards.map((ccMain) =>
+                        ccMain.id !== creditCard.id ? ccMain : { ...parseCreditCardMainToStore(creditCard), extensions: [...ccMain.extensions] }
+                    ),
+                };
+            }
+            return {
+                creditCards: state.creditCards.map((main) => {
+                    if (main.id === creditCard.mainCreditCardId) {
+                        return {
+                            ...main,
+                            extensions: main.extensions.map((ccExt) =>
+                                ccExt.id !== creditCard.id ? ccExt : parseCreditCardExtensionToStore(creditCard)
+                            ),
+                        };
+                    }
+                    return main;
+                }),
+            };
+        }),
     deleteCreditCard: (cardId: number) =>
         set((state) => {
             let filtered = state.creditCards.filter((cc) => cc.id !== cardId);

@@ -12,15 +12,14 @@ export const CreditCardForm = ({ creditCard, afterSubmit }: Props) => {
     const { register, handleSubmit, setValue } = useForm<CreditCard>({ defaultValues: creditCard });
 
     const isNew = !creditCard?.id;
-    const { creditCards, createCreditCardMutation } = useWallet();
+    const { creditCards, createCreditCardMutation, updateCreditCardMutation } = useWallet();
 
     const onSubmit = (data: CreditCard) => {
         try {
             if (!data.id) {
                 createCreditCardMutation.mutate(data);
             } else {
-                // TODO
-                // updateMutation.mutate(data);
+                updateCreditCardMutation.mutate(data);
             }
             afterSubmit && afterSubmit();
         } catch (error) {

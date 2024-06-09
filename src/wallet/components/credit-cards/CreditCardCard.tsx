@@ -65,10 +65,10 @@ export const CreditCardCard = ({ creditCard }: Props) => {
             </CardContent>
 
             <CardActions>
-                <Button onClick={() => console.log('handleOpenDialogShow')} color='info'>
+                <Button onClick={handleOpenDialogShow} color='info'>
                     <Visibility />
                 </Button>
-                <Button onClick={() => console.log('handleOpenModalForm')} color='warning'>
+                <Button onClick={handleOpenModalForm} color='warning'>
                     <Edit />
                 </Button>
                 <Button onClick={handleConfirmDelete} color='error' sx={{ ml: 2 }}>
