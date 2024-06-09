@@ -21,7 +21,6 @@ export const apiRegister = async (registerData: RegisterData): Promise<AuthData>
 };
 
 export const apiRenewToken = async (): Promise<AuthData> => {
-    console.log('apiRenewToken')
     const { data } = await apiClient.get<ApiUserInfoResponse>('/auth/token');
     saveToken(data.access_token);
     return parseUserInfoResponseFromApi(data);
