@@ -19,3 +19,9 @@ export interface CreditCardExtension {
     updatedAt: Date;
     isEnabled: boolean;
 }
+
+export interface CreditCardSimpleItem {
+    id: number;
+    alias: string;
+    isEnabled: boolean;
+}
