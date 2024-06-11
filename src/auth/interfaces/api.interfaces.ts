@@ -19,8 +19,8 @@ export interface ApiUserInfoResponse {
     email: string;
     role: RoleEnum;
     profile: ApiProfile;
-    created_at: Date;
-    updated_at: Date;
+    created_at: string;
+    updated_at: string;
     access_token: string;
     token_type: string;
 }

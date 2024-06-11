@@ -4,13 +4,13 @@ export interface CreditCard {
     id: number;
     alias: string;
     limit: number;
-    nextClosingDate: Date;
-    nextExpiringDate: Date;
+    nextClosingDate: string;
+    nextExpiringDate: string;
     mainCreditCardId?: number;
     isMainCreitCard: boolean;
     totalSpent: number;
     isEnabled: boolean;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
     expenses: Expense[];
 }

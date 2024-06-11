@@ -2,12 +2,12 @@ export interface CreditCardMain {
     id: number;
     alias: string;
     limit: number;
-    nextClosingDate: Date;
-    nextExpiringDate: Date;
+    nextClosingDate: string;
+    nextExpiringDate: string;
     totalSpent: number;
     subtotalSpent: number;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
     isEnabled: boolean;
     extensions: CreditCardExtension[];
 }
@@ -15,8 +15,8 @@ export interface CreditCardExtension {
     id: number;
     alias: string;
     totalSpent: number;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
     isEnabled: boolean;
 }
 

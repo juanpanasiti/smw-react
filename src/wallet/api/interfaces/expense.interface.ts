@@ -4,11 +4,11 @@ import { Payment } from './payment.interface';
 export interface Expense {
     title: string;
     ccName: string;
-    acquiredAt: Date;
+    acquiredAt: string;
     amount: number;
     type: ExpenseTypeEnum;
     installments: number;
-    firstPaymentDate: Date;
+    firstPaymentDate: string;
     creditCardId: number;
     id: number;
     status: ExpenseStatusEnum;

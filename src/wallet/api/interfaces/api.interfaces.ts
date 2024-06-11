@@ -6,24 +6,24 @@ export interface CreditCardApiReq {
     limit: number;
     main_credit_card_id: number | null;
     user_id: number;
-    next_closing_date: Date;
-    next_expiring_date: Date;
+    next_closing_date: string;
+    next_expiring_date: string;
     is_enabled: boolean;
 }
 export interface ExpenseApiReq {
     title: string;
     cc_name: string;
-    acquired_at: Date;
+    acquired_at: string;
     amount: number;
     type: ExpenseTypeEnum;
     installments: number;
-    first_payment_date: Date;
+    first_payment_date: string;
     credit_card_id: number;
 }
 export interface EditExpenseApiReq {
     title: string;
     cc_name: string;
-    acquired_at: Date;
+    acquired_at: string;
     credit_card_id: number;
 }
 export interface NewSubscriptionPaymentApiReq {
@@ -43,23 +43,23 @@ export interface CreditCardApiRes {
     alias: string;
     limit: number;
     user_id: number;
-    next_closing_date: Date;
-    next_expiring_date: Date;
+    next_closing_date: string;
+    next_expiring_date: string;
     main_credit_card_id: number;
     total_spent: number;
-    created_at: Date;
-    updated_at: Date;
+    created_at: string;
+    updated_at: string;
     is_enabled: boolean;
     expenses: ExpenseApiRes[];
 }
 export interface ExpenseApiRes {
     title: string;
     cc_name: string;
-    acquired_at: Date;
+    acquired_at: string;
     amount: number;
     type: ExpenseTypeEnum;
     installments: number;
-    first_payment_date: Date;
+    first_payment_date: string;
     credit_card_id: number;
     id: number;
     status: ExpenseStatusEnum;

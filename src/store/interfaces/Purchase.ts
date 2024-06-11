@@ -5,9 +5,10 @@ export interface Purchase {
     creditCardId: number;
     title: string;
     ccName: string;
-    acquiredAt: Date;
+    acquiredAt: string;
     amount: number;
     noInstallments: number;
+    firstPaymentDate: string;
     status: ExpenseStatusEnum;
     remainingAmount: number;
     totalPaid: number;

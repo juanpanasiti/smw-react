@@ -5,6 +5,6 @@ export interface User {
     username: string;
     email: string;
     role: RoleEnum;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
 }
