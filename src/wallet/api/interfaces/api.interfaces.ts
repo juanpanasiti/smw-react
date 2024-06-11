@@ -25,6 +25,7 @@ export interface EditExpenseApiReq {
     cc_name: string;
     acquired_at: string;
     credit_card_id: number;
+    amount: number;
 }
 export interface NewSubscriptionPaymentApiReq {
     status: ExpenseStatusEnum;

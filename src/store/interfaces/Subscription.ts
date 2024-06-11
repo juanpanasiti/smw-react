@@ -1,4 +1,4 @@
-import { ExpenseStatusEnum } from "../../wallet/enums";
+import { ExpenseStatusEnum } from '../../wallet/enums';
 
 export interface Subscription {
     id: number;
@@ -6,5 +6,7 @@ export interface Subscription {
     title: string;
     ccName: string;
     amount: number;
-    status: ExpenseStatusEnum
+    status: ExpenseStatusEnum;
+    acquiredAt: string;
+    firstPaymentDate: string;
 }

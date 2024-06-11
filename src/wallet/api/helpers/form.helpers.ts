@@ -30,7 +30,7 @@ export const cleanSubscriptionToForm = (subscription: Partial<Expense>): Partial
         status: subscription.status,
         installments: 1,
     };
-    if (!subscription.id) {
+    if (subscription.id) {
         expense.acquiredAt = subscription.acquiredAt;
         expense.firstPaymentDate = subscription.firstPaymentDate;
     }

@@ -63,6 +63,8 @@ export const parseSubscriptionToStore = (subscription: Expense): Subscription =>
     ccName: subscription.ccName,
     amount: subscription.amount,
     status: subscription.status,
+    acquiredAt: subscription.acquiredAt,
+    firstPaymentDate: subscription.firstPaymentDate,
 });
 
 //! Payments

@@ -19,7 +19,7 @@ export const createExpenseApi = async (data: Expense): Promise<Expense> => {
 
 export const updateExpenseApi = async (data: Expense): Promise<Expense> => {
     try {
-        const { data: expense } = await apiClient.post<ExpenseApiRes, AxiosResponse<ExpenseApiRes>, EditExpenseApiReq>(
+        const { data: expense } = await apiClient.put<ExpenseApiRes, AxiosResponse<ExpenseApiRes>, EditExpenseApiReq>(
             `/expenses/${data.id}`,
             parseEditExpenseToApi(data)
         );

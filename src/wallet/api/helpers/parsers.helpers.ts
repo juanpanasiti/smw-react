@@ -77,5 +77,6 @@ export const parseEditExpenseToApi = (expenseApi: Expense): EditExpenseApiReq =>
         cc_name: expenseApi.ccName,
         acquired_at: `${expenseApi.acquiredAt}`,
         credit_card_id: expenseApi.creditCardId,
+        amount: expenseApi.amount,
     };
 }
