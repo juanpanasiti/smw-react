@@ -46,6 +46,7 @@ export const parsePurchaseToStore = (purchase: Expense): Purchase => ({
     acquiredAt: purchase.acquiredAt,
     amount: purchase.amount,
     noInstallments: purchase.installments,
+    firstPaymentDate: purchase.firstPaymentDate,
     status: purchase.status,
     remainingAmount: purchase.remainingAmount,
     totalPaid: purchase.totalPaid,
