@@ -8,7 +8,7 @@ export interface SubscriptionSlice {
     setSubscriptions: (subscriptions: Subscription[]) => void;
     addSubscription: (subscription: Subscription) => void;
     updateSubscription: (subscription: Subscription) => void;
-    deleteSubscription: (subscription: Subscription) => void;
+    deleteSubscription: (id: number) => void;
 }
 
 export const createSubscriptionsSlice: StateCreator<CreditCardSlice & SubscriptionSlice & PaymentSlice & PurchaseSlice, [], [], SubscriptionSlice> = (set) => ({
@@ -16,7 +16,7 @@ export const createSubscriptionsSlice: StateCreator<CreditCardSlice & Subscripti
     setSubscriptions: (subscriptions: Subscription[]) => set({ subscriptions }),
     addSubscription: (subscription: Subscription) => set((state) => ({ subscriptions: [...state.subscriptions, subscription] })),
     updateSubscription: (subscription: Subscription) =>
-        set((state) => ({ subscriptions: state.subscriptions.map((cc) => (cc.id === subscription.id ? subscription : cc)) })),
-    deleteSubscription: (subscription: Subscription) =>
-        set((state) => ({ subscriptions: state.subscriptions.filter((cc) => cc.id !== subscription.id) })),
+        set((state) => ({ subscriptions: state.subscriptions.map((s) => (s.id === subscription.id ? subscription : s)) })),
+    deleteSubscription: (id: number) =>
+        set((state) => ({ subscriptions: state.subscriptions.filter((s) => s.id !== id) })),
 });
