@@ -1,13 +1,15 @@
 import { Button, ButtonGroup, TableCell, TableRow } from '@mui/material';
 import { DeleteForever, Edit, Visibility } from '@mui/icons-material';
 
-import { useModal } from '../../hooks';
-// import { PurchaseModalForm } from './PurchaseModalForm';
-// import { PurchaseDeleteDialog } from './PurchaseDeleteDialog';
-// import { PurchaseShowDialog } from './PurchaseShowDialog';
 import { CreditCardSimpleItem, Purchase } from '../../../store/interfaces';
+import { useWallet } from '../../../hooks';
+import { useModal } from '../../hooks';
 import { parseCurrency, parseDate } from '../../api/helpers';
 import { ExpenseTypeEnum } from '../../enums';
+import { Expense } from '../../api/interfaces';
+import { ExpenseDeleteDialog } from './ExpenseDeleteDialog';
+import { ExpenseModalForm } from './ExpenseModalForm';
+import { PurchaseShowDialog } from './PurchaseShowDialog';
 
 interface Props {
     purchase: Purchase;
@@ -21,10 +23,11 @@ export const PurchaseTableRow = ({ purchase, creditCards }: Props) => {
     const { open: openModalForm, handleOpen: handleOpenModalForm } = useModal();
     const { open: openDialogShow, handleOpen: handleOpenDialogShow } = useModal();
     const { open: openDialogDelete, handleOpen: handleOpenDialogDelete } = useModal();
+    const { deleteExpenseMutation } = useWallet();
 
-    // const handleDelete = () => {
-    // 	deleteMutation.mutate(purchase.id);
-    // };
+    const handleDelete = () => {
+        deleteExpenseMutation.mutate({ id: purchase.id, type: ExpenseTypeEnum.PURCHASE } as Expense);
+    };
     const handleConfirmDelete = () => {
         handleOpenDialogDelete();
     };
@@ -51,14 +54,14 @@ export const PurchaseTableRow = ({ purchase, creditCards }: Props) => {
                     </ButtonGroup>
                 </TableCell>
             </TableRow>
-            {/* <PurchaseModalForm purchase={purchase} open={openModalForm} handleOpen={() => handleOpenModalForm()} />
+            <ExpenseModalForm purchase={purchase} open={openModalForm} handleOpen={() => handleOpenModalForm()} />
             <PurchaseShowDialog purchase={purchase} open={openDialogShow} handleClose={handleOpenDialogShow} creditCardName={creditCardName} />
-            <PurchaseDeleteDialog
-                purchaseTitle={purchase.title}
+            <ExpenseDeleteDialog
+                expenseTitle={purchase.title}
                 handleClose={handleOpenDialogDelete}
                 open={openDialogDelete}
-                handleAgree={() => console.log('handleDelete')}
-            /> */}
+                handleAgree={handleDelete}
+            />
         </>
     );
 };

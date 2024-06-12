@@ -29,3 +29,13 @@ export const updateExpenseApi = async (data: Expense): Promise<Expense> => {
         throw error;
     }
 };
+
+export const deleteExpenseApi = async (id: number): Promise<boolean> => {
+    try {
+        await apiClient.delete(`/expenses/${id}`);
+        return true;
+    } catch (error) {
+        handleError(error as Error);
+        throw error;
+    }
+};
