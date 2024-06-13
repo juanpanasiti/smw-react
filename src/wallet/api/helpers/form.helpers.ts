@@ -29,11 +29,9 @@ export const cleanSubscriptionToForm = (subscription: Partial<Expense>): Partial
         type: ExpenseTypeEnum.SUBSCRIPTION,
         status: subscription.status,
         installments: 1,
+        acquiredAt: subscription.acquiredAt,
+        firstPaymentDate: subscription.firstPaymentDate,
     };
-    if (subscription.id) {
-        expense.acquiredAt = subscription.acquiredAt;
-        expense.firstPaymentDate = subscription.firstPaymentDate;
-    }
     return expense;
 };
 export const cleanPurchaseToForm = (purchase: Partial<Expense>): Partial<Expense> => {

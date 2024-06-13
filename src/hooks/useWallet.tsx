@@ -99,6 +99,7 @@ export const useWallet = () => {
                     id: cc.id,
                     alias: cc.alias,
                     isEnabled: cc.isEnabled,
+                    nextClosingDate: cc.nextClosingDate,
                 });
             });
             expenses.forEach((exp) => payments.push(...exp.payments));

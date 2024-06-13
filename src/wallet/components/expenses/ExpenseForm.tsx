@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Box, Button, FormControl, MenuItem, Stack, Switch, TextField, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import moment from 'moment';
 
-import { Purchase, Subscription } from '../../../store/interfaces';
+import { CreditCardSimpleItem, Purchase, Subscription } from '../../../store/interfaces';
 import { useWallet } from '../../../hooks';
 import { ExpenseTypeEnum } from '../../types/enums';
 import { Expense } from '../../api/interfaces';
 import { cleanPurchaseToForm, cleanSubscriptionToForm } from '../../api/helpers';
+import { calcPaymentDate, getDefaultExpense } from '../../helpers';
 
 interface Props {
     purchase?: Purchase;
@@ -20,10 +21,11 @@ const DATE_FORMAT = 'DD-MM-YYYY';
 
 export const ExpenseForm = ({ purchase, subscription, afterSubmit }: Props) => {
     const defaultValues = getFormValues(purchase, subscription);
-    const { register, handleSubmit, setValue } = useForm<Partial<Expense>>({ defaultValues });
+    const { register, handleSubmit, setValue, watch, control } = useForm<Partial<Expense>>({ defaultValues });
     const [expenseType, setExpenseType] = useState<ExpenseTypeEnum>(getExpenseType(subscription));
     const isNew = !(purchase || subscription);
     const { simpleCreditCards, createExpenseMutation, updateExpenseMutation } = useWallet();
+    const [selectedCreditCard, setSelectedCreditCard] = useState<CreditCardSimpleItem>();
     const onSubmit = (data: Partial<Expense>) => {
         try {
             const expense: Partial<Expense> = expenseType === ExpenseTypeEnum.PURCHASE ? cleanPurchaseToForm(data) : cleanSubscriptionToForm(data);
@@ -40,6 +42,7 @@ export const ExpenseForm = ({ purchase, subscription, afterSubmit }: Props) => {
 
     const handleSelectChangeCreditCard = (cardId: string) => {
         setValue('creditCardId', +cardId);
+        setSelectedCreditCard(simpleCreditCards.find((card) => card.id === +cardId));
     };
     const handleToggle = () => {
         setExpenseType(expenseType === ExpenseTypeEnum.PURCHASE ? ExpenseTypeEnum.SUBSCRIPTION : ExpenseTypeEnum.PURCHASE);
@@ -47,6 +50,18 @@ export const ExpenseForm = ({ purchase, subscription, afterSubmit }: Props) => {
     const handleChangeDate = (date: string, field: 'firstPaymentDate' | 'acquiredAt') => {
         setValue(field, date);
     };
+    const formValues = watch();
+    useEffect(() => {
+        console.log(selectedCreditCard && formValues.acquiredAt);
+        if (selectedCreditCard && formValues.acquiredAt) {
+            console.log('first', calcPaymentDate(formValues.acquiredAt, selectedCreditCard.nextClosingDate));
+            setValue('firstPaymentDate', calcPaymentDate(formValues.acquiredAt, selectedCreditCard.nextClosingDate));
+        }
+    }, [formValues.acquiredAt, selectedCreditCard, setValue]);
+    useEffect(() => {
+        if (!formValues.installments) setValue('installments', 1);
+    });
+
     return (
         <>
             {isNew && (
@@ -119,14 +134,20 @@ export const ExpenseForm = ({ purchase, subscription, afterSubmit }: Props) => {
                             </FormControl>
 
                             {/* firstPaymentDate */}
-                            <FormControl fullWidth sx={{ mb: 2 }}>
-                                <DatePicker
-                                    label='First Payment Date'
-                                    defaultValue={moment(defaultValues.firstPaymentDate)}
-                                    onChange={(date) => handleChangeDate(date?.format('YYYY-MM-DD') || '', 'firstPaymentDate')}
-                                    format={DATE_FORMAT}
-                                />
-                            </FormControl>
+                            <Controller
+                                name='firstPaymentDate'
+                                control={control}
+                                render={({ field }) => (
+                                    <FormControl fullWidth sx={{ mb: 2 }}>
+                                        <DatePicker
+                                            {...field}
+                                            label='First Payment Date'
+                                            value={moment(field.value)}
+                                            onChange={(date) => field.onChange(date)}
+                                        />
+                                    </FormControl>
+                                )}
+                            />
                         </>
                     )}
 
@@ -147,9 +168,9 @@ const getExpenseType = (subscription?: Subscription) => {
 };
 const getFormValues = (purchase?: Purchase, subscription?: Subscription): Partial<Expense> => {
     if (purchase) {
-        return purchase;
+        return purchase || getDefaultExpense();
     } else if (subscription) {
-        return subscription;
+        return subscription || getDefaultExpense();
     }
     return {};
 };
