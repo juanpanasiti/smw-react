@@ -1,4 +1,4 @@
-import { PaymentStatusEnum } from '../../types/enums';
+import { ExpenseTypeEnum, PaymentStatusEnum } from '../../types/enums';
 
 export interface Payment {
     id: number;
@@ -6,9 +6,17 @@ export interface Payment {
     expenseId: number;
     expenseTitle: string;
     expenseCcName: string;
+    expenseType: ExpenseTypeEnum;
     status: PaymentStatusEnum;
     noInstallment: number;
     month: number;
     year: number;
+    amount: number;
+}
+
+export interface NewSubscriptionPayment {
+    expenseId: number;
+    month:  number;
+    year:   number;
     amount: number;
 }

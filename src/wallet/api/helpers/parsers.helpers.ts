@@ -43,6 +43,7 @@ export const parsePaymentFromApi = (paymentApi: PaymentApiRes, expenseApi: Expen
     creditCardId: expenseApi.credit_card_id,
     expenseTitle: expenseApi.title,
     expenseCcName: expenseApi.cc_name,
+    expenseType: expenseApi.type,
     status: paymentApi.status,
     noInstallment: paymentApi.no_installment,
     month: paymentApi.month,

@@ -1,6 +1,6 @@
-import { CreditCardMain } from '../../../store/interfaces';
+import { CreditCardMain, Payment } from '../../../store/interfaces';
 import { ExpenseTypeEnum } from '../../types/enums';
-import { CreditCard, Expense } from '../interfaces';
+import { CreditCard, Expense, NewSubscriptionPayment } from '../interfaces';
 
 export const parseCreditCardMainToForm = (creditCardMain: CreditCardMain): CreditCard => {
     return {
@@ -49,3 +49,11 @@ export const cleanPurchaseToForm = (purchase: Partial<Expense>): Partial<Expense
         creditCardId: purchase.creditCardId,
     };
 };
+export const cleanPaymentToForm = (payment: Payment): NewSubscriptionPayment => {
+    return {
+        amount: payment.amount,
+        expenseId: payment.expenseId,
+        month: payment.month,
+        year: payment.year,
+    };
+}

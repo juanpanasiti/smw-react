@@ -1,8 +1,19 @@
 import apiClient from "../../api/apiClient";
 import { handleError } from "../../api/errors";
-import { Payment } from "./interfaces";
+import { NewSubscriptionPayment, Payment } from "./interfaces";
 
-
+export const createSubscriptionPaymentApi = async ({expenseId, ...payment}: NewSubscriptionPayment): Promise<Payment> => {
+    try {
+        const response = await apiClient.post<Payment>(
+            `/expenses/${expenseId}/payments`,
+            payment
+        );
+        return response.data;
+    } catch (error) {
+        handleError(error as Error);
+        throw error;
+    }
+}
 export const updatePaymentStatusApi = async (payment: Payment): Promise<boolean> => {
     try {
         await apiClient.put<Payment>(

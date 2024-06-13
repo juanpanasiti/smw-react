@@ -10,6 +10,6 @@ export const getPaymentStatusIcon = (status: PaymentStatusEnum) => {
 		case PaymentStatusEnum.PAID:
 			return <DoneAll color='success' />;
 		default:
-			return <QuestionMark color='error' />;
+			return <QuestionMark color='warning' />;
 	}
 };

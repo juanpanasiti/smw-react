@@ -16,6 +16,7 @@ import { useStore } from '../store';
 import {
     parseCreditCardListToStore,
     parsePaymentListtoStore,
+    parsePaymentToStore,
     parsePurchaseListtoStore,
     parsePurchaseToStore,
     parseSubscriptionListtoStore,
@@ -23,7 +24,7 @@ import {
 } from '../store/helpers';
 import { ExpenseTypeEnum } from '../wallet/types/enums';
 import { CreditCardSimpleItem } from '../store/interfaces';
-import { updatePaymentAmountApi, updatePaymentStatusApi } from '../wallet/api/payments.api';
+import { createSubscriptionPaymentApi, updatePaymentAmountApi, updatePaymentStatusApi } from '../wallet/api/payments.api';
 
 const CREDIT_CARDS_QUERY_KEY = 'creditCards';
 const STALE_TIME = 1000 * 60 * 60;
@@ -32,7 +33,7 @@ export const useWallet = () => {
     const { creditCards, setCreditCards, addCreditCard, deleteCreditCard, updateCreditCard } = useStore();
     const { purchases, setPurchases, addPurchase, updatePurchase, deletePurchase } = useStore();
     const { subscriptions, setSubscriptions, addSubscription, updateSubscription, deleteSubscription } = useStore();
-    const { payments, setPayments, updatePayment } = useStore();
+    const { payments, setPayments, addPayment, updatePayment } = useStore();
 
     //! Credit Cards
     const creditCardsQuery = useQuery<CreditCard[]>({
@@ -72,6 +73,10 @@ export const useWallet = () => {
         onSuccess: (...params) => (params[1].type === ExpenseTypeEnum.PURCHASE ? deletePurchase(params[1].id) : deleteSubscription(params[1].id)),
     });
     //! Payments
+    const createSubscriptionPaymentMutation = useMutation({
+        mutationFn: createSubscriptionPaymentApi,
+        onSuccess: (data) => addPayment(parsePaymentToStore(data)),
+    });
     const updatePaymentStatusMutation = useMutation({
         mutationFn: updatePaymentStatusApi,
         onSuccess: (...params) => updatePayment(params[1]),
@@ -125,5 +130,6 @@ export const useWallet = () => {
         payments,
         updatePaymentStatusMutation,
         updatePaymentAmountMutation,
+        createSubscriptionPaymentMutation,
     };
 };

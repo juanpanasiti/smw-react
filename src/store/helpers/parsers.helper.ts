@@ -80,4 +80,5 @@ export const parsePaymentToStore = (payment: PaymentApi): Payment => ({
     amount: payment.amount,
     expenseTitle: payment.expenseTitle,
     expenseCcName: payment.expenseCcName,
+    expenseType: payment.expenseType,
 });
