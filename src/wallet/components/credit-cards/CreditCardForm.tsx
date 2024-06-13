@@ -1,12 +1,15 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+import { Box, Button, FormControl, MenuItem, SelectChangeEvent, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useWallet } from '../../../hooks';
 import { CreditCard } from '../../api/interfaces';
+import { DatePicker } from '@mui/x-date-pickers';
+import moment from 'moment';
 
 interface Props {
     creditCard?: Partial<CreditCard>;
     afterSubmit?: () => void;
 }
+const DATE_FORMAT = 'DD-MM-YYYY';
 
 export const CreditCardForm = ({ creditCard, afterSubmit }: Props) => {
     const { register, handleSubmit, setValue } = useForm<CreditCard>({ defaultValues: creditCard });
@@ -34,27 +37,28 @@ export const CreditCardForm = ({ creditCard, afterSubmit }: Props) => {
         setValue('nextClosingDate', selected.nextClosingDate);
         setValue('nextExpiringDate', selected.nextExpiringDate);
     };
+    const handleChangeDate = (date: string, field: 'nextExpiringDate' | 'nextClosingDate') => {
+        setValue(field, date);
+    };
     if (creditCards === undefined) return <div>Loading...</div>;
-
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <Box>
                 {/* mainCreditCar TODO: only for extensions */}
-                <FormControl fullWidth>
-                    <InputLabel htmlFor='main-credit-card-select'>Main CC</InputLabel>
-                    <Select
-                        id='main-credit-card-select'
-                        onChange={handleSelectChange}
-                        sx={{ mb: 2 }}
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                    <TextField
+                        select
+                        label='Main Creidt Card'
                         defaultValue={creditCard?.mainCreditCardId?.toString() || undefined}
+                        fullWidth
+                        onChange={(e) => handleSelectChange(e as SelectChangeEvent)}
                     >
-                        <MenuItem>None</MenuItem>
                         {creditCards?.map((cc) => (
                             <MenuItem key={cc.id} value={cc.id}>
                                 {cc.alias}
                             </MenuItem>
                         ))}
-                    </Select>
+                    </TextField>
                 </FormControl>
                 {/* name */}
                 <TextField
@@ -71,9 +75,24 @@ export const CreditCardForm = ({ creditCard, afterSubmit }: Props) => {
 
                 {/* nextClosingDate */}
                 <TextField type='date' fullWidth {...register('nextClosingDate', { required: true, min: Date() })} sx={{ mb: 2 }} />
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                    <DatePicker
+                        label='Next Closing Date'
+                        defaultValue={moment(creditCard?.nextClosingDate)}
+                        onChange={(date) => handleChangeDate(date?.format('YYYY-MM-DD') || '', 'nextClosingDate')}
+                        format={DATE_FORMAT}
+                    />
+                </FormControl>
 
                 {/* nextExpiringDate */}
-                <TextField type='date' fullWidth {...register('nextExpiringDate', { required: true })} sx={{ mb: 2 }} />
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                    <DatePicker
+                        label='Next Expiring Date'
+                        defaultValue={moment(creditCard?.nextExpiringDate)}
+                        onChange={(date) => handleChangeDate(date?.format('YYYY-MM-DD') || '', 'nextExpiringDate')}
+                        format={DATE_FORMAT}
+                    />
+                </FormControl>
 
                 <Button type='submit' color='primary' variant='outlined'>
                     {isNew ? 'Create' : 'Save'}
