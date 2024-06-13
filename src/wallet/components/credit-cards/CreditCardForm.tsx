@@ -74,7 +74,6 @@ export const CreditCardForm = ({ creditCard, afterSubmit }: Props) => {
                 <TextField label='Buy Limit' type='number' fullWidth sx={{ mb: 2 }} {...register('limit', { required: true, valueAsNumber: true })} />
 
                 {/* nextClosingDate */}
-                <TextField type='date' fullWidth {...register('nextClosingDate', { required: true, min: Date() })} sx={{ mb: 2 }} />
                 <FormControl fullWidth sx={{ mb: 2 }}>
                     <DatePicker
                         label='Next Closing Date'
