@@ -40,7 +40,6 @@ export const usePayments = () => {
     useEffect(() => {
         const periodsObj: PeriodObj = {};
         sortByPeriod(payments).forEach((p) => {
-            console.log({p})
             const periodName = getPeriodName(p);
             if (!periodsObj[periodName]) periodsObj[periodName] = [];
             periodsObj[periodName].push(p);

@@ -16,7 +16,6 @@ export const renewToken = async (): Promise<boolean> => {
     try {
         const currentToken = getToken();
         if (!currentToken) return false;
-        console.log('token')
         const { token } = await apiRenewToken();
         saveToken(token);
         return true;
