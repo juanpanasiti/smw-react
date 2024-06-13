@@ -2,7 +2,15 @@ import { useEffect, useState } from 'react';
 
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-import { createCreditCardApi, createExpenseApi, deleteCreditCardApi, getCreditCardsApi, updateCreditCardApi, updateExpenseApi } from '../wallet/api';
+import {
+    createCreditCardApi,
+    createExpenseApi,
+    deleteCreditCardApi,
+    deleteExpenseApi,
+    getCreditCardsApi,
+    updateCreditCardApi,
+    updateExpenseApi,
+} from '../wallet/api';
 import { CreditCard, Expense, Payment } from '../wallet/api/interfaces';
 import { useStore } from '../store';
 import {
@@ -13,17 +21,18 @@ import {
     parseSubscriptionListtoStore,
     parseSubscriptionToStore,
 } from '../store/helpers';
-import { ExpenseTypeEnum } from '../wallet/enums';
+import { ExpenseTypeEnum } from '../wallet/types/enums';
 import { CreditCardSimpleItem } from '../store/interfaces';
+import { updatePaymentAmountApi, updatePaymentStatusApi } from '../wallet/api/payments.api';
 
 const CREDIT_CARDS_QUERY_KEY = 'creditCards';
 const STALE_TIME = 1000 * 60 * 60;
 
 export const useWallet = () => {
     const { creditCards, setCreditCards, addCreditCard, deleteCreditCard, updateCreditCard } = useStore();
-    const { purchases, setPurchases, addPurchase, updatePurchase } = useStore();
-    const { subscriptions, setSubscriptions, addSubscription, updateSubscription } = useStore();
-    const { setPayments } = useStore();
+    const { purchases, setPurchases, addPurchase, updatePurchase, deletePurchase } = useStore();
+    const { subscriptions, setSubscriptions, addSubscription, updateSubscription, deleteSubscription } = useStore();
+    const { payments, setPayments, updatePayment } = useStore();
 
     //! Credit Cards
     const creditCardsQuery = useQuery<CreditCard[]>({
@@ -58,6 +67,19 @@ export const useWallet = () => {
         onSuccess: (data) =>
             data.type === ExpenseTypeEnum.PURCHASE ? updatePurchase(parsePurchaseToStore(data)) : updateSubscription(parseSubscriptionToStore(data)),
     });
+    const deleteExpenseMutation = useMutation({
+        mutationFn: (data: Expense) => deleteExpenseApi(data.id),
+        onSuccess: (...params) => (params[1].type === ExpenseTypeEnum.PURCHASE ? deletePurchase(params[1].id) : deleteSubscription(params[1].id)),
+    });
+    //! Payments
+    const updatePaymentStatusMutation = useMutation({
+        mutationFn: updatePaymentStatusApi,
+        onSuccess: (...params) => updatePayment(params[1]),
+    });
+    const updatePaymentAmountMutation = useMutation({
+        mutationFn: updatePaymentAmountApi,
+        onSuccess: (...params) => updatePayment(params[1]), // TODO: Invalidate others payments data
+    });
 
     //! Effects
     useEffect(() => {
@@ -91,14 +113,17 @@ export const useWallet = () => {
         createCreditCardMutation,
         deleteCreditCardMutation,
         updateCreditCardMutation,
-
         // Expenses
         createExpenseMutation,
         updateExpenseMutation,
+        deleteExpenseMutation,
         // Purchases
         purchases,
         // Subscriptions
         subscriptions,
         // Payments
+        payments,
+        updatePaymentStatusMutation,
+        updatePaymentAmountMutation,
     };
 };

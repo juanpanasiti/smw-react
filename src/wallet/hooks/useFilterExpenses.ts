@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Purchase, Subscription } from '../../store/interfaces';
-import { ExpenseTypeEnum } from '../enums';
+import { ExpenseTypeEnum } from '../types/enums';
 
 interface Props {
     originalPurchases: Purchase[];

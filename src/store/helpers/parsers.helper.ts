@@ -72,9 +72,12 @@ export const parsePaymentListtoStore = (payments: PaymentApi[]): Payment[] => pa
 export const parsePaymentToStore = (payment: PaymentApi): Payment => ({
     id: payment.id,
     expenseId: payment.expenseId,
+    creditCardId: payment.creditCardId,
     status: payment.status,
     noInstallment: payment.noInstallment,
     month: payment.month,
     year: payment.year,
     amount: payment.amount,
+    expenseTitle: payment.expenseTitle,
+    expenseCcName: payment.expenseCcName,
 });

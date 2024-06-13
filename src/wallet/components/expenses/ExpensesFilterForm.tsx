@@ -1,5 +1,5 @@
 import { Grid, MenuItem, TextField } from '@mui/material';
-import { ExpenseTypeEnum } from '../../enums';
+import { ExpenseTypeEnum } from '../../types/enums';
 import { CreditCardSimpleItem } from '../../../store/interfaces';
 
 interface Props {
@@ -40,7 +40,7 @@ export const ExpensesFilterForm = (props: Props) => {
 			<Grid item xs={3}>
 				<TextField
 					select
-					label='Select'
+					label='Creidt Card'
 					defaultValue={defaultCreditCardId}
 					fullWidth
 					onChange={(e) => onCreditCardIdChange(e.target.value)}
@@ -56,7 +56,7 @@ export const ExpensesFilterForm = (props: Props) => {
 			<Grid item xs={3}>
 				<TextField
 					select
-					label='Select'
+					label='Expense Type'
 					defaultValue={defaultExpenseType}
 					fullWidth
 					onChange={(e) => onExpenseTypeChange(e.target.value as ExpenseTypeEnum | 'any')}

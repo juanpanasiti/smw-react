@@ -1,4 +1,4 @@
-import { ExpenseStatusEnum, ExpenseTypeEnum } from '../../enums';
+import { ExpenseStatusEnum, ExpenseTypeEnum } from '../../types/enums';
 import { Payment } from './payment.interface';
 
 export interface Expense {

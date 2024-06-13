@@ -3,7 +3,7 @@ import { Box, Divider, Drawer, List, Toolbar, Typography } from '@mui/material';
 
 import { ListItemActionButtonWithIcon, ListItemButtonWithIcon } from './';
 import { useAuth } from '../../hooks';
-import { SmwRoutes } from '../enums';
+import { SmwRoutes } from '../types/enums';
 
 interface Props {
     drawerWidth: number;

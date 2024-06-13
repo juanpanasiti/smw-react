@@ -5,3 +5,8 @@ export enum PaymentStatusEnum {
     CANCELED = 'canceled',
     SIMULATED = 'simulated'
 }
+
+export enum PeriodStatusEnum {
+    PENDING = 'pending',
+    PAID = 'paid'
+}

@@ -1,5 +1,5 @@
 import { CreditCardMain } from '../../../store/interfaces';
-import { ExpenseTypeEnum } from '../../enums';
+import { ExpenseTypeEnum } from '../../types/enums';
 import { CreditCard, Expense } from '../interfaces';
 
 export const parseCreditCardMainToForm = (creditCardMain: CreditCardMain): CreditCard => {

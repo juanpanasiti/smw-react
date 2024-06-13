@@ -5,7 +5,7 @@ import { CreditCardSimpleItem, Purchase } from '../../../store/interfaces';
 import { useWallet } from '../../../hooks';
 import { useModal } from '../../hooks';
 import { parseCurrency, parseDate } from '../../api/helpers';
-import { ExpenseTypeEnum } from '../../enums';
+import { ExpenseTypeEnum } from '../../types/enums';
 import { Expense } from '../../api/interfaces';
 import { ExpenseDeleteDialog } from './ExpenseDeleteDialog';
 import { ExpenseModalForm } from './ExpenseModalForm';

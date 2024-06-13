@@ -3,7 +3,7 @@ import React from 'react';
 import { Grid, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
-import { SmwRoutes } from '../enums';
+import { SmwRoutes } from '../types/enums';
 
 interface Props {
 	primary: string;

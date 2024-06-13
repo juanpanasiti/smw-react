@@ -7,7 +7,7 @@ import moment from 'moment';
 
 import { Purchase, Subscription } from '../../../store/interfaces';
 import { useWallet } from '../../../hooks';
-import { ExpenseTypeEnum } from '../../enums';
+import { ExpenseTypeEnum } from '../../types/enums';
 import { Expense } from '../../api/interfaces';
 import { cleanPurchaseToForm, cleanSubscriptionToForm } from '../../api/helpers';
 

@@ -7,7 +7,7 @@ import { ExpenseDeleteDialog } from './ExpenseDeleteDialog';
 // import { ExpenseShowDialog } from './ExpenseShowDialog';
 import { CreditCardSimpleItem, Subscription } from '../../../store/interfaces';
 import { parseCurrency } from '../../api/helpers';
-import { ExpenseTypeEnum } from '../../enums';
+import { ExpenseTypeEnum } from '../../types/enums';
 import { useWallet } from '../../../hooks';
 import { Expense } from '../../api/interfaces';
 import { SubscriptionShowDialog } from './SubscriptionShowDialog';

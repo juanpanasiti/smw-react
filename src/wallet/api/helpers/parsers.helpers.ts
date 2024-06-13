@@ -33,13 +33,16 @@ export const parseExpenseFromApi = (expenseApi: ExpenseApiRes): Expense => {
         totalPaid: expenseApi.total_paid,
         installmentsPaid: expenseApi.installments_paid,
         installmentsPending: expenseApi.installments_pending,
-        payments: expenseApi.payments.map(parsePaymentFromApi),
+        payments: expenseApi.payments.map((p) => parsePaymentFromApi(p, expenseApi)),
     };
 };
 
-export const parsePaymentFromApi = (paymentApi: PaymentApiRes): Payment => ({
+export const parsePaymentFromApi = (paymentApi: PaymentApiRes, expenseApi: ExpenseApiRes): Payment => ({
     id: paymentApi.id,
     expenseId: paymentApi.expense_id,
+    creditCardId: expenseApi.credit_card_id,
+    expenseTitle: expenseApi.title,
+    expenseCcName: expenseApi.cc_name,
     status: paymentApi.status,
     noInstallment: paymentApi.no_installment,
     month: paymentApi.month,
