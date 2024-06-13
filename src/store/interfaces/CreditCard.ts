@@ -24,5 +24,5 @@ export interface CreditCardSimpleItem {
     id: number;
     alias: string;
     isEnabled: boolean;
-    nextClosingDate: string;
+    nextClosingDate?: string;
 }
