@@ -57,6 +57,12 @@ export const ExpenseForm = ({ purchase, subscription, afterSubmit }: Props) => {
         }
     }, [formValues.acquiredAt, selectedCreditCard, setValue]);
     useEffect(() => {
+      if((!formValues.title && formValues.ccName) || formValues.title?.endsWith(' (?)')) {
+        setValue('title', `${formValues.ccName} (?)`);
+      }
+    }, [formValues.ccName, formValues.title, setValue])
+    
+    useEffect(() => {
         if (!formValues.installments) setValue('installments', 1);
     });
 
