@@ -52,9 +52,7 @@ export const ExpenseForm = ({ purchase, subscription, afterSubmit }: Props) => {
     };
     const formValues = watch();
     useEffect(() => {
-        console.log(selectedCreditCard && formValues.acquiredAt);
         if (selectedCreditCard && formValues.acquiredAt) {
-            console.log('first', calcPaymentDate(formValues.acquiredAt, selectedCreditCard.nextClosingDate));
             setValue('firstPaymentDate', calcPaymentDate(formValues.acquiredAt, selectedCreditCard.nextClosingDate));
         }
     }, [formValues.acquiredAt, selectedCreditCard, setValue]);
@@ -143,7 +141,8 @@ export const ExpenseForm = ({ purchase, subscription, afterSubmit }: Props) => {
                                             {...field}
                                             label='First Payment Date'
                                             value={moment(field.value)}
-                                            onChange={(date) => field.onChange(date)}
+                                            onChange={(date) => handleChangeDate(date?.format('YYYY-MM-DD') || '', 'firstPaymentDate')}
+                                            format={DATE_FORMAT}
                                         />
                                     </FormControl>
                                 )}
