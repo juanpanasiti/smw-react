@@ -1,7 +1,7 @@
-import moment from "moment";
-import { Payment, Subscription } from "../../store/interfaces";
-import { PaymentStatusEnum, PeriodStatusEnum } from "../types/enums";
-import { Period, PeriodObj } from "../types/interfaces";
+import moment from 'moment';
+import { Payment, Subscription } from '../../store/interfaces';
+import { PaymentStatusEnum, PeriodStatusEnum } from '../types/enums';
+import { Period, PeriodObj } from '../types/interfaces';
 
 export const getPeriodName = (payment: Payment): string => {
     return `${payment.month.toString().padStart(2, '0')}-${payment.year}`;
@@ -20,6 +20,7 @@ export const parseToList = (periodsObj: PeriodObj): Period[] => {
             status,
             payments,
             total,
+            totalSimulated: 0,
         };
     });
 };
@@ -27,8 +28,7 @@ export const sortByPeriod = (payments: Payment[]): Payment[] => payments.sort((a
 
 export const isEqualOrAfter = (period: Period, subscription: Subscription): boolean => {
     const periodDate = moment({ year: period.year, month: period.month - 1 }); // month es 0-indexado en moment
-    const expenseDate = moment(subscription.firstPaymentDate, "YYYY-MM-DD");
+    const expenseDate = moment(subscription.firstPaymentDate, 'YYYY-MM-DD');
 
     return periodDate.isSameOrAfter(expenseDate);
-
 };

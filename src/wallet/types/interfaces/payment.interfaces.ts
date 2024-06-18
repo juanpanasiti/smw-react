@@ -1,5 +1,5 @@
-import { Payment } from "../../../store/interfaces";
-import { PeriodStatusEnum } from "../enums";
+import { Payment } from '../../../store/interfaces';
+import { PeriodStatusEnum } from '../enums';
 
 export interface Period {
     id: string;
@@ -7,6 +7,7 @@ export interface Period {
     year: number;
     status: PeriodStatusEnum;
     total: number;
+    totalSimulated: number;
     payments: Payment[];
 }
 export type PeriodObj = { [key: string]: Payment[] };
