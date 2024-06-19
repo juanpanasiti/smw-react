@@ -25,4 +25,5 @@ export interface CreditCardSimpleItem {
     alias: string;
     isEnabled: boolean;
     nextClosingDate?: string;
+    totalSpent?: number;
 }

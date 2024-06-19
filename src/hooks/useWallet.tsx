@@ -100,6 +100,7 @@ export const useWallet = () => {
                     alias: cc.alias,
                     isEnabled: cc.isEnabled,
                     nextClosingDate: cc.nextClosingDate,
+                    totalSpent: cc.totalSpent,
                 });
             });
             expenses.forEach((exp) => payments.push(...exp.payments));
