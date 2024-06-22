@@ -1,11 +1,9 @@
 import { Alert, AlertTitle, Box, Divider, Typography } from '@mui/material';
-// import { useWallet } from '../../hooks';
 import { PeriodStatusEnum } from '../types/enums';
 import { PeriodList } from '../components/payments';
 import { usePayments } from '../hooks';
 
 export const PaymentsPage = () => {
-	// const { payments } = useWallet()
 	const { periods } = usePayments()
 	const pendingOnes =  periods.filter((period) => period.status === PeriodStatusEnum.PENDING);
 	const paidOnes = periods.filter((period) => period.status === PeriodStatusEnum.PAID);
