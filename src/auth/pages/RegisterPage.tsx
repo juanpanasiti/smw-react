@@ -5,14 +5,13 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { AuthLayout } from '../layout/AuthLayout';
 import { RegisterData } from '../interfaces';
-import { useAuth } from '../../hooks';
+import { useAuth } from '../hooks';
 
 export const RegisterPage = () => {
     const { formState, register, handleSubmit } = useForm<RegisterData>();
-    const { registerMutation } = useAuth();
+    const { register: signup } = useAuth();
     const onSubmit = (data: RegisterData) => {
-        console.table(data);
-        registerMutation.mutate(data);
+        signup(data);
     };
     return (
         <AuthLayout title='Register'>
