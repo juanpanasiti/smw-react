@@ -2,8 +2,8 @@ import { AttachMoney, CreditCard, Dashboard, LogoutOutlined, Person2Outlined, Re
 import { Box, Divider, Drawer, List, Toolbar, Typography } from '@mui/material';
 
 import { ListItemActionButtonWithIcon, ListItemButtonWithIcon } from './';
-import { useAuth } from '../../hooks';
 import { SmwRoutes } from '../types/enums';
+import { useAuth } from '../../auth/hooks';
 
 interface Props {
     drawerWidth: number;
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const Sidebar = ({ drawerWidth, drawerOpen = true }: Props) => {
-    const { authQuery, setLogout } = useAuth();
+    const { authData, logout } = useAuth();
 
     return (
         <Box component='nav' sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
@@ -30,7 +30,7 @@ export const Sidebar = ({ drawerWidth, drawerOpen = true }: Props) => {
                 >
                     <Person2Outlined sx={{ mr: 1 }} />
                     <Typography variant='h6' noWrap component='div'>
-                        {authQuery.data?.user?.username}
+                        {authData?.user.username}
                     </Typography>
                 </Toolbar>
                 <Divider />
@@ -44,7 +44,7 @@ export const Sidebar = ({ drawerWidth, drawerOpen = true }: Props) => {
                 </List>
                 <List>
                     <Divider />
-                    <ListItemActionButtonWithIcon icon={<LogoutOutlined />} primary='Log Out' callback={setLogout} />
+                    <ListItemActionButtonWithIcon icon={<LogoutOutlined />} primary='Log Out' callback={logout} />
                 </List>
             </Drawer>
         </Box>
