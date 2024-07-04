@@ -1,12 +1,12 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { LoginPage, RegisterPage } from '../pages';
-import { useAuth } from '../../hooks';
+import { useAuth } from '../hooks';
 
 export const AuthRoutes = () => {
-	const { authQuery } = useAuth();
+	const { authData } = useAuth();
 	const lastPath = localStorage.getItem('lastPath') || '/';
-	if (authQuery.data?.token) return <Navigate to={lastPath} />;
+	if (authData?.token) return <Navigate to={lastPath} />;
 
 	return (
 		<Routes>
