@@ -2,31 +2,30 @@ import { Button, Card, CardActions, CardContent, CardHeader, Typography } from '
 import { CreditCardMain } from '../../../store/interfaces';
 import { DeleteForever, Edit, Visibility } from '@mui/icons-material';
 import { CreditCardModal } from './CreditCardModal';
-import { useModal } from '../../hooks';
+import { useModal, useWallet } from '../../hooks';
 import { CreditCardDeleteDialog } from './CreditCardDeleteDialog';
 import { CreditCardInfoDialog } from './CreditCardInfoDialog';
-import { useWallet } from '../../../hooks';
 
 interface Props {
     creditCard: CreditCardMain;
 }
 
 export const CreditCardCard = ({ creditCard }: Props) => {
-    const { deleteCreditCardMutation } = useWallet();
-    // const { purchases, subscriptions } = useExpenses();
-    // const ccPurchases = filterExpenses(purchases, creditCard.id);
-    // const ccSubscriptions = filterExpenses(subscriptions, creditCard.id);
-    // const totalRemainingPurchases = getTotalRemaining(ccPurchases)
-    // const totalRemainingSubscriptions = getTotalRemaining(ccSubscriptions)
-    // const limitStr = parseCurrency(creditCard.limit);
-    // const closesAt = parseDate(creditCard.nextClosingDate);
-    // const expiringAt = parseDate(creditCard.nextExpiringDate);
+    const { deleteCreditCardById } = useWallet();
+    //? const { purchases, subscriptions } = useExpenses();
+    //? const ccPurchases = filterExpenses(purchases, creditCard.id);
+    //? const ccSubscriptions = filterExpenses(subscriptions, creditCard.id);
+    //? const totalRemainingPurchases = getTotalRemaining(ccPurchases)
+    //? const totalRemainingSubscriptions = getTotalRemaining(ccSubscriptions)
+    //? const limitStr = parseCurrency(creditCard.limit);
+    //? const closesAt = parseDate(creditCard.nextClosingDate);
+    //? const expiringAt = parseDate(creditCard.nextExpiringDate);
     const { open: openModalForm, handleOpen: handleOpenModalForm } = useModal();
     const { open: openDialogDelete, handleOpen: handleOpenDialogDelete } = useModal();
     const { open: openDialogShow, handleOpen: handleOpenDialogShow } = useModal();
 
     const handleDelete = () => {
-        deleteCreditCardMutation.mutate(creditCard.id);
+        deleteCreditCardById(creditCard.id);
     };
     const handleConfirmDelete = () => {
         handleOpenDialogDelete();
@@ -76,14 +75,14 @@ export const CreditCardCard = ({ creditCard }: Props) => {
                 </Button>
             </CardActions>
 
-             <CreditCardInfoDialog open={openDialogShow} handleClose={handleOpenDialogShow} creditCard={creditCard} />
+            <CreditCardInfoDialog open={openDialogShow} handleClose={handleOpenDialogShow} creditCard={creditCard} />
             <CreditCardDeleteDialog
                 creditCardName={creditCard.alias}
                 handleClose={handleOpenDialogDelete}
                 open={openDialogDelete}
                 handleAgree={handleDelete}
             />
-            <CreditCardModal creditCard={creditCard} open={openModalForm} handleOpen={() => handleOpenModalForm()} /> 
+            <CreditCardModal creditCard={creditCard} open={openModalForm} handleOpen={() => handleOpenModalForm()} />
         </Card>
     );
 };
