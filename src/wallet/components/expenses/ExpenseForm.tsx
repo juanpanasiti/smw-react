@@ -6,11 +6,11 @@ import { Controller, useForm } from 'react-hook-form';
 import moment from 'moment';
 
 import { CreditCardSimpleItem, Purchase, Subscription } from '../../../store/interfaces';
-import { useWallet } from '../../../hooks';
 import { ExpenseTypeEnum } from '../../types/enums';
 import { Expense } from '../../api/interfaces';
 import { cleanPurchaseToForm, cleanSubscriptionToForm } from '../../api/helpers';
 import { calcPaymentDate, getDefaultExpense } from '../../helpers';
+import { useWallet } from '../../hooks';
 
 interface Props {
     purchase?: Purchase;
@@ -24,15 +24,15 @@ export const ExpenseForm = ({ purchase, subscription, afterSubmit }: Props) => {
     const { register, handleSubmit, setValue, watch, control } = useForm<Partial<Expense>>({ defaultValues });
     const [expenseType, setExpenseType] = useState<ExpenseTypeEnum>(getExpenseType(subscription));
     const isNew = !(purchase || subscription);
-    const { simpleCreditCards, createExpenseMutation, updateExpenseMutation } = useWallet();
+    const { simpleCreditCards, createNewExpense, updateOneExpense } = useWallet();
     const [selectedCreditCard, setSelectedCreditCard] = useState<CreditCardSimpleItem>();
     const onSubmit = (data: Partial<Expense>) => {
         try {
             const expense: Partial<Expense> = expenseType === ExpenseTypeEnum.PURCHASE ? cleanPurchaseToForm(data) : cleanSubscriptionToForm(data);
             if (isNew) {
-                createExpenseMutation.mutate(expense as Expense);
+                createNewExpense(expense as Expense);
             } else {
-                updateExpenseMutation.mutate(expense as Expense);
+                updateOneExpense(expense as Expense);
             }
             afterSubmit && afterSubmit();
         } catch (error) {
