@@ -1,9 +1,9 @@
 import { Box, Button, FormControl, MenuItem, SelectChangeEvent, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { useWallet } from '../../../hooks';
 import { CreditCard } from '../../api/interfaces';
 import { DatePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
+import { useWallet } from '../../hooks';
 
 interface Props {
     creditCard?: Partial<CreditCard>;
@@ -15,14 +15,14 @@ export const CreditCardForm = ({ creditCard, afterSubmit }: Props) => {
     const { register, handleSubmit, setValue } = useForm<CreditCard>({ defaultValues: creditCard });
 
     const isNew = !creditCard?.id;
-    const { creditCards, createCreditCardMutation, updateCreditCardMutation } = useWallet();
+    const { creditCards, createNewCreditCard, updateOneCreditCard } = useWallet();
 
     const onSubmit = (data: CreditCard) => {
         try {
             if (!data.id) {
-                createCreditCardMutation.mutate(data);
+                createNewCreditCard(data);
             } else {
-                updateCreditCardMutation.mutate(data);
+                updateOneCreditCard(data);
             }
             afterSubmit && afterSubmit();
         } catch (error) {
