@@ -2,11 +2,9 @@ import { Button, ButtonGroup, TableCell, TableRow } from '@mui/material';
 import { DeleteForever, Edit, Visibility } from '@mui/icons-material';
 
 import { CreditCardSimpleItem, Purchase } from '../../../store/interfaces';
-import { useWallet } from '../../../hooks';
-import { useModal } from '../../hooks';
+import { useModal, useWallet } from '../../hooks';
 import { parseCurrency, parseDate } from '../../api/helpers';
 import { ExpenseTypeEnum } from '../../types/enums';
-import { Expense } from '../../api/interfaces';
 import { ExpenseDeleteDialog } from './ExpenseDeleteDialog';
 import { ExpenseModalForm } from './ExpenseModalForm';
 import { PurchaseShowDialog } from './PurchaseShowDialog';
@@ -23,10 +21,10 @@ export const PurchaseTableRow = ({ purchase, creditCards }: Props) => {
     const { open: openModalForm, handleOpen: handleOpenModalForm } = useModal();
     const { open: openDialogShow, handleOpen: handleOpenDialogShow } = useModal();
     const { open: openDialogDelete, handleOpen: handleOpenDialogDelete } = useModal();
-    const { deleteExpenseMutation } = useWallet();
+    const { deleteExpenseById } = useWallet();
 
     const handleDelete = () => {
-        deleteExpenseMutation.mutate({ id: purchase.id, type: ExpenseTypeEnum.PURCHASE } as Expense);
+        deleteExpenseById(purchase.id, ExpenseTypeEnum.PURCHASE);
     };
     const handleConfirmDelete = () => {
         handleOpenDialogDelete();
