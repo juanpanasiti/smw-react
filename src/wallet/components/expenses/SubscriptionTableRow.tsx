@@ -1,15 +1,13 @@
 import { Button, ButtonGroup, TableCell, TableRow } from '@mui/material';
 import { DeleteForever, Edit, Visibility } from '@mui/icons-material';
 
-import { useModal } from '../../hooks';
+import { useModal, useWallet } from '../../hooks';
 import { ExpenseModalForm } from './ExpenseModalForm';
 import { ExpenseDeleteDialog } from './ExpenseDeleteDialog';
 // import { ExpenseShowDialog } from './ExpenseShowDialog';
 import { CreditCardSimpleItem, Subscription } from '../../../store/interfaces';
 import { parseCurrency } from '../../api/helpers';
 import { ExpenseTypeEnum } from '../../types/enums';
-import { useWallet } from '../../../hooks';
-import { Expense } from '../../api/interfaces';
 import { SubscriptionShowDialog } from './SubscriptionShowDialog';
 
 interface Props {
@@ -24,10 +22,10 @@ export const SubscriptionTableRow = ({ subscription, creditCards }: Props) => {
     const { open: openModalForm, handleOpen: handleOpenModalForm } = useModal();
     const { open: openDialogShow, handleOpen: handleOpenDialogShow } = useModal();
     const { open: openDialogDelete, handleOpen: handleOpenDialogDelete } = useModal();
-    const { deleteExpenseMutation } = useWallet();
+    const { deleteExpenseById } = useWallet();
 
     const handleDelete = () => {
-        deleteExpenseMutation.mutate({ id: subscription.id, type: ExpenseTypeEnum.SUBSCRIPTION } as Expense);
+        deleteExpenseById(subscription.id, ExpenseTypeEnum.SUBSCRIPTION);
     };
     const handleConfirmDelete = () => {
         handleOpenDialogDelete();
