@@ -1,8 +1,7 @@
 import { Alert, AlertTitle, Typography } from '@mui/material';
-import { useFilterExpenses, useModal } from '../hooks';
+import { useFilterExpenses, useModal, useWallet } from '../hooks';
 import { ReceiptLong } from '@mui/icons-material';
 import { ExpensesFilterForm } from '../components/expenses/ExpensesFilterForm';
-import { useWallet } from '../../hooks';
 import { Fab } from '../components/commons';
 import { ExpenseModalForm, ExpenseTable } from '../components/expenses';
 
