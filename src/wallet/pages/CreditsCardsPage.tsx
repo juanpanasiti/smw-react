@@ -1,10 +1,9 @@
 import { Alert, AlertTitle, Grid, Typography } from '@mui/material';
 
-import { useWallet } from '../../hooks';
 import { CreditCardCard, CreditCardModal } from '../components/credit-cards';
 import { Fab } from '../components/commons';
 import { AddCard } from '@mui/icons-material';
-import { useModal } from '../hooks';
+import { useModal, useWallet } from '../hooks';
 
 export const CreditsCardsPage = () => {
     const { creditCards } = useWallet();
