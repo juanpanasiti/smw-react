@@ -1,12 +1,11 @@
 import { Done, DoneAll, MonetizationOn, QuestionMark } from '@mui/icons-material';
 import { Button, ButtonGroup, TableCell, TableRow } from '@mui/material';
 import { PaymentUpdateAmountDialog } from './PaymentUpdateAmountDialog';
-import { useModal } from '../../hooks';
+import { useModal, useWallet } from '../../hooks';
 import { Payment } from '../../../store/interfaces';
 import { PaymentStatusEnum } from '../../types/enums';
 import { getPaymentStatusIcon } from '../../helpers';
 import { cleanPaymentToForm, parseCurrency } from '../../api/helpers';
-import { useWallet } from '../../../hooks';
 
 interface Props {
     payment: Payment;
@@ -14,18 +13,18 @@ interface Props {
     hidePeriod?: boolean;
 }
 export const PaymentTableRow = ({ payment, hideTitle = false, hidePeriod = true }: Props) => {
-    // const installment: string =
-    // 	expense?.type === ExpenseTypeEnum.PURCHASE ? `${payment.noInstallment}/${expense?.installments}` : '---';
-    const { updatePaymentStatusMutation, updatePaymentAmountMutation, createSubscriptionPaymentMutation } = useWallet();
+    //? const installment: string =
+    //? 	expense?.type === ExpenseTypeEnum.PURCHASE ? `${payment.noInstallment}/${expense?.installments}` : '---';
+    const { updatePaymentAmount, updatePaymentStatus, createNewSubscriptionPayment } = useWallet();
     const statusIcon = getPaymentStatusIcon(payment.status);
     const handleUpdateStatusPayment = (data: Partial<Payment>) => {
-        updatePaymentStatusMutation.mutate({ ...payment, ...data });
+        updatePaymentStatus({ ...payment, ...data });
     };
     const handleUpdateAmountPayment = (data: Partial<Payment>) => {
-        updatePaymentAmountMutation.mutate({ ...payment, ...data });
+        updatePaymentAmount({ ...payment, ...data });
     };
     const handleCreateSubscriptionPayment = () => {
-        createSubscriptionPaymentMutation.mutate(cleanPaymentToForm(payment));
+        createNewSubscriptionPayment(cleanPaymentToForm(payment));
     };
     const { open: openModalDialog, handleOpen: handleOpenModalDialog } = useModal();
     const period = `${payment.month}-${payment.year}`.padStart(7, '0');
