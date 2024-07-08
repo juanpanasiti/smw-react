@@ -3,9 +3,8 @@ import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/
 import { PaymentTable } from './PaymentTable';
 import { PaymentsFilterForm } from './PaymentsFilterForm';
 import { Period } from '../../types/interfaces';
-import { useWallet } from '../../../hooks';
 import { parseCurrency } from '../../api/helpers';
-import { useFilterPayments } from '../../hooks';
+import { useFilterPayments, useWallet } from '../../hooks';
 
 interface Props {
 	period: Period;
