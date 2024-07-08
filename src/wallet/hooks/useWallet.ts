@@ -98,7 +98,7 @@ export const useWallet = () => {
             alert(`Error creating`);
         }
     };
-    const updateSubscriptionPaymentStatus = async (payment: Payment) => {
+    const updatePaymentStatus = async (payment: Payment) => {
         try {
             await updatePaymentStatusApi(payment);
             updatePayment(payment);
@@ -106,7 +106,7 @@ export const useWallet = () => {
             alert(`Error updating status`);
         }
     };
-    const updateSubscriptionPaymentAmount = async (payment: Payment) => {
+    const updatePaymentAmount = async (payment: Payment) => {
         try {
             await updatePaymentAmountApi(payment);
             updatePayment(payment);
@@ -162,7 +162,7 @@ export const useWallet = () => {
         // Payments
         payments,
         createNewSubscriptionPayment,
-        updateSubscriptionPaymentAmount,
-        updateSubscriptionPaymentStatus,
+        updatePaymentAmount,
+        updatePaymentStatus,
     };
 };
