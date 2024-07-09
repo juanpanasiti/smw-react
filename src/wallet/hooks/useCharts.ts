@@ -1,8 +1,8 @@
 import { usePayments } from './usePayments';
 import { CreditCardChart, PeriodChart, SimplePeriodChart } from '../types/interfaces';
-import { useWallet } from '../../hooks';
 import { pickColor } from '../helpers';
 import { PeriodStatusEnum } from '../types/enums';
+import { useWallet } from './useWallet';
 
 export const useCharts = () => {
     const { pending } = usePayments();
