@@ -1,6 +1,6 @@
 import { Container, Grid, Paper, Typography } from '@mui/material';
 
-import { CardsUsageChart, CardUsageByPeriodChart, PendingPeriodsChart } from '../components/charts';
+import { CardsUsageChart, PendingPeriodsChart } from '../components/charts';
 
 export const HomePage = () => {
     return (
@@ -18,7 +18,7 @@ export const HomePage = () => {
                     </Grid>
                     <Grid item xs={6}>
                         <Paper>
-                            <CardUsageByPeriodChart />
+                            {/* <CardUsageByPeriodChart /> */}
                         </Paper>
                     </Grid>
 
