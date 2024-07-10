@@ -31,7 +31,7 @@ export const PaymentsFilterForm = (props: Props) => {
                 <TextField
                     label='Filter'
                     fullWidth
-					autoComplete='off'
+                    autoComplete='off'
                     variant='outlined'
                     defaultValue={textFilter}
                     onChange={(e) => onTextFilterChange(e.target.value)}

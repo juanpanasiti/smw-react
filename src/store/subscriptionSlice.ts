@@ -11,12 +11,13 @@ export interface SubscriptionSlice {
     deleteSubscription: (id: number) => void;
 }
 
-export const createSubscriptionsSlice: StateCreator<CreditCardSlice & SubscriptionSlice & PaymentSlice & PurchaseSlice, [], [], SubscriptionSlice> = (set) => ({
+export const createSubscriptionsSlice: StateCreator<CreditCardSlice & SubscriptionSlice & PaymentSlice & PurchaseSlice, [], [], SubscriptionSlice> = (
+    set
+) => ({
     subscriptions: [],
     setSubscriptions: (subscriptions: Subscription[]) => set({ subscriptions }),
     addSubscription: (subscription: Subscription) => set((state) => ({ subscriptions: [...state.subscriptions, subscription] })),
     updateSubscription: (subscription: Subscription) =>
         set((state) => ({ subscriptions: state.subscriptions.map((s) => (s.id === subscription.id ? subscription : s)) })),
-    deleteSubscription: (id: number) =>
-        set((state) => ({ subscriptions: state.subscriptions.filter((s) => s.id !== id) })),
+    deleteSubscription: (id: number) => set((state) => ({ subscriptions: state.subscriptions.filter((s) => s.id !== id) })),
 });

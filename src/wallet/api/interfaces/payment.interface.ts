@@ -16,7 +16,7 @@ export interface Payment {
 
 export interface NewSubscriptionPayment {
     expenseId: number;
-    month:  number;
-    year:   number;
+    month: number;
+    year: number;
     amount: number;
 }

@@ -1,4 +1,4 @@
-import { ExpenseStatusEnum } from "../../wallet/types/enums";
+import { ExpenseStatusEnum } from '../../wallet/types/enums';
 
 export interface Purchase {
     id: number;

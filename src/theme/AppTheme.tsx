@@ -1,16 +1,16 @@
-import { CssBaseline } from "@mui/material"
-import { ThemeProvider } from "@emotion/react"
+import { CssBaseline } from '@mui/material';
+import { ThemeProvider } from '@emotion/react';
 
-import { mainTheme } from "./"
+import { mainTheme } from './';
 
 interface Props {
-    children: React.ReactNode
+    children: React.ReactNode;
 }
-export const AppTheme = ({children}:Props) => {
-  return (
-    <ThemeProvider theme={mainTheme}>
-        <CssBaseline />
-        {children}
-    </ThemeProvider>
-  )
-}
+export const AppTheme = ({ children }: Props) => {
+    return (
+        <ThemeProvider theme={mainTheme}>
+            <CssBaseline />
+            {children}
+        </ThemeProvider>
+    );
+};

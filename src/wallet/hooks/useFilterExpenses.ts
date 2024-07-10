@@ -35,7 +35,7 @@ export const useFilterExpenses = ({ originalPurchases, originalSubscriptions }: 
 
     return {
         filteredPurchses,
-		filteredSubscriptions,
+        filteredSubscriptions,
         textFilter,
         creditCardId,
         expenseType,

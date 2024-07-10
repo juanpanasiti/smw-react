@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export class ServerError extends Error {
     constructor(public statusCode: number, public responseBody: object) {
@@ -40,4 +40,4 @@ export const handleError = (error: Error): never => {
     } else {
         throw new UnknownError(error.message);
     }
-}
+};

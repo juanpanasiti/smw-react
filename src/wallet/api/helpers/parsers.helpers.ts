@@ -1,4 +1,14 @@
-import { CreditCard, CreditCardApiReq, CreditCardApiRes, EditExpenseApiReq, Expense, ExpenseApiReq, ExpenseApiRes, Payment, PaymentApiRes } from '../interfaces';
+import {
+    CreditCard,
+    CreditCardApiReq,
+    CreditCardApiRes,
+    EditExpenseApiReq,
+    Expense,
+    ExpenseApiReq,
+    ExpenseApiRes,
+    Payment,
+    PaymentApiRes,
+} from '../interfaces';
 
 export const parseCreditCardFromApi = (creditCardApi: CreditCardApiRes): CreditCard => {
     return {
@@ -74,7 +84,7 @@ export const parseNewExpenseToApi = (expenseApi: Expense): ExpenseApiReq => {
         first_payment_date: `${expenseApi.firstPaymentDate}`,
         credit_card_id: expenseApi.creditCardId,
     };
-}
+};
 export const parseEditExpenseToApi = (expenseApi: Expense): EditExpenseApiReq => {
     return {
         title: expenseApi.title,
@@ -83,4 +93,4 @@ export const parseEditExpenseToApi = (expenseApi: Expense): EditExpenseApiReq =>
         credit_card_id: expenseApi.creditCardId,
         amount: expenseApi.amount,
     };
-}
+};

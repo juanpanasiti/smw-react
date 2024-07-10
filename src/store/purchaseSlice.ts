@@ -11,9 +11,7 @@ export interface PurchaseSlice {
     deletePurchase: (id: number) => void;
 }
 
-export const createPurchasesSlice: StateCreator<StoreType, [], [], PurchaseSlice> = (
-    set
-) => ({
+export const createPurchasesSlice: StateCreator<StoreType, [], [], PurchaseSlice> = (set) => ({
     purchases: [],
     setPurchases: (purchases: Purchase[]) => set({ purchases }),
     addPurchase: (purchase: Purchase) => set((state) => ({ purchases: [...state.purchases, purchase] })),

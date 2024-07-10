@@ -11,7 +11,7 @@ export interface PaymentSlice {
     deletePayment: (payment: Payment) => void;
 }
 
-export const createPaymentsSlice: StateCreator< CreditCardSlice & SubscriptionSlice & PaymentSlice & PurchaseSlice, [], [], PaymentSlice> = (set) => ({
+export const createPaymentsSlice: StateCreator<CreditCardSlice & SubscriptionSlice & PaymentSlice & PurchaseSlice, [], [], PaymentSlice> = (set) => ({
     payments: [],
     setPayments: (payments: Payment[]) => set({ payments }),
     addPayment: (payment: Payment) => set((state) => ({ payments: [...state.payments, payment] })),

@@ -3,10 +3,10 @@ export enum PaymentStatusEnum {
     CONFIRMED = 'confirmed',
     PAID = 'paid',
     CANCELED = 'canceled',
-    SIMULATED = 'simulated'
+    SIMULATED = 'simulated',
 }
 
 export enum PeriodStatusEnum {
     PENDING = 'pending',
-    PAID = 'paid'
+    PAID = 'paid',
 }

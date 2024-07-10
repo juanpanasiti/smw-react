@@ -54,4 +54,4 @@ export const cleanPaymentToForm = (payment: Payment): NewSubscriptionPayment => 
         month: payment.month,
         year: payment.year,
     };
-}
+};

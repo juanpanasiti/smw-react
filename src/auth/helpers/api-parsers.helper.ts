@@ -4,7 +4,7 @@ export const parseLoginDataToApi = (loginData: LoginData): FormData => {
     const formData = new FormData();
     formData.append('username', loginData.username);
     formData.append('password', loginData.password);
-    return formData
+    return formData;
 };
 
 export const parseRegisterDataToApi = (registerData: RegisterData): ApiRegisterData => {

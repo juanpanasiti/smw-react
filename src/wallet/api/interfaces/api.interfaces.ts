@@ -1,4 +1,4 @@
-import { ExpenseStatusEnum, ExpenseTypeEnum, PaymentStatusEnum } from "../../types/enums";
+import { ExpenseStatusEnum, ExpenseTypeEnum, PaymentStatusEnum } from '../../types/enums';
 
 //! REQUESTS
 export interface CreditCardApiReq {

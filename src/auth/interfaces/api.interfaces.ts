@@ -1,4 +1,4 @@
-import { RoleEnum } from "../../common/enums";
+import { RoleEnum } from '../../common/enums';
 
 //!  Requests
 export interface ApiLoginData {

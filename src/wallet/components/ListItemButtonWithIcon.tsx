@@ -6,21 +6,21 @@ import { NavLink } from 'react-router-dom';
 import { SmwRoutes } from '../types/enums';
 
 interface Props {
-	primary: string;
-	secondary?: string;
-	icon: React.ReactNode;
-	pathTo: SmwRoutes;
+    primary: string;
+    secondary?: string;
+    icon: React.ReactNode;
+    pathTo: SmwRoutes;
 }
 export const ListItemButtonWithIcon = ({ primary, secondary, icon, pathTo }: Props) => {
-	return (
-		<ListItem disablePadding>
-			<ListItemButton component={NavLink} to={pathTo}>
-				<ListItemIcon>{icon}</ListItemIcon>
-				<Grid container>
-					<ListItemText primary={primary} />
-					{secondary && <ListItemText secondary={secondary} />}
-				</Grid>
-			</ListItemButton>
-		</ListItem>
-	);
+    return (
+        <ListItem disablePadding>
+            <ListItemButton component={NavLink} to={pathTo}>
+                <ListItemIcon>{icon}</ListItemIcon>
+                <Grid container>
+                    <ListItemText primary={primary} />
+                    {secondary && <ListItemText secondary={secondary} />}
+                </Grid>
+            </ListItemButton>
+        </ListItem>
+    );
 };

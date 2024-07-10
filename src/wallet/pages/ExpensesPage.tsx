@@ -27,7 +27,7 @@ export const ExpensesPage = () => {
             )}
 
             <Fab handleClick={handleOpen} icon={<ReceiptLong />} color='primary' />
-            <ExpenseModalForm open={open} handleOpen={() => handleOpen()}  />
+            <ExpenseModalForm open={open} handleOpen={() => handleOpen()} />
         </>
     );
 };

@@ -54,7 +54,7 @@ export const usePayments = () => {
             periodsObj[periodName].push(p);
         });
         setPeriods(addSimulatedPayments(periodsObj));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [payments]);
     return {
         periods,

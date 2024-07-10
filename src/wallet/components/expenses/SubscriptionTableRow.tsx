@@ -54,7 +54,12 @@ export const SubscriptionTableRow = ({ subscription, creditCards }: Props) => {
                 </TableCell>
             </TableRow>
             <ExpenseModalForm subscription={subscription} open={openModalForm} handleOpen={() => handleOpenModalForm()} />
-            <SubscriptionShowDialog subscription={subscription} open={openDialogShow} handleClose={handleOpenDialogShow} creditCardName={creditCardName} />
+            <SubscriptionShowDialog
+                subscription={subscription}
+                open={openDialogShow}
+                handleClose={handleOpenDialogShow}
+                creditCardName={creditCardName}
+            />
             <ExpenseDeleteDialog
                 expenseTitle={subscription.title}
                 handleClose={handleOpenDialogDelete}

@@ -1,4 +1,4 @@
-import { Expense } from "./expense.interface";
+import { Expense } from './expense.interface';
 
 export interface CreditCard {
     id: number;

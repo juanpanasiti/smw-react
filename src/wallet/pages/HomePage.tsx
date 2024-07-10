@@ -17,9 +17,7 @@ export const HomePage = () => {
                         <CardsUsageChart />
                     </Grid>
                     <Grid item xs={6}>
-                        <Paper>
-                            {/* <CardUsageByPeriodChart /> */}
-                        </Paper>
+                        <Paper>{/* <CardUsageByPeriodChart /> */}</Paper>
                     </Grid>
 
                     {/* Tercera fila: 3 elementos */}

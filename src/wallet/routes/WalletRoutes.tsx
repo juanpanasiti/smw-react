@@ -17,7 +17,7 @@ export const WalletRoutes = () => {
                         <Route path='/' element={<HomePage />} />
                         <Route path='/credit-cards' element={<CreditsCardsPage />} />
                         <Route path='/expenses' element={<ExpensesPage />} />
-					<Route path='/payments' element={<PaymentsPage />} /> 
+                        <Route path='/payments' element={<PaymentsPage />} />
                         <Route path='/*' element={<Navigate to='/' />} />
                     </Routes>
                 </SmwLayout>
