@@ -9,7 +9,7 @@ interface Props {
 }
 export const Fab = ({ icon, style = {}, label = '', handleClick, color = 'primary' }: Props) => {
     const fabStyle: SxProps = {
-        position: 'absolute',
+        position: 'fixed',
         bottom: 25,
         right: 25,
         ...style,
