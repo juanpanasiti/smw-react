@@ -16,7 +16,6 @@ interface Props {
 }
 
 export const SubscriptionTableRow = ({ subscription, creditCards }: Props) => {
-    // const { deleteMutation } = useExpenses();
     const creditCard = creditCards.find((card) => card.id === subscription.creditCardId);
     const creditCardName = creditCard?.alias || '';
     const { open: openModalForm, handleOpen: handleOpenModalForm } = useModal();

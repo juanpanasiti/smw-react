@@ -7,7 +7,6 @@ export interface Payment {
     expenseTitle: string;
     expenseCcName: string;
     expenseType: ExpenseTypeEnum;
-    // creditCardId: number; // TODO: implement
     status: PaymentStatusEnum;
     noInstallment: number;
     month: number;
