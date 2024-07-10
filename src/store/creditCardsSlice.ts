@@ -13,7 +13,7 @@ export interface CreditCardSlice {
     deleteCreditCard: (cardId: number) => void;
 }
 
-export const cerateCreditCardsSlice: StateCreator<StoreType, [], [], CreditCardSlice> = (set) => ({
+export const createCreditCardsSlice: StateCreator<StoreType, [], [], CreditCardSlice> = (set) => ({
     creditCards: [],
     setCreditCards: (creditCards: CreditCardMain[]) => set({ creditCards }),
     addCreditCard: (creditCard: CreditCard) =>
