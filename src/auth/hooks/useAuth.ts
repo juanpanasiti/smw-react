@@ -4,7 +4,7 @@ import { useStore } from '../../store';
 import { apiLogin, apiRegister, apiRenewToken } from '../api';
 
 export const useAuth = () => {
-    const { authData, setAuthData } = useStore();
+    const { authData, setAuthData, deleteAuthData } = useStore();
     const renewToken = async () => {
         try {
             const authData = await apiRenewToken();
@@ -32,6 +32,7 @@ export const useAuth = () => {
 
     const logout = () => {
         removeToken();
+        deleteAuthData();
     };
 
     return {
