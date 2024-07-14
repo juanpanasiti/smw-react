@@ -9,6 +9,7 @@ export interface PurchaseSlice {
     addPurchase: (purchase: Purchase) => void;
     updatePurchase: (purchase: Purchase) => void;
     deletePurchase: (id: number) => void;
+    deletePurchases: () => void;
 }
 
 export const createPurchasesSlice: StateCreator<StoreType, [], [], PurchaseSlice> = (set) => ({
@@ -17,4 +18,5 @@ export const createPurchasesSlice: StateCreator<StoreType, [], [], PurchaseSlice
     addPurchase: (purchase: Purchase) => set((state) => ({ purchases: [...state.purchases, purchase] })),
     updatePurchase: (purchase: Purchase) => set((state) => ({ purchases: state.purchases.map((p) => (p.id === purchase.id ? purchase : p)) })),
     deletePurchase: (id: number) => set((state) => ({ purchases: state.purchases.filter((p) => p.id !== id) })),
+    deletePurchases: () => set({ purchases: [] }),
 });

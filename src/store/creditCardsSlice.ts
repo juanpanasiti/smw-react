@@ -11,6 +11,7 @@ export interface CreditCardSlice {
     addCreditCard: (creditCard: CreditCard) => void;
     updateCreditCard: (creditCard: CreditCard) => void;
     deleteCreditCard: (cardId: number) => void;
+    deleteCreditCards: () => void;
 }
 
 export const createCreditCardsSlice: StateCreator<StoreType, [], [], CreditCardSlice> = (set) => ({
@@ -65,4 +66,5 @@ export const createCreditCardsSlice: StateCreator<StoreType, [], [], CreditCardS
             }));
             return { creditCards: filtered };
         }),
+    deleteCreditCards: () => set({ creditCards: [] }),
 });

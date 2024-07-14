@@ -9,6 +9,7 @@ export interface PaymentSlice {
     addPayment: (payment: Payment) => void;
     updatePayment: (payment: Payment) => void;
     deletePayment: (payment: Payment) => void;
+    deletePayments: () => void;
 }
 
 export const createPaymentsSlice: StateCreator<StoreType, [], [], PaymentSlice> = (set) => ({
@@ -17,4 +18,5 @@ export const createPaymentsSlice: StateCreator<StoreType, [], [], PaymentSlice> 
     addPayment: (payment: Payment) => set((state) => ({ payments: [...state.payments, payment] })),
     updatePayment: (payment: Payment) => set((state) => ({ payments: state.payments.map((cc) => (cc.id === payment.id ? payment : cc)) })),
     deletePayment: (payment: Payment) => set((state) => ({ payments: state.payments.filter((cc) => cc.id !== payment.id) })),
+    deletePayments: () => set({ payments: [] }),
 });
