@@ -8,11 +8,9 @@ export const calcPaymentDate = (acquiredAt: string, closingDate?: string): strin
 
     if (firstDate.isBefore(secondDate || !closingDate)) {
         const res = secondDate.add(1, 'month').startOf('month').format('YYYY-MM-DD');
-        console.log('res', res);
         return res;
     } else {
         const res = secondDate.add(2, 'month').startOf('month').format('YYYY-MM-DD');
-        console.log('res', res);
         return res;
     }
 };

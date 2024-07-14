@@ -4,7 +4,6 @@ import { useCharts } from '../../hooks';
 
 export const CardUsageByPeriodChart = () => {
     const { paymentsByPeriod } = useCharts();
-    console.log(paymentsByPeriod[0].payments);
     return (
         <>
             <Typography variant='h6'>Spent By Period</Typography>
