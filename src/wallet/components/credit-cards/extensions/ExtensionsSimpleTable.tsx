@@ -6,7 +6,7 @@ import { Button, ButtonGroup, Table, TableBody, TableCell, TableHead, TableRow }
 import { CreditCardDeleteDialog } from '../CreditCardDeleteDialog';
 // import { CreditCardModal } from '../CreditCardModal';
 import { CreditCardMain, CreditCardSimpleItem } from '../../../../store/interfaces';
-import { useModal } from '../../../hooks';
+import { useModal, useWallet } from '../../../hooks';
 
 interface Props {
     creditCard: CreditCardMain;
@@ -14,6 +14,7 @@ interface Props {
 
 export const ExtensionsSimpleTable = ({ creditCard }: Props) => {
     const { open: openDialogDelete, handleOpen: handleOpenDialogDelete } = useModal();
+    const { deleteCreditCardById } = useWallet();
     // const { open: openModalForm, handleOpen: handleOpenModalForm } = useModal();
     const [creditCards, setCreditCards] = useState<CreditCardSimpleItem[]>([]);
     const [selectedCard, setSelectedCard] = useState<CreditCardSimpleItem>();
@@ -26,8 +27,7 @@ export const ExtensionsSimpleTable = ({ creditCard }: Props) => {
         // handleOpenModalForm();
     };
     const handleDelete = (creditCardId: number) => {
-        console.log(`delete ${creditCardId}`);
-        // deleteMutation.mutate(creditCardId);
+        deleteCreditCardById(creditCardId);
     };
     const handleConfirmDelete = (creditCard: CreditCardSimpleItem) => {
         setSelectedCard(creditCard);
@@ -67,7 +67,7 @@ export const ExtensionsSimpleTable = ({ creditCard }: Props) => {
                     handleClose={handleOpenDialogDelete}
                     open={openDialogDelete}
                     handleAgree={() => handleDelete(selectedCard!.id)}
-                    creditCardName={selectedCard!.alias || 'no-card'}
+                    creditCardName={selectedCard?.alias || 'no-card'}
                 />
                 {/* <CreditCardModal creditCard={selectedCard} open={openModalForm} handleOpen={handleOpenModalForm} /> */}
             </TableBody>
