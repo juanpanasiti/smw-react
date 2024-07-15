@@ -114,6 +114,9 @@ export const useWallet = () => {
             alert(`Error updating amount`);
         }
     };
+    const filterPaymentsByExpenseId = (expenseId: number): Payment[] => {
+        return payments.filter((payment) => payment.expenseId === expenseId);
+    };
 
     //! Effects
     useEffect(() => {
@@ -164,5 +167,6 @@ export const useWallet = () => {
         createNewSubscriptionPayment,
         updatePaymentAmount,
         updatePaymentStatus,
+        filterPaymentsByExpenseId,
     };
 };
