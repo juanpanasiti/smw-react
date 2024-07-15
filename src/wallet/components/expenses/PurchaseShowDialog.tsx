@@ -1,7 +1,9 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider } from '@mui/material';
 
 import { Purchase } from '../../../store/interfaces';
 import { parseDate } from '../../api/helpers';
+import { PaymentTable } from '../payments';
+import { useWallet } from '../../hooks';
 
 interface Props {
     handleClose: () => void;
@@ -10,6 +12,8 @@ interface Props {
     creditCardName: string;
 }
 export const PurchaseShowDialog = ({ open, handleClose, purchase, creditCardName }: Props) => {
+    const { filterPaymentsByExpenseId } = useWallet();
+    const payments = filterPaymentsByExpenseId(purchase.id);
     return (
         <Dialog fullWidth maxWidth='md' open={open} onClose={handleClose}>
             <DialogTitle color='primary.light' variant='h4'>
@@ -34,8 +38,8 @@ export const PurchaseShowDialog = ({ open, handleClose, purchase, creditCardName
                 <DialogContentText>
                     <b>First Payment Date:</b> {parseDate(purchase.firstPaymentDate)}
                 </DialogContentText>
-                {/* <Divider>Payments</Divider>
-				<PaymentTable payments={purchase.payments} hideTitle hidePeriod={false} /> */}
+                <Divider>Payments</Divider>
+                <PaymentTable payments={payments} hideTitle hidePeriod={false} />
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} color='warning'>
