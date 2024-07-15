@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Typography } from '@mui/material';
 import { CreditCardMain } from '../../../store/interfaces';
-// import { ExtensionsSimpleTable } from './extensions';
+import { ExtensionsSimpleTable } from './extensions';
 
 interface Props {
     handleClose: () => void;
@@ -20,7 +20,7 @@ export const CreditCardInfoDialog = ({ handleClose, open, creditCard }: Props) =
                         <Typography component={'span'}>Extensions</Typography>
                     </Divider>
 
-                    {/* <ExtensionsSimpleTable creditCard={creditCard} /> */}
+                    <ExtensionsSimpleTable creditCard={creditCard} />
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
