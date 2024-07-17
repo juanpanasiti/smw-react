@@ -4,7 +4,14 @@ import { useStore } from '../../store';
 import { apiLogin, apiRegister, apiRenewToken } from '../api';
 
 export const useAuth = () => {
-    const { authData, setAuthData, deleteAuthData, deleteCreditCards, deletePayments, deletePurchases, deleteSubscriptions } = useStore();
+    const authData = useStore((state) => state.authData);
+    const setAuthData = useStore((state) => state.setAuthData);
+    const deleteAuthData = useStore((state) => state.deleteAuthData);
+    const deleteCreditCards = useStore((state) => state.deleteCreditCards);
+    const deletePayments = useStore((state) => state.deletePayments);
+    const deletePurchases = useStore((state) => state.deletePurchases);
+    const deleteSubscriptions = useStore((state) => state.deleteSubscriptions);
+
     const renewToken = async () => {
         try {
             const authData = await apiRenewToken();

@@ -25,10 +25,25 @@ import { ExpenseTypeEnum } from '../types/enums';
 import { createSubscriptionPaymentApi, updatePaymentAmountApi, updatePaymentStatusApi } from '../api/payments.api';
 
 export const useWallet = () => {
-    const { creditCards, setCreditCards, addCreditCard, deleteCreditCard, updateCreditCard } = useStore();
-    const { purchases, setPurchases, addPurchase, updatePurchase, deletePurchase } = useStore();
-    const { subscriptions, setSubscriptions, addSubscription, updateSubscription, deleteSubscription } = useStore();
-    const { payments, setPayments, addPayment, updatePayment } = useStore();
+    const creditCards = useStore((state) => state.creditCards);
+    const setCreditCards = useStore((state) => state.setCreditCards);
+    const addCreditCard = useStore((state) => state.addCreditCard);
+    const deleteCreditCard = useStore((state) => state.deleteCreditCard);
+    const updateCreditCard = useStore((state) => state.updateCreditCard);
+    const purchases = useStore((state) => state.purchases);
+    const setPurchases = useStore((state) => state.setPurchases);
+    const addPurchase = useStore((state) => state.addPurchase);
+    const updatePurchase = useStore((state) => state.updatePurchase);
+    const deletePurchase = useStore((state) => state.deletePurchase);
+    const subscriptions = useStore((state) => state.subscriptions);
+    const setSubscriptions = useStore((state) => state.setSubscriptions);
+    const addSubscription = useStore((state) => state.addSubscription);
+    const updateSubscription = useStore((state) => state.updateSubscription);
+    const deleteSubscription = useStore((state) => state.deleteSubscription);
+    const payments = useStore((state) => state.payments);
+    const setPayments = useStore((state) => state.setPayments);
+    const addPayment = useStore((state) => state.addPayment);
+    const updatePayment = useStore((state) => state.updatePayment);
 
     //! Credit Cards
     const [simpleCreditCards, setSimpleCreditCards] = useState<CreditCardSimpleItem[]>([]);
