@@ -2,8 +2,13 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { MainLayout } from '../layouts';
 import { DashboardPage, ExpensesPage, SettingsPage, StatementsPage } from '../pages';
+import { useAuthStore } from '../stores';
 
 export const PrivateRouter = () => {
+    const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+    if (!isLoggedIn) {
+        return <Navigate to='/auth/signin' />;
+    }
     return (
         <MainLayout>
             <Routes>
