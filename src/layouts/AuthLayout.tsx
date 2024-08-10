@@ -1,4 +1,5 @@
-import React from 'react';
+import { Box, Card, CardContent } from '@mui/material';
+import { LayoutContainer } from '../components/ui';
 
 interface Props {
     children: React.ReactNode;
@@ -6,8 +7,19 @@ interface Props {
 
 export const AuthLayout = ({ children }: Props) => {
     return (
-        <>
-            <section>{children}</section>
-        </>
+        <LayoutContainer containterStyle={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Card
+                sx={{
+                    minWidth: 500,
+                    minHeight: 300,
+                    display: 'flex',
+                    flexDirection: 'column',
+                }}
+            >
+                <CardContent>
+                    <Box>{children}</Box>
+                </CardContent>
+            </Card>
+        </LayoutContainer>
     );
 };
