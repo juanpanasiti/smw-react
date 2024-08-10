@@ -9,3 +9,9 @@ export const callLoginApi = async (loginData: SignInForm): Promise<UserData> => 
     saveToken(data.access_token);
     return parseUserInfoResponseFromApi(data);
 };
+
+export const callRenewTokenApi = async (): Promise<UserData> => {
+    const { data } = await apiClient.get<AuthApiResponse>('/auth/token');
+    saveToken(data.access_token);
+    return parseUserInfoResponseFromApi(data);
+};

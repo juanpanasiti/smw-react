@@ -1,11 +1,20 @@
 import { enqueueSnackbar } from 'notistack';
 
 import { SignInForm } from '../types';
-import { callLoginApi } from '../api';
+import { callLoginApi, callRenewTokenApi } from '../api';
 import { useAuthStore } from '../stores';
 
 export const useApiClient = () => {
     const setUserData = useAuthStore((store) => store.setUserData);
+
+    const renewToken = async () => {
+        try {
+            const userData = await callRenewTokenApi();
+            setUserData(userData);
+        } catch (error) {
+            alert('Invalid token, please relogin');
+        }
+    };
 
     const login = async (loginData: SignInForm) => {
         try {
@@ -18,7 +27,9 @@ export const useApiClient = () => {
         }
     };
 
+
     return {
+        renewToken,
         login,
     };
 };
