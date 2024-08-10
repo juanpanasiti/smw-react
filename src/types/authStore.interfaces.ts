@@ -3,7 +3,7 @@ export interface AuthStore {
     userData?: UserData;
 
     // Computed Properties
-    isLoggedIn: boolean;
+    // isLoggedIn: boolean;
 
     // Methods
     setUserData: (userData: UserData) => void;

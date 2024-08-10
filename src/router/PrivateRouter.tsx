@@ -5,7 +5,7 @@ import { DashboardPage, ExpensesPage, SettingsPage, StatementsPage } from '../pa
 import { useAuthStore } from '../stores';
 
 export const PrivateRouter = () => {
-    const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+    const isLoggedIn = useAuthStore((state) => !!state.userData);
     if (!isLoggedIn) {
         return <Navigate to='/auth/signin' />;
     }

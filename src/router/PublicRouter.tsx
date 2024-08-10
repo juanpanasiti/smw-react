@@ -5,7 +5,7 @@ import { AuthLayout } from '../layouts';
 import { useAuthStore } from '../stores';
 
 export const PublicRouter = () => {
-    const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+    const isLoggedIn = useAuthStore((state) => !!state.userData);
     const lastPath = localStorage.getItem('lastPath') || '/';
     if (isLoggedIn) {
         return <Navigate to={lastPath} />;
