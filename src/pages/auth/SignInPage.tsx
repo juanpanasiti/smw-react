@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { TextField, Button, InputAdornment, IconButton, Typography, Box, Link } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { SignInForm } from '../../types';
-import { useApiClient } from '../../hooks';
+import { useAuth } from '../../hooks';
 
 const SignInSchema = Yup.object().shape({
     username: Yup.string().required('Username is required'),
@@ -13,7 +13,7 @@ const SignInSchema = Yup.object().shape({
 
 export const SignInPage: React.FC = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { login } = useApiClient();
+    const { login } = useAuth();
 
     const initialValues: SignInForm = {
         username: '',

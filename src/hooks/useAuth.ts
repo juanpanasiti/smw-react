@@ -4,7 +4,7 @@ import { SignInForm } from '../types';
 import { callLoginApi, callRenewTokenApi } from '../api';
 import { useAuthStore } from '../stores';
 
-export const useApiClient = () => {
+export const useAuth = () => {
     const setUserData = useAuthStore((store) => store.setUserData);
 
     const renewToken = async () => {
