@@ -1,4 +1,4 @@
-import { ExpenseStatusApiEnum, ExpenseTypeApiEnum, PaymentStatusApiEnum } from "./api.enums";
+import { ExpenseStatusEnum, ExpenseTypeEnum, PaymentStatusEnum } from "./api.enums";
 
 export interface AuthApiResponse {
     id: number;
@@ -45,7 +45,7 @@ export interface ExpenseApiRequest {
     cc_name: string;
     acquired_at: string;
     amount: number;
-    type: ExpenseTypeApiEnum;
+    type: ExpenseTypeEnum;
     installments: number;
     first_payment_date: string;
     credit_card_id: number;
@@ -60,14 +60,14 @@ export interface EditExpenseApiRequest {
 }
 
 export interface NewSubscriptionPaymentApiRequest {
-    status: ExpenseStatusApiEnum;
+    status: ExpenseStatusEnum;
     month: number;
     year: number;
     amount: number;
 }
 
 export interface EditPaymentAPIRequest {
-    status: PaymentStatusApiEnum;
+    status: PaymentStatusEnum;
     amount: number;
 }
 
@@ -91,12 +91,12 @@ export interface ExpenseApiResponse {
     cc_name: string;
     acquired_at: string;
     amount: number;
-    type: ExpenseTypeApiEnum;
+    type: ExpenseTypeEnum;
     installments: number;
     first_payment_date: string;
     credit_card_id: number;
     id: number;
-    status: ExpenseStatusApiEnum;
+    status: ExpenseStatusEnum;
     remaining_amount: number;
     total_paid: number;
     installments_paid: number;
@@ -107,7 +107,7 @@ export interface ExpenseApiResponse {
 export interface PaymentApiResponse {
     id: number;
     expense_id: number;
-    status: PaymentStatusApiEnum;
+    status: PaymentStatusEnum;
     no_installment: number;
     month: number;
     year: number;

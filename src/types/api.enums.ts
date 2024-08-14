@@ -1,4 +1,4 @@
-export enum PaymentStatusApiEnum {
+export enum PaymentStatusEnum {
     UNCONFIRMED = 'unconfirmed',
     CONFIRMED = 'confirmed',
     PAID = 'paid',
@@ -6,12 +6,17 @@ export enum PaymentStatusApiEnum {
     SIMULATED = 'simulated',
 }
 
-export enum ExpenseStatusApiEnum {
+export enum ExpenseStatusEnum {
     ACTIVE = 'active',
     FINISHED = 'finished',
 }
 
-export enum ExpenseTypeApiEnum {
+export enum ExpenseTypeEnum {
     PURCHASE = 'purchase',
     SUBSCRIPTION = 'subscription',
+}
+
+export enum PeriodStatusEnum {
+    PENDING = 'pending',
+    PAID = 'paid',
 }
