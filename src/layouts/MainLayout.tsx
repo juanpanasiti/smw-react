@@ -1,3 +1,7 @@
+import { useEffect } from 'react';
+
+import { useLocation } from 'react-router-dom';
+
 import { Sidebar } from '../components/navigation';
 
 interface Props {
@@ -5,14 +9,16 @@ interface Props {
 }
 
 export const MainLayout = ({ children }: Props) => {
+    const { pathname } = useLocation();
+    useEffect(() => {
+        localStorage.setItem('lastPath', pathname);
+    }, [pathname]);
     return (
         <>
-            <main>
-                <div className='main-layout'>
-                    <Sidebar />
-                    {children}
-                </div>
-            </main>
+            <div className='main-layout'>
+                <Sidebar />
+                <main className='main-section'>{children}</main>
+            </div>
         </>
     );
 };
