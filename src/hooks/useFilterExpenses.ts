@@ -38,7 +38,7 @@ export const useFilterExpenses = ({ originalPurchases, originalSubscriptions }: 
                 checkFilter({ expense: subscription, creditCardId, textFilter })
             );
         });
-        (filterChangeRef.current || (qPurchasesRef.current !== originalSubscriptions.length)) && setFilteredSubscriptions(filtered);
+        (filterChangeRef.current || (qSubscriptionsRef.current !== originalSubscriptions.length)) && setFilteredSubscriptions(filtered);
         qSubscriptionsRef.current = originalSubscriptions.length
         filterChangeRef.current = false;
     }, [originalSubscriptions, textFilter, creditCardId, expenseType]);
