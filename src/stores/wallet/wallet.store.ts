@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import { CreditCardMain, CreditCardSimpleItem, Purchase, Subscription, Payment, WalletStore, CreditCard, Period, PaymentStatusEnum } from '../../types';
+import { CreditCardMain, CreditCardSimpleItem, Purchase, Subscription, Payment, WalletStore, CreditCard, Period, PaymentStatusEnum, CCExpense } from '../../types';
 import {
     getPeriods,
     parseCreditCardMain,
@@ -79,6 +79,11 @@ export const useWalletStore = create<WalletStore>()(
             },
 
             setWalletData: (walletData: CreditCard[]) => set({ walletData }),
+            addExpense: (expense: CCExpense) => {
+                const walletData = get()?.walletData;
+                if (walletData === undefined) return;
+                set({ walletData: walletData.map((cc) => (cc.id === expense.creditCardId ? { ...cc, expenses: [...cc.expenses, expense] } : cc)) });
+            },
             clearData: () => set({ walletData: [] }),
             updateCreditCard: () => set({ walletData: [] }),
             updateExpense: () => set({ walletData: [] }),

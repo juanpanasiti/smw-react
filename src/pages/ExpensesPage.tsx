@@ -1,8 +1,9 @@
 import { Alert, AlertTitle, Typography } from '@mui/material';
+import { ReceiptLong } from '@mui/icons-material';
 
-import { useFilterExpenses, useWallet } from '../hooks';
-import { ExpensesFilterForm, ExpenseTable } from '../components/expenses';
-// import { Fab } from '../components/commons';
+import { useFilterExpenses, useModal, useWallet } from '../hooks';
+import { ExpenseModalForm, ExpensesFilterForm, ExpenseTable } from '../components/expenses';
+import { Fab } from '../components/commons';
 
 export const ExpensesPage = () => {
     const { purchases, subscriptions, creditCards, simpleCreditCards } = useWallet();
@@ -10,6 +11,7 @@ export const ExpensesPage = () => {
         originalPurchases: purchases,
         originalSubscriptions: subscriptions,
     });
+    const { open, handleOpen } = useModal();
     
     return (
         <>
@@ -25,8 +27,8 @@ export const ExpensesPage = () => {
                 <ExpenseTable purchases={filteredPurchses} subscriptions={filteredSubscriptions} creditCards={creditCards} />
             )}
 
-            {/* <Fab handleClick={handleOpen} icon={<ReceiptLong />} color='primary' /> */}
-            {/* <ExpenseModalForm open={open} handleOpen={() => handleOpen()} /> */}
+            <Fab handleClick={handleOpen} icon={<ReceiptLong />} color='primary' />
+            <ExpenseModalForm open={open} handleOpen={() => handleOpen()} />
         </>
     );
 };

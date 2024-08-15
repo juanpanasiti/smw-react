@@ -26,7 +26,7 @@ export const useFilterExpenses = ({ originalPurchases, originalSubscriptions }: 
             );
         });
 
-        (filterChangeRef.current || (qPurchasesRef.current !== originalPurchases.length)) && setFilteredPurchses(filtered) && console.log({filtered})
+        (filterChangeRef.current || (qPurchasesRef.current !== originalPurchases.length)) && setFilteredPurchses(filtered)
         qPurchasesRef.current = originalPurchases.length;
         filterChangeRef.current = false;
     }, [originalPurchases, textFilter, creditCardId, expenseType]);
@@ -41,7 +41,7 @@ export const useFilterExpenses = ({ originalPurchases, originalSubscriptions }: 
         (filterChangeRef.current || (qPurchasesRef.current !== originalSubscriptions.length)) && setFilteredSubscriptions(filtered);
         qSubscriptionsRef.current = originalSubscriptions.length
         filterChangeRef.current = false;
-    }, [textFilter, creditCardId, expenseType]);
+    }, [originalSubscriptions, textFilter, creditCardId, expenseType]);
 
     useEffect(() => {
         filterChangeRef.current = true;

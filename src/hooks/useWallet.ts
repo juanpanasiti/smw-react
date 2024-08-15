@@ -1,10 +1,12 @@
 import { useWalletStore } from '../stores';
-import { callGetCreditCardsApi } from '../api';
-import { CreditCard } from '../types';
+import { callCreateExpenseApi, callGetCreditCardsApi } from '../api';
+import { CreditCard, Expense } from '../types';
+import { enqueueSnackbar } from 'notistack';
 
 export const useWallet = () => {
     const walletData = useWalletStore((store) => store.walletData);
     const setWalletData = useWalletStore((store) => store.setWalletData);
+    const addExpense = useWalletStore((store) => store.addExpense);
     const creditCards = useWalletStore((store) => store.creditCards.fullList);
     const mainCreditCards = useWalletStore((store) => store.creditCards.mainList);
     const simpleCreditCards = useWalletStore((store) => store.creditCards.simpleList);
@@ -16,8 +18,23 @@ export const useWallet = () => {
     const periods = useWalletStore((store) => store.payments.byPeriod);
 
     const updateWalletData = async () => {
-        const walletData: CreditCard[] = await callGetCreditCardsApi();
-        setWalletData(walletData);
+        try {
+            const walletData: CreditCard[] = await callGetCreditCardsApi();
+            setWalletData(walletData);
+            enqueueSnackbar(`Wallet info was updated`, { variant: 'info' });
+        } catch (error) {
+            enqueueSnackbar(`${error}`, { variant: 'error' });
+        }
+    };
+    
+    const createExpense = async (expense: Expense) => {
+        try {
+            const newExpense = await callCreateExpenseApi(expense)
+            addExpense(newExpense)
+            enqueueSnackbar(`New expense '${newExpense.title}' added`, { variant: 'success' });
+        } catch (error) {
+            enqueueSnackbar(`${error}`, { variant: 'error' });
+        }
     };
 
     return {
@@ -33,5 +50,6 @@ export const useWallet = () => {
         periods,
 
         updateWalletData,
+        createExpense,
     };
 };

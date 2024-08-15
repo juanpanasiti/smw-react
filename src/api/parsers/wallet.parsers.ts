@@ -1,4 +1,4 @@
-import { CreditCard, CreditCardApiResponse, CCExpense, ExpenseApiResponse, ExpensePayment, PaymentApiResponse } from "../../types"
+import { CreditCard, CreditCardApiResponse, CCExpense, ExpenseApiResponse, ExpensePayment, PaymentApiResponse, Expense, ExpenseApiRequest, ExpenseTypeEnum } from "../../types"
 
 export const parseCreditCardFromApi = (creditCard: CreditCardApiResponse): CreditCard => {
     return {
@@ -46,5 +46,18 @@ export const parsePaymentFromApi = (payment: PaymentApiResponse): ExpensePayment
         month: payment.month,
         year: payment.year,
         amount: payment.amount,
+    }
+}
+
+export const parseExpenseToApi = (expense: Expense): ExpenseApiRequest => {
+    return {
+        title: expense.title,
+        cc_name: expense.ccName,
+        acquired_at: expense.acquiredAt,
+        amount: expense.amount,
+        type: expense.type,
+        installments: expense.type === ExpenseTypeEnum.PURCHASE ? expense.noInstallments : 1,
+        first_payment_date: expense.firstPaymentDate,
+        credit_card_id: expense.creditCardId,
     }
 }
