@@ -2,7 +2,8 @@ import { enqueueSnackbar } from 'notistack';
 
 import { useWalletStore } from '../stores';
 import { callCreateExpenseApi, callDeleteExpenseApi, callGetCreditCardsApi, callUpdateExpenseApi } from '../api';
-import { CreditCard, Expense } from '../types';
+import { CreditCard, Expense, Payment } from '../types';
+import { callUpdatePaymentApi } from '../api/payments.api';
 
 export const useWallet = () => {
     const walletData = useWalletStore((store) => store.walletData);
@@ -10,6 +11,7 @@ export const useWallet = () => {
     const addExpense = useWalletStore((store) => store.addExpense);
     const modifyExpense = useWalletStore((store) => store.modifyExpense);
     const removeExpense = useWalletStore((store) => store.removeExpense);
+    const modifyPayment = useWalletStore((store) => store.modifyPayment);
     const creditCards = useWalletStore((store) => store.creditCards.fullList);
     const mainCreditCards = useWalletStore((store) => store.creditCards.mainList);
     const simpleCreditCards = useWalletStore((store) => store.creditCards.simpleList);
@@ -60,6 +62,16 @@ export const useWallet = () => {
         }
     };
 
+    const updatePayment = async (payment: Payment) => {
+        try {
+            const expensePayment = await callUpdatePaymentApi(payment);
+            modifyPayment(payment.creditCardId, expensePayment)
+            enqueueSnackbar(`Payment #${payment.noInstallment} for ${payment.expenseTitle} updated`, { variant: 'success' });
+        } catch (error) {
+            enqueueSnackbar(`${error}`, { variant: 'error' });
+        }
+    };
+
     const paymentsByExpense = (expenseId: number) => paymentFullList.filter((payment) => payment.expenseId === expenseId);
 
     return {
@@ -79,5 +91,6 @@ export const useWallet = () => {
         updateExpense,
         deleteExpense,
         paymentsByExpense,
+        updatePayment,
     };
 };

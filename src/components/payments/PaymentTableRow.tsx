@@ -3,7 +3,8 @@ import { Button, ButtonGroup, TableCell, TableRow } from '@mui/material';
 
 import { Payment, PaymentStatusEnum } from '../../types';
 import { getPaymentStatusIcon, parseCurrency } from '../../helpers';
-import { useModal } from '../../hooks';
+import { useModal, useWallet } from '../../hooks';
+import { PaymentUpdateAmountDialog } from './PaymentUpdateAmountDialog';
 
 interface Props {
     payment: Payment;
@@ -13,21 +14,18 @@ interface Props {
 export const PaymentTableRow = ({ payment, hideTitle = false, hidePeriod = true }: Props) => {
     //? const installment: string =
     //? 	expense?.type === ExpenseTypeEnum.PURCHASE ? `${payment.noInstallment}/${expense?.installments}` : '---';
-    // const { updatePaymentAmount, updatePaymentStatus, createNewSubscriptionPayment } = useWallet();
+    const { updatePayment } = useWallet();
+    // TODO: const { createNewSubscriptionPayment } = useWallet();
     const statusIcon = getPaymentStatusIcon(payment.status);
-    const handleUpdateStatusPayment = (data: Partial<Payment>) => {
-        console.log('handleUpdateStatusPayment', data);
-        // updatePaymentStatus({ ...payment, ...data });
+    const handleUpdatePayment = (data: Partial<Payment>) => {
+        updatePayment({ ...payment, ...data });
     };
-    // const handleUpdateAmountPayment = (data: Partial<Payment>) => {
-    //     console.log('handleUpdateAmountPayment', data)
-    //     // updatePaymentAmount({ ...payment, ...data });
-    // };
+
     const handleCreateSubscriptionPayment = () => {
         console.log('handleCreateSubscriptionPayment');
         // createNewSubscriptionPayment(cleanPaymentToForm(payment));
     };
-    const { /*open: openModalDialog,*/ handleOpen: handleOpenModalDialog } = useModal();
+    const { open: openModalDialog, handleOpen: handleOpenModalDialog } = useModal();
     const period = `${payment.month}-${payment.year}`.padStart(7, '0');
     return (
         <TableRow key={payment.id}>
@@ -44,7 +42,7 @@ export const PaymentTableRow = ({ payment, hideTitle = false, hidePeriod = true 
                                 color='error'
                                 disabled={payment.status === PaymentStatusEnum.UNCONFIRMED}
                                 variant='outlined'
-                                onClick={() => handleUpdateStatusPayment({ status: PaymentStatusEnum.UNCONFIRMED })}
+                                onClick={() => handleUpdatePayment({ status: PaymentStatusEnum.UNCONFIRMED })}
                             >
                                 <QuestionMark />
                             </Button>
@@ -52,7 +50,7 @@ export const PaymentTableRow = ({ payment, hideTitle = false, hidePeriod = true 
                                 color='warning'
                                 disabled={payment.status === PaymentStatusEnum.CONFIRMED}
                                 variant='outlined'
-                                onClick={() => handleUpdateStatusPayment({ status: PaymentStatusEnum.CONFIRMED })}
+                                onClick={() => handleUpdatePayment({ status: PaymentStatusEnum.CONFIRMED })}
                             >
                                 <Done />
                             </Button>
@@ -60,7 +58,7 @@ export const PaymentTableRow = ({ payment, hideTitle = false, hidePeriod = true 
                                 color='success'
                                 disabled={payment.status === PaymentStatusEnum.PAID}
                                 variant='outlined'
-                                onClick={() => handleUpdateStatusPayment({ status: PaymentStatusEnum.PAID })}
+                                onClick={() => handleUpdatePayment({ status: PaymentStatusEnum.PAID })}
                             >
                                 <DoneAll />
                             </Button>
@@ -68,12 +66,12 @@ export const PaymentTableRow = ({ payment, hideTitle = false, hidePeriod = true 
                                 <MonetizationOn />
                             </Button>
                         </ButtonGroup>
-                        {/* <PaymentUpdateAmountDialog
+                        <PaymentUpdateAmountDialog
                             payment={payment}
                             handleClose={handleOpenModalDialog}
                             open={openModalDialog}
-                            handleUpdate={handleUpdateAmountPayment}
-                        /> */}
+                            handleUpdate={handleUpdatePayment}
+                        />
                     </>
                 ) : (
                     <>

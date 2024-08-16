@@ -25,7 +25,7 @@ export interface WalletStore {
     removeExpense: (creditCardId: number, expenseId: number) => void;
 
     updateCreditCard: () => void;
-    updatePayment: () => void;
+    modifyPayment: (creditCardId: number, payment: ExpensePayment) => void;
 }
 
 export interface CreditCard {
