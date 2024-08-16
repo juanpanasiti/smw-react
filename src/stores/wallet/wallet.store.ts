@@ -1,7 +1,18 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import { CreditCardMain, CreditCardSimpleItem, Purchase, Subscription, Payment, WalletStore, CreditCard, Period, PaymentStatusEnum, CCExpense } from '../../types';
+import {
+    CreditCardMain,
+    CreditCardSimpleItem,
+    Purchase,
+    Subscription,
+    Payment,
+    WalletStore,
+    CreditCard,
+    Period,
+    PaymentStatusEnum,
+    CCExpense,
+} from '../../types';
 import {
     getPeriods,
     parseCreditCardMain,
@@ -87,12 +98,20 @@ export const useWalletStore = create<WalletStore>()(
             modifyExpense: (expense: CCExpense) => {
                 const walletData = get()?.walletData;
                 if (walletData === undefined) return;
-                set({ walletData: walletData.map((cc) => (cc.id === expense.creditCardId ? { ...cc, expenses: cc.expenses.map((e) => (e.id === expense.id ? expense : e)) } : cc)) });
+                set({
+                    walletData: walletData.map((cc) =>
+                        cc.id === expense.creditCardId ? { ...cc, expenses: cc.expenses.map((e) => (e.id === expense.id ? expense : e)) } : cc
+                    ),
+                });
             },
             removeExpense: (creditCardId: number, expenseId: number) => {
                 const walletData = get()?.walletData;
                 if (walletData === undefined) return;
-                set({ walletData: walletData.map((cc) => (cc.id === creditCardId ? { ...cc, expenses: cc.expenses.filter((e) => e.id !== expenseId) } : cc)) });
+                set({
+                    walletData: walletData.map((cc) =>
+                        cc.id === creditCardId ? { ...cc, expenses: cc.expenses.filter((e) => e.id !== expenseId) } : cc
+                    ),
+                });
             },
             clearData: () => set({ walletData: [] }),
             updateCreditCard: () => set({ walletData: [] }),
