@@ -14,7 +14,6 @@ interface Props {
 export const PurchaseShowDialog = ({ open, handleClose, purchase, creditCardName }: Props) => {
     const { paymentsByExpense } = useWallet();
     const payments = paymentsByExpense(purchase.id);
-    console.log(payments)
     return (
         <Dialog fullWidth maxWidth='md' open={open} onClose={handleClose}>
             <DialogTitle color='primary.light' variant='h4'>
