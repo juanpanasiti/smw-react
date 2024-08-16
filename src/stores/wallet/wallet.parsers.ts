@@ -1,3 +1,4 @@
+import { getPeriodDate } from '../../helpers';
 import {
     CCExpense,
     CreditCard,
@@ -138,17 +139,48 @@ export const parsePayment = (payment: ExpensePayment, expense: CCExpense): Payme
 export const getPeriods = (creditCards: CreditCard[]): Period[] => {
     type PeriodObj = { [key: string]: Period };
     const periodsObj: PeriodObj = {};
+    const subscriptions = creditCards.map((cc) => cc.expenses.filter((ex) => ex.type === ExpenseTypeEnum.SUBSCRIPTION)).flat();
 
     parsePaymentList(creditCards).map((payment) => {
         const key = `${payment.month}-${payment.year}`;
         if (!periodsObj[key]) periodsObj[key] = getEmptyPeriod(key);
         periodsObj[key].status = calcPeriodStatus(periodsObj[key].status, payment.status);
-        periodsObj[key].total += payment.status === PaymentStatusEnum.SIMULATED ? 0 : payment.amount;
-        periodsObj[key].totalSimulated += payment.status === PaymentStatusEnum.SIMULATED ? payment.amount : 0;
+        periodsObj[key].total += payment.amount;
+        periodsObj[key].totalSimulated += payment.amount;
         periodsObj[key].payments.push(payment);
     });
 
-    return Object.entries(periodsObj).map(([, value]) => ({ ...value }));
+    const periods: Period[] = Object.entries(periodsObj).map(([, value]) => ({ ...value }));
+
+    return periods.map((period) => {
+        const payments: Payment[] = period.payments;
+        subscriptions.forEach((subscription) => {
+            const periodDate = getPeriodDate(period);
+            const subsDate = subscription.firstPaymentDate.slice(0, 7);
+            if (subsDate > periodDate) return;
+            const expenseIds = period.payments.map((p) => p.expenseId);
+            if (expenseIds.includes(subscription.id)) return;
+            payments.push({
+                id: 0,
+                expenseId: subscription.id,
+                creditCardId: subscription.creditCardId,
+                expenseTitle: subscription.title,
+                expenseCcName: subscription.ccName,
+                expenseType: ExpenseTypeEnum.SUBSCRIPTION,
+                status: PaymentStatusEnum.SIMULATED,
+                noInstallment: 0,
+                month: period.month,
+                year: period.year,
+                amount: subscription.amount,
+            });
+            period.totalSimulated += subscription.amount;
+        });
+
+        return {
+            ...period,
+            payments,
+        };
+    });
 };
 
 const getEmptyPeriod = (key: string): Period => {

@@ -14,16 +14,14 @@ interface Props {
 export const PaymentTableRow = ({ payment, hideTitle = false, hidePeriod = true }: Props) => {
     //? const installment: string =
     //? 	expense?.type === ExpenseTypeEnum.PURCHASE ? `${payment.noInstallment}/${expense?.installments}` : '---';
-    const { updatePayment } = useWallet();
-    // TODO: const { createNewSubscriptionPayment } = useWallet();
+    const { updatePayment, createNewSubscriptionPayment } = useWallet();
     const statusIcon = getPaymentStatusIcon(payment.status);
     const handleUpdatePayment = (data: Partial<Payment>) => {
         updatePayment({ ...payment, ...data });
     };
 
     const handleCreateSubscriptionPayment = () => {
-        console.log('handleCreateSubscriptionPayment');
-        // createNewSubscriptionPayment(cleanPaymentToForm(payment));
+        createNewSubscriptionPayment((payment));
     };
     const { open: openModalDialog, handleOpen: handleOpenModalDialog } = useModal();
     const period = `${payment.month}-${payment.year}`.padStart(7, '0');

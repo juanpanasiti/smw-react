@@ -60,7 +60,7 @@ export interface EditExpenseApiRequest {
 }
 
 export interface NewSubscriptionPaymentApiRequest {
-    status: ExpenseStatusEnum;
+    status: PaymentStatusEnum;
     month: number;
     year: number;
     amount: number;

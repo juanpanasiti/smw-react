@@ -26,6 +26,7 @@ export interface WalletStore {
 
     updateCreditCard: () => void;
     modifyPayment: (creditCardId: number, payment: ExpensePayment) => void;
+    addPayment: (creditCardId: number, payment: ExpensePayment) => void;
 }
 
 export interface CreditCard {
@@ -146,6 +147,7 @@ export interface Payment {
     year: number;
     amount: number;
 }
+export type NewSubscriptionPayment = Pick<Payment, 'expenseId' | 'month' | 'year' | 'amount'>;
 
 export interface Period {
     id: string;

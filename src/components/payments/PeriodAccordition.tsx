@@ -22,7 +22,7 @@ export const PeriodAccordition = ({ period, handleChange, selectedPanel }: Props
         <Accordion expanded={selectedPanel === period.id} onChange={() => handleChange(period.id)}>
             <AccordionSummary expandIcon={<ExpandMore />} aria-controls={`${period.id}-bh-content`} id={`${period.id}-bh-header`}>
                 <Typography sx={{ width: '75%', flexShrink: 0 }}>{period.id}</Typography>
-                <Typography sx={{ color: 'text.secondary' }}>{parseCurrency(period.total)}</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>{parseCurrency(period.total)} / {parseCurrency(period.totalSimulated)}</Typography>
             </AccordionSummary>
             <AccordionDetails>
                 <PaymentsFilterForm creditCards={creditCards} {...restFilterData} />

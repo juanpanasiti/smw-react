@@ -25,7 +25,7 @@ export const PaymentTable = ({ payments, hideTitle = false, hidePeriod = true }:
                 </TableHead>
                 <TableBody>
                     {payments.map((payment) => (
-                        <PaymentTableRow key={payment.id} payment={payment} hideTitle={hideTitle} hidePeriod={hidePeriod} />
+                        <PaymentTableRow key={`${payment.expenseId}-${payment.id}`} payment={payment} hideTitle={hideTitle} hidePeriod={hidePeriod} />
                     ))}
                 </TableBody>
             </Table>

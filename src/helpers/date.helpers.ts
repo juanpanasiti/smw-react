@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { Period } from '../types';
 
 export const getCurrentDate = () => moment().format('YYYY-MM-DD');
 
@@ -14,3 +15,5 @@ export const calcPaymentDate = (acquiredAt: string, closingDate?: string): strin
         return res;
     }
 };
+
+export const getPeriodDate = (period: Period): string => `${period.year}-${period.month.toString().padStart(2,'0')}`

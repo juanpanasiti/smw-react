@@ -9,6 +9,9 @@ import {
     ExpenseApiRequest,
     ExpenseTypeEnum,
     EditExpenseApiRequest,
+    NewSubscriptionPaymentApiRequest,
+    PaymentStatusEnum,
+    NewSubscriptionPayment,
 } from '../../types';
 
 export const parseCreditCardFromApi = (creditCard: CreditCardApiResponse): CreditCard => {
@@ -80,5 +83,14 @@ export const parseExpenseUpdateToApi = (expense: Expense): EditExpenseApiRequest
         acquired_at: expense.acquiredAt,
         amount: expense.amount,
         credit_card_id: expense.creditCardId,
+    };
+};
+
+export const parseNewSubscriptionPaymentToApi = ({ month, year, amount }: NewSubscriptionPayment): NewSubscriptionPaymentApiRequest => {
+    return {
+        month,
+        year,
+        amount,
+        status: PaymentStatusEnum.UNCONFIRMED,
     };
 };

@@ -115,6 +115,25 @@ export const useWalletStore = create<WalletStore>()(
             },
             clearData: () => set({ walletData: [] }),
             updateCreditCard: () => set({ walletData: [] }),
+            addPayment: (creditCardId, payment) => {
+                const walletData = get()?.walletData;
+                if (walletData === undefined) return;
+                set({
+                    walletData: walletData.map((cc) => {
+                        if (cc.id !== creditCardId) return cc;
+                        return {
+                            ...cc,
+                            expenses: cc.expenses.map((e) => {
+                                if (e.id !== payment.expenseId) return e;
+                                return {
+                                    ...e,
+                                    payments: [...e.payments, payment],
+                                };
+                            }),
+                        };
+                    }),
+                });
+            },
             modifyPayment: (creditCardId, payment) => {
                 const walletData = get()?.walletData;
                 if (walletData === undefined) return;
