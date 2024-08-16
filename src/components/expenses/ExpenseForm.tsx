@@ -17,14 +17,16 @@ const DATE_FORMAT = 'DD-MM-YYYY';
 
 export const ExpenseForm = ({ afterSuccess, expense, expenseType }: Props) => {
     const initialValues: Partial<Expense> = expense || getDefaultExpense(expenseType);
-    const { simpleCreditCards, createExpense } = useWallet();
+    const { simpleCreditCards, createExpense, updateExpense } = useWallet();
 
     const handleSubmit = (data: Partial<Expense>) => {
         try {
             if (!data.id){
                 createExpense(data as Expense)
-                afterSuccess?.();
+            } else {
+                updateExpense(data as Expense)
             }
+            afterSuccess?.();
         } catch (error) {
             console.error('Error creating expense', error);
         }
@@ -134,9 +136,6 @@ export const ExpenseForm = ({ afterSuccess, expense, expenseType }: Props) => {
                             format={DATE_FORMAT}
                         />
                     </FormControl>
-                    <pre>
-                        {JSON.stringify(values, null, 2)}
-                    </pre>
                     <Button onClick={() => handleSubmit(values)} variant='contained' color='primary' disabled={!isValid}>
                         Submit
                     </Button>

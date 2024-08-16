@@ -21,9 +21,10 @@ export interface WalletStore {
     setWalletData: (walletData: CreditCard[]) => void;
     clearData: () => void;
     addExpense: (expense: CCExpense) => void;
+    modifyExpense: (expense: CCExpense) => void;
+    removeExpense: (creditCardId: number, expenseId: number) => void;
 
     updateCreditCard: () => void;
-    updateExpense: () => void;
     updatePayment: () => void;
 }
 

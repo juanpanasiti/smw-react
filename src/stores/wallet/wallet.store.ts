@@ -84,9 +84,18 @@ export const useWalletStore = create<WalletStore>()(
                 if (walletData === undefined) return;
                 set({ walletData: walletData.map((cc) => (cc.id === expense.creditCardId ? { ...cc, expenses: [...cc.expenses, expense] } : cc)) });
             },
+            modifyExpense: (expense: CCExpense) => {
+                const walletData = get()?.walletData;
+                if (walletData === undefined) return;
+                set({ walletData: walletData.map((cc) => (cc.id === expense.creditCardId ? { ...cc, expenses: cc.expenses.map((e) => (e.id === expense.id ? expense : e)) } : cc)) });
+            },
+            removeExpense: (creditCardId: number, expenseId: number) => {
+                const walletData = get()?.walletData;
+                if (walletData === undefined) return;
+                set({ walletData: walletData.map((cc) => (cc.id === creditCardId ? { ...cc, expenses: cc.expenses.filter((e) => e.id !== expenseId) } : cc)) });
+            },
             clearData: () => set({ walletData: [] }),
             updateCreditCard: () => set({ walletData: [] }),
-            updateExpense: () => set({ walletData: [] }),
             updatePayment: () => set({ walletData: [] }),
         }),
         { name: 'WalletStore' }

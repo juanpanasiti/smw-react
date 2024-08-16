@@ -1,4 +1,15 @@
-import { CreditCard, CreditCardApiResponse, CCExpense, ExpenseApiResponse, ExpensePayment, PaymentApiResponse, Expense, ExpenseApiRequest, ExpenseTypeEnum } from "../../types"
+import {
+    CreditCard,
+    CreditCardApiResponse,
+    CCExpense,
+    ExpenseApiResponse,
+    ExpensePayment,
+    PaymentApiResponse,
+    Expense,
+    ExpenseApiRequest,
+    ExpenseTypeEnum,
+    EditExpenseApiRequest,
+} from '../../types';
 
 export const parseCreditCardFromApi = (creditCard: CreditCardApiResponse): CreditCard => {
     return {
@@ -14,10 +25,10 @@ export const parseCreditCardFromApi = (creditCard: CreditCardApiResponse): Credi
         createdAt: creditCard.created_at,
         updatedAt: creditCard.updated_at,
         expenses: creditCard.expenses.map(parseExpenseFromApi),
-    }
-}
+    };
+};
 
-export const parseExpenseFromApi = (expense: ExpenseApiResponse): CCExpense =>{
+export const parseExpenseFromApi = (expense: ExpenseApiResponse): CCExpense => {
     return {
         id: expense.id,
         title: expense.title,
@@ -34,8 +45,8 @@ export const parseExpenseFromApi = (expense: ExpenseApiResponse): CCExpense =>{
         installmentsPaid: expense.installments_paid,
         installmentsPending: expense.installments_pending,
         payments: expense.payments.map(parsePaymentFromApi),
-    }
-}
+    };
+};
 
 export const parsePaymentFromApi = (payment: PaymentApiResponse): ExpensePayment => {
     return {
@@ -46,8 +57,8 @@ export const parsePaymentFromApi = (payment: PaymentApiResponse): ExpensePayment
         month: payment.month,
         year: payment.year,
         amount: payment.amount,
-    }
-}
+    };
+};
 
 export const parseExpenseToApi = (expense: Expense): ExpenseApiRequest => {
     return {
@@ -59,5 +70,15 @@ export const parseExpenseToApi = (expense: Expense): ExpenseApiRequest => {
         installments: expense.type === ExpenseTypeEnum.PURCHASE ? expense.noInstallments : 1,
         first_payment_date: expense.firstPaymentDate,
         credit_card_id: expense.creditCardId,
-    }
-}
+    };
+};
+
+export const parseExpenseUpdateToApi = (expense: Expense): EditExpenseApiRequest => {
+    return {
+        title: expense.title,
+        cc_name: expense.ccName,
+        acquired_at: expense.acquiredAt,
+        amount: expense.amount,
+        credit_card_id: expense.creditCardId,
+    };
+};

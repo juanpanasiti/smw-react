@@ -1,7 +1,7 @@
 import { Box, Modal, SxProps, Theme, Typography } from '@mui/material';
 
 // import { ExpenseForm } from './ExpenseForm';
-import { ExpenseTypeEnum, Purchase, Subscription } from '../../types';
+import { Expense, ExpenseTypeEnum, Purchase, Subscription } from '../../types';
 import { useState } from 'react';
 import { Switch } from '../commons';
 import { ExpenseForm } from './ExpenseForm';
@@ -41,6 +41,14 @@ export const ExpenseModalForm = ({ open, handleOpen, style = {}, purchase, subsc
     const handleToggle = () => {
         setExpenseType(expenseType === ExpenseTypeEnum.PURCHASE ? ExpenseTypeEnum.SUBSCRIPTION : ExpenseTypeEnum.PURCHASE);
     };
+    const parseExpense = ():Expense | undefined => {
+        if(isNew) return undefined;
+        const expense =  purchase || subscription;
+        return {
+            ...expense,
+            type: expenseType,
+        } as Expense
+    }
     return (
         <Modal open={open} onClose={handleOpen} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
             <Box sx={{ ...defaultStyle, ...style }}>
@@ -49,7 +57,7 @@ export const ExpenseModalForm = ({ open, handleOpen, style = {}, purchase, subsc
                 </Typography>
 
                 {isNew && <Switch leftLabel='Subscription' rightLabel='Purchase' handleToggle={handleToggle} />}
-                <ExpenseForm expenseType={expenseType} afterSuccess={() => handleOpen()} />
+                <ExpenseForm expenseType={expenseType} afterSuccess={() => handleOpen()} expense={parseExpense()} />
             </Box>
         </Modal>
     );

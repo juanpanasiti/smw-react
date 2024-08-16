@@ -2,9 +2,10 @@ import { Button, ButtonGroup, TableCell, TableRow } from '@mui/material';
 import { DeleteForever, Edit, Visibility } from '@mui/icons-material';
 
 import { CreditCardSimpleItem, ExpenseTypeEnum, Subscription } from '../../types';
-import { useModal } from '../../hooks';
+import { useModal, useWallet } from '../../hooks';
 import { parseCurrency } from '../../helpers';
-
+import { ExpenseDeleteDialog } from './ExpenseDeleteDialog';
+import { ExpenseModalForm } from './ExpenseModalForm';
 
 interface Props {
     subscription: Subscription;
@@ -14,16 +15,14 @@ interface Props {
 export const SubscriptionTableRow = ({ subscription, creditCards }: Props) => {
     const creditCard = creditCards.find((card) => card.id === subscription.creditCardId);
     const creditCardName = creditCard?.alias || '';
-    const { /*open: openModalForm,*/ handleOpen: handleOpenModalForm } = useModal();
+    const { open: openModalForm, handleOpen: handleOpenModalForm } = useModal();
     const { /*open: openDialogShow,*/ handleOpen: handleOpenDialogShow } = useModal();
-    const { /*open: openDialogDelete,*/ handleOpen: handleOpenDialogDelete } = useModal();
-    // const { deleteExpenseById } = useWallet();
+    const { open: openDialogDelete, handleOpen: handleOpenDialogDelete } = useModal();
+    const { deleteExpense } = useWallet();
 
-    // const handleDelete = () => {
-    //     // deleteExpenseById(subscription.id, ExpenseTypeEnum.SUBSCRIPTION);
-    //     enqueueSnackbar(`Function not implemented yet`, { variant: 'warning' });
-
-    // };
+    const handleDelete = () => {
+        deleteExpense(subscription);
+    };
     const handleConfirmDelete = () => {
         handleOpenDialogDelete();
     };
@@ -50,19 +49,21 @@ export const SubscriptionTableRow = ({ subscription, creditCards }: Props) => {
                     </ButtonGroup>
                 </TableCell>
             </TableRow>
-            {/* <ExpenseModalForm subscription={subscription} open={openModalForm} handleOpen={() => handleOpenModalForm()} />
+             <ExpenseModalForm subscription={subscription} open={openModalForm} handleOpen={() => handleOpenModalForm()} />
+            {/*
             <SubscriptionShowDialog
                 subscription={subscription}
                 open={openDialogShow}
                 handleClose={handleOpenDialogShow}
                 creditCardName={creditCardName}
             />
+            */}
             <ExpenseDeleteDialog
                 expenseTitle={subscription.title}
                 handleClose={handleOpenDialogDelete}
                 open={openDialogDelete}
                 handleAgree={handleDelete}
-            /> */}
+            />
         </>
     );
 };

@@ -17,8 +17,7 @@ export const useFilterExpenses = ({ originalPurchases, originalSubscriptions }: 
 
 
     useEffect(() => {
-        if (originalPurchases.length === 0) return;
-        
+        if (originalPurchases.length === 0) return;    
         const filtered = originalPurchases.filter((purchase: Purchase) => {
             return (
                 (expenseType === 'any' || expenseType === ExpenseTypeEnum.PURCHASE) &&
@@ -26,12 +25,13 @@ export const useFilterExpenses = ({ originalPurchases, originalSubscriptions }: 
             );
         });
 
-        (filterChangeRef.current || (qPurchasesRef.current !== originalPurchases.length)) && setFilteredPurchses(filtered)
+        (filterChangeRef.current) && setFilteredPurchses(filtered)
         qPurchasesRef.current = originalPurchases.length;
         filterChangeRef.current = false;
     }, [originalPurchases, textFilter, creditCardId, expenseType]);
 
     useEffect(() => {
+        if (originalSubscriptions.length === 0) return;
         const filtered = originalSubscriptions.filter((subscription: Subscription) => {
             return (
                 (expenseType === 'any' || expenseType === ExpenseTypeEnum.SUBSCRIPTION) &&

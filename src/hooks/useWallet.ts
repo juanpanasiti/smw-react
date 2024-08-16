@@ -1,5 +1,5 @@
 import { useWalletStore } from '../stores';
-import { callCreateExpenseApi, callGetCreditCardsApi } from '../api';
+import { callCreateExpenseApi, callDeleteExpenseApi, callGetCreditCardsApi, callUpdateExpenseApi } from '../api';
 import { CreditCard, Expense } from '../types';
 import { enqueueSnackbar } from 'notistack';
 
@@ -7,6 +7,8 @@ export const useWallet = () => {
     const walletData = useWalletStore((store) => store.walletData);
     const setWalletData = useWalletStore((store) => store.setWalletData);
     const addExpense = useWalletStore((store) => store.addExpense);
+    const modifyExpense = useWalletStore((store) => store.modifyExpense);
+    const removeExpense = useWalletStore((store) => store.removeExpense);
     const creditCards = useWalletStore((store) => store.creditCards.fullList);
     const mainCreditCards = useWalletStore((store) => store.creditCards.mainList);
     const simpleCreditCards = useWalletStore((store) => store.creditCards.simpleList);
@@ -37,6 +39,26 @@ export const useWallet = () => {
         }
     };
 
+    const updateExpense = async (expense: Expense) => {
+        try {
+            const updatedExpense = await callUpdateExpenseApi(expense)
+            modifyExpense(updatedExpense)
+            enqueueSnackbar(`Expense '${updatedExpense.title}' updated`, { variant: 'success' });
+        } catch (error) {
+            enqueueSnackbar(`${error}`, { variant: 'error' });
+        }
+    };
+
+    const deleteExpense = async ({id, creditCardId}: Pick<Expense, 'id'|'creditCardId'>) => {
+        try {
+            await callDeleteExpenseApi(id)
+            removeExpense(creditCardId, id)
+            enqueueSnackbar(`Expense deleted`, { variant: 'success' });
+        } catch (error) {
+            enqueueSnackbar(`${error}`, { variant: 'error' });
+        }
+    };
+
     return {
         walletData,
         creditCards,
@@ -51,5 +73,8 @@ export const useWallet = () => {
 
         updateWalletData,
         createExpense,
+        updateExpense,
+        deleteExpense,
+
     };
 };
