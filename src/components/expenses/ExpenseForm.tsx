@@ -22,7 +22,7 @@ export const ExpenseForm = ({ afterSuccess, expense, expenseType }: Props) => {
     const handleSubmit = (data: Partial<Expense>) => {
         try {
             if (!data.id){
-                createExpense(data as Expense)
+                createExpense({...data, type: expenseType} as Expense)
             } else {
                 updateExpense(data as Expense)
             }

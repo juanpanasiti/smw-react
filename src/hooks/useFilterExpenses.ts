@@ -25,7 +25,7 @@ export const useFilterExpenses = ({ originalPurchases, originalSubscriptions }: 
             );
         });
 
-        (filterChangeRef.current) && setFilteredPurchses(filtered)
+        (filterChangeRef.current || (qPurchasesRef.current !== originalPurchases.length)) && setFilteredPurchses(filtered)
         qPurchasesRef.current = originalPurchases.length;
         filterChangeRef.current = false;
     }, [originalPurchases, textFilter, creditCardId, expenseType]);

@@ -49,15 +49,19 @@ export const ExpenseModalForm = ({ open, handleOpen, style = {}, purchase, subsc
             type: expenseType,
         } as Expense
     }
+    const handleClose = () => {
+        handleOpen()
+        setExpenseType(getExpenseType(subscription))
+    }
     return (
-        <Modal open={open} onClose={handleOpen} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
+        <Modal open={open} onClose={handleClose} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
             <Box sx={{ ...defaultStyle, ...style }}>
                 <Typography id='modal-modal-title' variant='h5'>
                     {getTitle()}
                 </Typography>
 
                 {isNew && <Switch leftLabel='Subscription' rightLabel='Purchase' handleToggle={handleToggle} />}
-                <ExpenseForm expenseType={expenseType} afterSuccess={() => handleOpen()} expense={parseExpense()} />
+                <ExpenseForm expenseType={expenseType} afterSuccess={() => handleClose()} expense={parseExpense()} />
             </Box>
         </Modal>
     );
