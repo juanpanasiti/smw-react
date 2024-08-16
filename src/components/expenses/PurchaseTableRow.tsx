@@ -6,7 +6,7 @@ import { CreditCardSimpleItem, ExpenseTypeEnum, Purchase } from '../../types';
 import { parseCurrency, parseDate } from '../../helpers';
 import { ExpenseDeleteDialog } from './ExpenseDeleteDialog';
 import { ExpenseModalForm } from './ExpenseModalForm';
-
+import { PurchaseShowDialog } from './PurchaseShowDialog';
 
 interface Props {
     purchase: Purchase;
@@ -17,7 +17,7 @@ export const PurchaseTableRow = ({ purchase, creditCards }: Props) => {
     const creditCard = creditCards.find((card) => card.id === purchase.creditCardId);
     const creditCardName = creditCard?.alias || '';
     const { open: openModalForm, handleOpen: handleOpenModalForm } = useModal();
-    const { /*open: openDialogShow,*/ handleOpen: handleOpenDialogShow } = useModal();
+    const { open: openDialogShow, handleOpen: handleOpenDialogShow } = useModal();
     const { open: openDialogDelete, handleOpen: handleOpenDialogDelete } = useModal();
     const { deleteExpense } = useWallet();
 
@@ -50,16 +50,15 @@ export const PurchaseTableRow = ({ purchase, creditCards }: Props) => {
                     </ButtonGroup>
                 </TableCell>
             </TableRow>
-             <ExpenseModalForm purchase={purchase} open={openModalForm} handleOpen={() => handleOpenModalForm()} />
-            {/*
+            <ExpenseModalForm purchase={purchase} open={openModalForm} handleOpen={() => handleOpenModalForm()} />
             <PurchaseShowDialog purchase={purchase} open={openDialogShow} handleClose={handleOpenDialogShow} creditCardName={creditCardName} />
-            */}
+
             <ExpenseDeleteDialog
                 expenseTitle={purchase.title}
                 handleClose={handleOpenDialogDelete}
                 open={openDialogDelete}
                 handleAgree={handleDelete}
-            /> 
+            />
         </>
     );
 };

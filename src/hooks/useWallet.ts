@@ -1,7 +1,8 @@
+import { enqueueSnackbar } from 'notistack';
+
 import { useWalletStore } from '../stores';
 import { callCreateExpenseApi, callDeleteExpenseApi, callGetCreditCardsApi, callUpdateExpenseApi } from '../api';
 import { CreditCard, Expense } from '../types';
-import { enqueueSnackbar } from 'notistack';
 
 export const useWallet = () => {
     const walletData = useWalletStore((store) => store.walletData);
@@ -28,11 +29,11 @@ export const useWallet = () => {
             enqueueSnackbar(`${error}`, { variant: 'error' });
         }
     };
-    
+
     const createExpense = async (expense: Expense) => {
         try {
-            const newExpense = await callCreateExpenseApi(expense)
-            addExpense(newExpense)
+            const newExpense = await callCreateExpenseApi(expense);
+            addExpense(newExpense);
             enqueueSnackbar(`New expense '${newExpense.title}' added`, { variant: 'success' });
         } catch (error) {
             enqueueSnackbar(`${error}`, { variant: 'error' });
@@ -41,23 +42,25 @@ export const useWallet = () => {
 
     const updateExpense = async (expense: Expense) => {
         try {
-            const updatedExpense = await callUpdateExpenseApi(expense)
-            modifyExpense(updatedExpense)
+            const updatedExpense = await callUpdateExpenseApi(expense);
+            modifyExpense(updatedExpense);
             enqueueSnackbar(`Expense '${updatedExpense.title}' updated`, { variant: 'success' });
         } catch (error) {
             enqueueSnackbar(`${error}`, { variant: 'error' });
         }
     };
 
-    const deleteExpense = async ({id, creditCardId}: Pick<Expense, 'id'|'creditCardId'>) => {
+    const deleteExpense = async ({ id, creditCardId }: Pick<Expense, 'id' | 'creditCardId'>) => {
         try {
-            await callDeleteExpenseApi(id)
-            removeExpense(creditCardId, id)
+            await callDeleteExpenseApi(id);
+            removeExpense(creditCardId, id);
             enqueueSnackbar(`Expense deleted`, { variant: 'success' });
         } catch (error) {
             enqueueSnackbar(`${error}`, { variant: 'error' });
         }
     };
+
+    const paymentsByExpense = (expenseId: number) => paymentFullList.filter((payment) => payment.expenseId === expenseId);
 
     return {
         walletData,
@@ -75,6 +78,6 @@ export const useWallet = () => {
         createExpense,
         updateExpense,
         deleteExpense,
-
+        paymentsByExpense,
     };
 };

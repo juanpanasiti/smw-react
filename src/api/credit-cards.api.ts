@@ -9,7 +9,7 @@ export const callGetCreditCardsApi = async (): Promise<CreditCard[]> => {
 };
 
 export const callCreateExpenseApi = async (expense: Expense): Promise<CCExpense> => {
-    const { data } = await apiClient.post<ExpenseApiResponse>(Endpoints.EXPENSES, parseExpenseToApi(expense));
+    const { data } = await apiClient.post<ExpenseApiResponse>(`${Endpoints.EXPENSES}/`, parseExpenseToApi(expense));
     return parseExpenseFromApi(data);
 };
 export const callUpdateExpenseApi = async (expense: Expense): Promise<CCExpense> => {

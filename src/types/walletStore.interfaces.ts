@@ -129,8 +129,7 @@ export interface Subscription {
     firstPaymentDate: string;
 }
 
-
-export interface Expense extends Purchase, Subscription{
+export interface Expense extends Purchase, Subscription {
     type: ExpenseTypeEnum;
 }
 

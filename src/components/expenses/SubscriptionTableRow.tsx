@@ -6,6 +6,7 @@ import { useModal, useWallet } from '../../hooks';
 import { parseCurrency } from '../../helpers';
 import { ExpenseDeleteDialog } from './ExpenseDeleteDialog';
 import { ExpenseModalForm } from './ExpenseModalForm';
+import { SubscriptionShowDialog } from './SubscriptionShowDialog';
 
 interface Props {
     subscription: Subscription;
@@ -16,7 +17,7 @@ export const SubscriptionTableRow = ({ subscription, creditCards }: Props) => {
     const creditCard = creditCards.find((card) => card.id === subscription.creditCardId);
     const creditCardName = creditCard?.alias || '';
     const { open: openModalForm, handleOpen: handleOpenModalForm } = useModal();
-    const { /*open: openDialogShow,*/ handleOpen: handleOpenDialogShow } = useModal();
+    const { open: openDialogShow, handleOpen: handleOpenDialogShow } = useModal();
     const { open: openDialogDelete, handleOpen: handleOpenDialogDelete } = useModal();
     const { deleteExpense } = useWallet();
 
@@ -49,15 +50,13 @@ export const SubscriptionTableRow = ({ subscription, creditCards }: Props) => {
                     </ButtonGroup>
                 </TableCell>
             </TableRow>
-             <ExpenseModalForm subscription={subscription} open={openModalForm} handleOpen={() => handleOpenModalForm()} />
-            {/*
+            <ExpenseModalForm subscription={subscription} open={openModalForm} handleOpen={() => handleOpenModalForm()} />
             <SubscriptionShowDialog
                 subscription={subscription}
                 open={openDialogShow}
                 handleClose={handleOpenDialogShow}
                 creditCardName={creditCardName}
             />
-            */}
             <ExpenseDeleteDialog
                 expenseTitle={subscription.title}
                 handleClose={handleOpenDialogDelete}
