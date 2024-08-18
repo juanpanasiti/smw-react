@@ -8,6 +8,7 @@ import {
     ExpensePayment,
     ExpenseTypeEnum,
     Payment,
+    PAYMENT_FINISH_STATUSES,
     PaymentStatusEnum,
     Period,
     PeriodStatusEnum,
@@ -175,6 +176,8 @@ export const getPeriods = (creditCards: CreditCard[]): Period[] => {
             });
             period.totalSimulated += subscription.amount;
         });
+
+        period.status = payments.some((p) => !PAYMENT_FINISH_STATUSES.includes(p.status)) ? PeriodStatusEnum.PENDING : PeriodStatusEnum.PAID;
 
         return {
             ...period,

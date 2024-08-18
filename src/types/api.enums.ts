@@ -6,6 +6,8 @@ export enum PaymentStatusEnum {
     SIMULATED = 'simulated',
 }
 
+export const PAYMENT_FINISH_STATUSES = [PaymentStatusEnum.PAID, PaymentStatusEnum.CANCELED];
+
 export enum ExpenseStatusEnum {
     ACTIVE = 'active',
     FINISHED = 'finished',
