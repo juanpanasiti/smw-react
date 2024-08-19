@@ -3,7 +3,7 @@ import { DeleteForever, Edit, Visibility } from '@mui/icons-material';
 
 import { useModal, useWallet } from '../../hooks';
 import { CreditCardSimpleItem, ExpenseTypeEnum, Purchase } from '../../types';
-import { parseCurrency, parseDate } from '../../helpers';
+import { calcPaidPercentage, parseCurrency, parseDate } from '../../helpers';
 import { ExpenseDeleteDialog } from './ExpenseDeleteDialog';
 import { ExpenseModalForm } from './ExpenseModalForm';
 import { PurchaseShowDialog } from './PurchaseShowDialog';
@@ -19,7 +19,9 @@ export const PurchaseTableRow = ({ purchase, creditCards }: Props) => {
     const { open: openModalForm, handleOpen: handleOpenModalForm } = useModal();
     const { open: openDialogShow, handleOpen: handleOpenDialogShow } = useModal();
     const { open: openDialogDelete, handleOpen: handleOpenDialogDelete } = useModal();
-    const { deleteExpense } = useWallet();
+    const { deleteExpense, paymentsByExpense } = useWallet();
+    const payments = paymentsByExpense(purchase.id);
+    const paidPercentage = `${calcPaidPercentage(payments).toFixed(2)} %`;
 
     const handleDelete = () => {
         deleteExpense(purchase);
@@ -27,6 +29,10 @@ export const PurchaseTableRow = ({ purchase, creditCards }: Props) => {
     const handleConfirmDelete = () => {
         handleOpenDialogDelete();
     };
+    if (paidPercentage === '100.00 %') {
+        // TODO FIXME: The filter must be located in the superior component and must be dinamic
+        return <></>;
+    }
     return (
         <>
             <TableRow>
@@ -34,7 +40,7 @@ export const PurchaseTableRow = ({ purchase, creditCards }: Props) => {
                 <TableCell>{creditCardName}</TableCell>
                 <TableCell>{ExpenseTypeEnum.PURCHASE}</TableCell>
                 <TableCell>{parseCurrency(purchase.amount)}</TableCell>
-                <TableCell>{purchase.status}</TableCell>
+                <TableCell>{paidPercentage}</TableCell>
                 <TableCell>{parseDate(purchase.acquiredAt)}</TableCell>
                 <TableCell>
                     <ButtonGroup variant='contained' aria-label='Basic button group'>
