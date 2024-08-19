@@ -147,7 +147,7 @@ export const getPeriods = (creditCards: CreditCard[]): Period[] => {
         if (!periodsObj[key]) periodsObj[key] = getEmptyPeriod(key);
         periodsObj[key].status = calcPeriodStatus(periodsObj[key].status, payment.status);
         periodsObj[key].total += payment.amount;
-        periodsObj[key].totalSimulated += payment.amount;
+        periodsObj[key].totalSimulated += 0;
         periodsObj[key].payments.push(payment);
     });
 
