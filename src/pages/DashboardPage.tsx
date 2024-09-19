@@ -2,7 +2,7 @@ import { Alert, AlertTitle, Container, Grid, Typography } from '@mui/material';
 import { AddCard } from '@mui/icons-material';
 
 import { useModal, useWallet } from '../hooks';
-import { Fab } from '../components/commons';
+import { Fab } from '../components/common';
 import { CreditCardCard, CreditCardModal } from '../components/credit-cards';
 import { PendingPeriodsChart } from '../components/charts';
 

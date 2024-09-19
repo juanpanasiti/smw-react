@@ -3,7 +3,7 @@ import { Box, Modal, SxProps, Theme, Typography } from '@mui/material';
 // import { ExpenseForm } from './ExpenseForm';
 import { Expense, ExpenseTypeEnum, Purchase, Subscription } from '../../types';
 import { useState } from 'react';
-import { Switch } from '../commons';
+import { Switch } from '../common';
 import { ExpenseForm } from './ExpenseForm';
 
 interface Props {

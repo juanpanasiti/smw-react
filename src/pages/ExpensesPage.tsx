@@ -3,7 +3,7 @@ import { ReceiptLong } from '@mui/icons-material';
 
 import { useFilterExpenses, useModal, useWallet } from '../hooks';
 import { ExpenseModalForm, ExpensesFilterForm, ExpenseTable } from '../components/expenses';
-import { Fab } from '../components/commons';
+import { Fab } from '../components/common';
 
 export const ExpensesPage = () => {
     const { purchases, subscriptions, creditCards, simpleCreditCards } = useWallet();

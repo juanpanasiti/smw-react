@@ -6,7 +6,7 @@ import { FormControl, FormHelperText, TextField, Button } from '@mui/material';
 import { CreditCardSimpleItem, Expense, ExpenseTypeEnum } from '../../types';
 import { expenseValidationSchema, getDefaultExpense } from '../../helpers';
 import { useWallet } from '../../hooks';
-import { SelectField } from '../commons';
+import { SelectField } from '../common';
 
 
 interface Props {

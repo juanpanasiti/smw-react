@@ -141,6 +141,8 @@ export interface Payment {
     expenseTitle: string;
     expenseCcName: string;
     expenseType: ExpenseTypeEnum;
+    expenseNoInstallments: number;
+    expenseAcquiredAt: string;
     status: PaymentStatusEnum;
     noInstallment: number;
     month: number;
