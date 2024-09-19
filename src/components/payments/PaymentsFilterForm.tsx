@@ -55,7 +55,7 @@ export const PaymentsFilterForm = (props: Props) => {
             <Grid item xs={3}>
                 <TextField
                     select
-                    label='Select'
+                    label='Status'
                     defaultValue={defaultPaymentStatus}
                     fullWidth
                     onChange={(e) => onPaymentStatusChange(e.target.value as PaymentStatusEnum | 'any')}
@@ -64,6 +64,7 @@ export const PaymentsFilterForm = (props: Props) => {
                     <MenuItem value={PaymentStatusEnum.UNCONFIRMED}>Unconfirmed</MenuItem>
                     <MenuItem value={PaymentStatusEnum.CONFIRMED}>Confirmed</MenuItem>
                     <MenuItem value={PaymentStatusEnum.PAID}>Paid</MenuItem>
+                    <MenuItem value={PaymentStatusEnum.SIMULATED}>Simulated</MenuItem>
                 </TextField>
             </Grid>
         </Grid>
