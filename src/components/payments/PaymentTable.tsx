@@ -16,6 +16,7 @@ export const PaymentTable = ({ payments, hideTitle = false, hidePeriod = true }:
                 <TableHead style={{backgroundColor:'black'}}>
                     <TableRow>
                         <TableCell style={{fontWeight:'bold'}}>Acquired At</TableCell>
+                        <TableCell style={{fontWeight:'bold'}}>Credit Card</TableCell>
                         {!hideTitle && <TableCell style={{fontWeight:'bold'}}>Title</TableCell>}
                         <TableCell style={{fontWeight:'bold'}}>Amount</TableCell>
                         {!hidePeriod && <TableCell style={{fontWeight:'bold'}}>Period</TableCell>}

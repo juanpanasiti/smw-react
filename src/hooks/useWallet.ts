@@ -85,6 +85,8 @@ export const useWallet = () => {
 
     const paymentsByExpense = (expenseId: number) => paymentFullList.filter((payment) => payment.expenseId === expenseId);
 
+    const creditCardById = (id: number) => creditCards.find((creditCard) => creditCard.id === id);
+
     return {
         walletData,
         creditCards,
@@ -104,5 +106,6 @@ export const useWallet = () => {
         paymentsByExpense,
         updatePayment,
         createNewSubscriptionPayment,
+        creditCardById,
     };
 };

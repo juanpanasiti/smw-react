@@ -16,12 +16,13 @@ interface Props {
 export const PaymentTableRow = ({ payment, hideTitle = false, hidePeriod = true }: Props) => {
     //? const installment: string =
     //? 	expense?.type === ExpenseTypeEnum.PURCHASE ? `${payment.noInstallment}/${expense?.installments}` : '---';
-    const { updatePayment, createNewSubscriptionPayment } = useWallet();
+    const { updatePayment, createNewSubscriptionPayment, creditCardById } = useWallet();
     const statusIcon = getPaymentStatusIcon(payment.status);
     const installments = payment.expenseType === ExpenseTypeEnum.PURCHASE ? `${payment.noInstallment}/${payment.expenseNoInstallments}` : '---';
     const handleUpdatePayment = (data: Partial<Payment>) => {
         updatePayment({ ...payment, ...data });
     };
+    const creditCardName = creditCardById(payment.creditCardId)?.alias || '?'
 
     const handleCreateSubscriptionPayment = () => {
         createNewSubscriptionPayment(payment);
@@ -39,6 +40,7 @@ export const PaymentTableRow = ({ payment, hideTitle = false, hidePeriod = true 
     return (
         <StyledTableRow key={payment.id} style={rowStyle}>
             <StyledTableCell>{payment.expenseAcquiredAt}</StyledTableCell>
+            <StyledTableCell>{creditCardName}</StyledTableCell>
             {!hideTitle && <StyledTableCell>{payment.expenseTitle}</StyledTableCell>}
             <StyledTableCell>{parseCurrency(payment.amount)}</StyledTableCell>
             {!hidePeriod && <StyledTableCell>{period}</StyledTableCell>}
