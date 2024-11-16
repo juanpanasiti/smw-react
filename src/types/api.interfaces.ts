@@ -48,14 +48,14 @@ export interface ExpenseApiRequest {
     type: ExpenseTypeEnum;
     installments: number;
     first_payment_date: string;
-    credit_card_id: number;
+    account_id: number;
 }
 
 export interface EditExpenseApiRequest {
     title: string;
     cc_name: string;
     acquired_at: string;
-    credit_card_id: number;
+    account_id: number;
     amount: number;
 }
 

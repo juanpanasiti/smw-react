@@ -72,7 +72,7 @@ export const parseExpenseToApi = (expense: Expense): ExpenseApiRequest => {
         type: expense.type,
         installments: expense.type === ExpenseTypeEnum.PURCHASE ? expense.noInstallments : 1,
         first_payment_date: expense.firstPaymentDate,
-        credit_card_id: expense.creditCardId,
+        account_id: expense.creditCardId,
     };
 };
 
@@ -82,7 +82,7 @@ export const parseExpenseUpdateToApi = (expense: Expense): EditExpenseApiRequest
         cc_name: expense.ccName,
         acquired_at: expense.acquiredAt,
         amount: expense.amount,
-        credit_card_id: expense.creditCardId,
+        account_id: expense.creditCardId,
     };
 };
 
