@@ -6,7 +6,7 @@ import { PeriodList } from '../components/payments';
 export const StatementsPage = () => {
     const { periods } = useWallet();
     const pendingOnes = periods.filter((period) => period.status === PeriodStatusEnum.PENDING);
-    const paidOnes = periods.filter((period) => period.status === PeriodStatusEnum.PAID);
+    // const paidOnes = periods.filter((period) => period.status === PeriodStatusEnum.PAID);
     return (
         <Box>
             <Typography variant='h2'>Payments</Typography>
@@ -22,7 +22,7 @@ export const StatementsPage = () => {
                 <PeriodList periods={pendingOnes} />
             )}
 
-            <Divider>
+            {/* <Divider>
                 <Typography variant='h4'>Payments Done</Typography>
             </Divider>
             {paidOnes.length === 0 && (
@@ -31,7 +31,7 @@ export const StatementsPage = () => {
                     There are no expenses to show!
                 </Alert>
             )}
-            <PeriodList periods={paidOnes} />
+            <PeriodList periods={paidOnes} /> */}
         </Box>
     );
 };

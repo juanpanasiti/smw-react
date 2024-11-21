@@ -4,7 +4,7 @@ import { Endpoints } from './enums';
 import { parseCreditCardFromApi, parseExpenseFromApi, parseExpenseToApi, parseExpenseUpdateToApi } from './parsers';
 
 export const callGetCreditCardsApi = async (): Promise<CreditCard[]> => {
-    const { data } = await apiClient.get<CreditCardApiResponse[]>(Endpoints.CREDIT_CARDS);
+    const { data } = await apiClient.get<CreditCardApiResponse[]>(Endpoints.CREDIT_CARDS + '?expense_status=active',);
     return data.map(parseCreditCardFromApi);
 };
 
