@@ -9,6 +9,6 @@ export const callUpdatePaymentApi = async ({ amount, status, id, expenseId }: Pa
 };
 
 export const callCreateSubscriptionPaymentApi = async (payment: NewSubscriptionPayment): Promise<ExpensePayment> => {
-    const { data } = await apiClient.post<PaymentApiResponse>(`/expenses/${payment.expenseId}/payments`, parseNewSubscriptionPaymentToApi(payment));
+    const { data } = await apiClient.post<PaymentApiResponse>(`/expenses/${payment.expenseId}/payments/`, parseNewSubscriptionPaymentToApi(payment));
     return parsePaymentFromApi(data);
 };
