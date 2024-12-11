@@ -1,5 +1,8 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router';
+import { styled } from 'styled-components';
+import { Sidebar } from '../components/navigation';
+import { Paper } from '@mui/material';
 
 interface Props {
     children: React.ReactNode;
@@ -11,11 +14,26 @@ export const MainLayout = ({ children }: Props) => {
         localStorage.setItem('lastPath', pathname);
     }, [pathname]);
     return (
-        <>
-            <div className='main-layout'>
-                {/* <Sidebar /> */}
-                <main className='main-section'>{children}</main>
-            </div>
-        </>
+        <ContainerFake className='main-layout'>
+            <Sidebar />
+
+            <Paper
+                elevation={3}
+                sx={{
+                    padding: '1rem 1.5rem',
+                    width: '100%',
+                    height: '100vh',
+                    marginLeft: '0.5rem',
+                }}
+            >
+                {children}
+            </Paper>
+        </ContainerFake>
     );
 };
+
+const ContainerFake = styled.div`
+    width: 100%;
+    height: 100vh;
+    display: flex;
+`;
