@@ -1,9 +1,9 @@
+import { useEffect, useRef } from 'react';
 import { Navigate, Route, Routes } from 'react-router';
 
 import { useAuth } from '../hooks/useAuth';
-import { DashboardPage } from '../pages';
+import { DashboardPage, ExpensesPage, StatementsPage } from '../pages';
 import { MainLayout } from '../layouts';
-import { useEffect, useRef } from 'react';
 
 export const PrivateRouter = () => {
     const { isLoggedIn, renewToken } = useAuth();
@@ -19,9 +19,11 @@ export const PrivateRouter = () => {
         <MainLayout>
             <Routes>
                 <Route path='/' element={<DashboardPage />} />
+                <Route path='/expenses' element={<ExpensesPage />} />
+                <Route path='/statements' element={<StatementsPage />} />
+
                 {/* <Route path='/settings' element={<SettingsPage />} /> */}
-                {/* <Route path='/expenses' element={<ExpensesPage />} /> */}
-                {/* <Route path='/statements' element={<StatementsPage />} /> */}
+                
                 <Route path='/*' element={<Navigate to='/' />} />
             </Routes>
         </MainLayout>

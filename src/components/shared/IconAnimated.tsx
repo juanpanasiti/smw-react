@@ -1,8 +1,7 @@
-import { Box, IconButton, SvgIconTypeMap } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 
-import { OverridableComponent } from '@mui/material/OverridableComponent';
+import { MuiIcon } from '.';
 
-type MuiIcon = OverridableComponent<SvgIconTypeMap> & { muiName: string };
 interface Props {
     value: boolean;
     handleClick?: () => void;

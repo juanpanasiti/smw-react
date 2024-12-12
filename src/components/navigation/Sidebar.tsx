@@ -1,16 +1,24 @@
-import { Button, ButtonGroup, Paper, SxProps, Theme } from '@mui/material';
-import { Menu, MenuOpen, Dashboard, CreditCard, RequestQuote, Logout, Settings } from '@mui/icons-material';
 import { useState } from 'react';
-import { IconAnimated } from '../shared';
 
-const sxButton: SxProps<Theme> = {
-    justifyContent: 'flex-start',
-    gap: 1,
-    paddingLeft: '1rem',
-};
+import { Divider, Paper } from '@mui/material';
+import { Menu, MenuOpen, Dashboard, CreditCard, RequestQuote, Logout, Settings } from '@mui/icons-material';
+
+import { IconAnimated } from '../shared';
+import { NavList } from './NavList';
+import { NavListItem } from './NavListItem';
+import { NavListActionItem } from './NavListActionItem';
+import { useAuth } from '../../hooks/useAuth';
+import { loadExpandMenu, saveExpandMenu } from '../../helpers';
+
 export const Sidebar = () => {
-    const [onlyIcons, setOnlyIcons] = useState<boolean>(true);
-    const width = onlyIcons ? '48px' : '240px';
+    const [expandMenu, setExpandMenu] = useState<boolean>(loadExpandMenu());
+    const { logout } = useAuth();
+    const width = expandMenu ? '240px' : '48px';
+
+    const toggleMenu = () => {
+        setExpandMenu(!expandMenu);
+        saveExpandMenu(!expandMenu);
+    };
 
     return (
         <Paper
@@ -23,29 +31,20 @@ export const Sidebar = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'start',
-                backgroundColor: '#101010'
+                backgroundColor: '#101010',
             }}
         >
-            <IconAnimated value={onlyIcons} handleClick={() => setOnlyIcons(!onlyIcons)} FirstIcon={Menu} SecondIcon={MenuOpen} />
-            <ButtonGroup orientation='vertical' aria-label='Vertical button group' variant='text' fullWidth sx={{flexGrow:'1', margin: '1rem 0rem'}}>
-                <Button startIcon={<Dashboard />} size='large' sx={sxButton}>
-                    Dashboard
-                </Button>
-                <Button startIcon={<CreditCard />} size='large' sx={sxButton}>
-                    Gastos
-                </Button>
-                <Button startIcon={<RequestQuote />} size='large' sx={sxButton}>
-                    Pagos
-                </Button>
-            </ButtonGroup>
-            <ButtonGroup orientation='vertical' aria-label='Vertical button group' variant='text' fullWidth>
-                <Button startIcon={<Settings />} size='large' sx={sxButton}>
-                    Configuración
-                </Button>
-                <Button startIcon={<Logout />} size='large' sx={sxButton}>
-                    Logout
-                </Button>
-            </ButtonGroup>
+            <IconAnimated value={expandMenu} handleClick={toggleMenu} FirstIcon={Menu} SecondIcon={MenuOpen} />
+            <NavList>
+                <NavListItem Icon={Dashboard} to='/' label='Dashboard' />
+                <NavListItem Icon={CreditCard} to='/expenses' label='Gastos' />
+                <NavListItem Icon={RequestQuote} to='/statements' label='Pagos' />
+            </NavList>
+            <Divider sx={{ flexGrow: '1' }} />
+            <NavList>
+                <NavListItem Icon={Settings} to='/' label='Configuración' />
+                <NavListActionItem Icon={Logout} label='Cerrar Sesión' handleClick={() => logout()} />
+            </NavList>
         </Paper>
     );
 };
