@@ -1,8 +1,8 @@
-// import { enqueueSnackbar } from 'notistack';
+import { enqueueSnackbar } from 'notistack';
 
 import { LoginForm, RegisterForm } from '../types';
 import { callLoginApi, callRegisterApi, callRenewTokenApi } from '../api';
-import { useAuthStore } from '../store/auth/auth.store';
+import { useAuthStore } from '../store/auth';
 
 export const useAuth = () => {
     const setUserData = useAuthStore((store) => store.setUserData);
@@ -26,7 +26,7 @@ export const useAuth = () => {
             const userData = await callLoginApi(loginData);
             setUserData(userData);
 
-            // enqueueSnackbar(`Welcome back ${loginData.username}`, { variant: 'success' });
+            enqueueSnackbar(`Bienvenido ${loginData.username}`, { variant: 'success' });
         } catch (error) {
             // enqueueSnackbar(`${error}`, { variant: 'error' });
             console.error(error)
@@ -45,6 +45,7 @@ export const useAuth = () => {
     const logout = () => {
         deleteUserData();
         // clearWalletData();
+        enqueueSnackbar('Ha cerrado sesión', { variant: 'info' });
     };
 
     return {
