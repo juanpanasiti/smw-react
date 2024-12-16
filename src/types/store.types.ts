@@ -12,6 +12,7 @@ export interface UserData {
 }
 
 export interface AuthStore {
+    hasFetched: boolean;
     // Properties
     userData?: UserData;
 
@@ -19,4 +20,105 @@ export interface AuthStore {
     setUserData: (userData: UserData) => void;
     deleteUserData: () => void;
     isLoggedIn: () => boolean;
+    setFetched: () => void;
+}
+
+export interface WalletStore {
+    hasInitializedData: boolean;
+    creditCards: CreditCard[];
+    expenses: Expense[];
+    periods: Period[];
+
+    // Credit Cards
+    setCreditCards: (creditCards: CreditCard[]) => void;
+    addCreditCard: (creditCard: CreditCard) => void;
+    updateCreditCard: (creditCard: CreditCard) => void;
+    deleteCreditCard: (creditCardId: number) => void;
+
+    // Expenses
+    setExpenses: (expenses: Expense[]) => void;
+    addExpense: (expense: Expense) => void;
+    updateExpense: (expense: Expense) => void;
+    deleteExpense: (expenseId: number) => void;
+
+    // Periods
+    setPeriods: (periods: Period[]) => void;
+    addPeriod: (period: Period) => void;
+    updatePeriod: (period: Period) => void;
+    deletePeriod: (periodId: string) => void;
+
+    // Others
+    clear: () => void;
+    setInitializedData: () => void;
+}
+
+export interface CreditCard {
+    id: number;
+    alias: string;
+    limit: number;
+    userId: number;
+    mainCreditCardId: number;
+    closingDay: Date;
+    dueDay: Date;
+    totalSpent: number;
+    isEnabled: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface Expense {
+    id: number;
+    title: string;
+    ccName: string;
+    acquiredAt: Date;
+    amount: number;
+    type: ExpenseTypeEnum;
+    installments: number;
+    firstPaymentDate: Date;
+    status: ExpenseStatusEnum;
+    accountId: number;
+    remainingAmount: number;
+    totalPaid: number;
+    installmentsPaid: number;
+    installmentsRemaining: number;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export enum ExpenseTypeEnum {
+    PURCHASE = 'purchase',
+    SUBSCRIPTION = 'subscription',
+}
+
+export enum ExpenseStatusEnum {
+    ACTIVE = 'active',
+    FINISHED = 'finished',
+}
+
+export interface Period {
+    id: string;
+    month: number;
+    year: number;
+    payments: Payment[];
+}
+
+export interface Payment {
+    id: number;
+    status: PaymentStatusEnum;
+    amount: number;
+    noInstallment: number;
+    month: number;
+    year: number;
+    expenseId: number;
+    accountId: number;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export enum PaymentStatusEnum {
+    PENDING = 'pending',
+    CONFIRMED = 'confirmed',
+    PAID = 'paid',
+    CANCELED = 'canceled',
+    SIMULATED = 'simulated',
 }
