@@ -8,7 +8,6 @@ export const callLoginApi = async (loginData: LoginForm): Promise<UserData> => {
     removeToken();
     const { data } = await apiClient.post<AuthApiResponse>(Endpoints.AUTH_LOGIN, parseLoginDataToApi(loginData));
     saveToken(data.access_token);
-    console.log({ data });
     return parseUserInfoResponseFromApi(data);
 };
 
