@@ -15,8 +15,8 @@ export interface CreditCardResApi {
 export interface NewCreditCardReqApi {
     alias: string;
     limit: number;
-    main_credit_card_id: number;
-    user_id: number;
+    main_credit_card_id?: number;
+    user_id?: number;
     next_closing_date: string;
     next_expiring_date: string;
 }

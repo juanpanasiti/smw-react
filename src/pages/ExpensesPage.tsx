@@ -1,6 +1,11 @@
+import { CreditCardList } from '../components/credit-cards';
+import { useWallet } from '../hooks/useWallet';
 
 export const ExpensesPage = () => {
-  return (
-    <div>ExpensesPage</div>
-  )
-}
+    const {creditCards} = useWallet()
+    return (
+        <>
+            <CreditCardList cards={creditCards} />
+        </>
+    );
+};

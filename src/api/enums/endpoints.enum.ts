@@ -5,8 +5,8 @@ export enum Endpoints {
     AUTH_TOKEN = '/v1/auth/token',
 
     // WALLET
-    USERS = '/users',
-    CREDIT_CARDS = '/credit_cards/',
-    EXPENSES = '/expenses',
-    PAYMENTS = '/payments',
+    CREDIT_CARDS = '/v2/credit_cards',
+    EXPENSES = '/v2/expenses',
+    PURCHASES = '/v2/purchases',
+    SUBSCRIPTIONS = '/v2/subscriptions',
 }
