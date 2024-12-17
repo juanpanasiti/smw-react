@@ -1,5 +1,4 @@
-import { MuiIcon } from '../shared';
-import { ListItem } from '../shared/ListItem';
+import { ListItem, MuiIcon } from '../shared';
 
 interface Props {
     Icon: MuiIcon;
