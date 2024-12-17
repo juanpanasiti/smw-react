@@ -4,11 +4,12 @@ import { useAuth } from '../hooks/useAuth';
 import { RegisterPage } from '../pages/RegisterPage';
 
 export const PublicRouter = () => {
-    const { isLoggedIn } = useAuth()
+    const { isLoggedIn } = useAuth();
     const lastPath = localStorage.getItem('lastPath') || '/';
     if (isLoggedIn) {
         return <Navigate to={lastPath} />;
     }
+
     return (
         <Routes>
             <Route path='/login' element={<LoginPage />} />
