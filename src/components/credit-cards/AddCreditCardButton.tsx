@@ -11,7 +11,7 @@ export const AddCreditCardButton = () => {
             <AddButtonContainer onClick={() => setOpenModal(true)}>
                 <AddIcon />
             </AddButtonContainer>
-            {openModal && <CreditCardModalForm open={openModal} handleClose={() => setOpenModal(false)} />}
+            {openModal && <CreditCardModalForm card={{}} open={openModal} handleClose={() => setOpenModal(false)} />}
         </CreditCardContainer>
     );
 };

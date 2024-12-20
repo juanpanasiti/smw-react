@@ -5,23 +5,20 @@ import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
 import { useForm } from '../../../hooks';
-import { CreditCardOption, NewCreditCard } from '../../../types/forms';
+import { CreditCardOption, ICreditCardForm } from '../../../types/forms';
 import { useWallet } from '../../../hooks/useWallet';
 import { CreditCard } from '../../../types';
 import { SelectField } from '../../shared';
 
-interface Props {
+interface Props<T extends ICreditCardForm> {
     sx?: SxProps<Theme>;
-    onSubmit: (values: NewCreditCard) => void;
+    onSubmit: (values: T) => void;
+    initialValues: T;
+    isNew?: boolean;
 }
-export const NewCreditCardForm = React.forwardRef<HTMLDivElement, Props>(({ sx = {}, onSubmit }: Props, ref) => {
-    const { values, handleChange, reset } = useForm<NewCreditCard>({
-        alias: '',
-        limit: 0,
-        mainCreditCardId: undefined,
-        nextClosingDate: new Date(),
-        nextExpiringDate: new Date(),
-    });
+export const CreditCardForm = React.forwardRef<HTMLDivElement, Props<ICreditCardForm>>(({ sx = {}, onSubmit, initialValues, isNew = false }, ref) => {
+    // TODO: Transformar en un componente genérico, identificando si es para una nueva CC o una existente (update)
+    const { values, changedValues, handleChange, reset } = useForm(initialValues);
 
     const { creditCards } = useWallet();
     const creditCardsOptions = getCreditCardOptions(creditCards);
@@ -29,16 +26,20 @@ export const NewCreditCardForm = React.forwardRef<HTMLDivElement, Props>(({ sx =
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            onSubmit(values);
-
+            if (isNew) {
+                onSubmit(values);
+            } else {
+                onSubmit(changedValues);
+            }
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     };
+    const title = isNew ? 'Nueva Tarjeta de Crédito' : 'Actualizar Tarjeta de Crédito';
     return (
         <Box ref={ref} tabIndex={-1} component='form' onSubmit={handleSubmit} sx={{ ...containerProps, ...sx }}>
             <Typography variant='h4' gutterBottom>
-                Nueva Tarjeta de Crédito
+                {title}
             </Typography>
 
             {/* Main Credit Card ID */}

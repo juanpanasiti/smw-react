@@ -2,8 +2,8 @@ import { CreditCard } from '../types';
 import { CreditCardResApi } from '../types/api';
 import apiClient from './apiClient';
 import { Endpoints } from './enums';
-import { parseCreditCardFromApi, parseCreditCardToApi } from './parsers/credit-card.parsers';
-import { NewCreditCard } from '../types/forms';
+import { parseCreditCardFromApi, parseNewCreditCardToApi, parseUpdateCreditCardToApi } from './parsers/credit-card.parsers';
+import { NewCreditCard, UpdateCreditCard } from '../types/forms';
 
 export const callGetCreditCardListApi = async (limit: number, offset: number): Promise<CreditCard[]> => {
     const queryParams = {
@@ -15,7 +15,15 @@ export const callGetCreditCardListApi = async (limit: number, offset: number): P
 };
 
 export const callCreateNewCreditCardApi = async (creditCardData: NewCreditCard): Promise<CreditCard> => {
-    const { data } = await apiClient.post<CreditCardResApi>(Endpoints.CREDIT_CARDS, parseCreditCardToApi(creditCardData));
-
+    const { data } = await apiClient.post<CreditCardResApi>(Endpoints.CREDIT_CARDS, parseNewCreditCardToApi(creditCardData));
     return parseCreditCardFromApi(data);
+};
+
+export const callUpdateCreditCardApi = async (creditCardData: UpdateCreditCard, ccId: number): Promise<CreditCard> => {
+    const { data } = await apiClient.patch<CreditCardResApi>(`${Endpoints.CREDIT_CARDS}/${ccId}`, parseUpdateCreditCardToApi(creditCardData));
+    return parseCreditCardFromApi(data);
+};
+
+export const callDeleteCreditCardApi = async (ccId: number): Promise<void> => {
+    await apiClient.delete(`${Endpoints.CREDIT_CARDS}/${ccId}`);
 };

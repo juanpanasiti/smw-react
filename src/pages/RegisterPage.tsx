@@ -6,6 +6,7 @@ import { RegisterForm } from '../types';
 import { useAuth } from '../hooks/useAuth';
 
 export const RegisterPage = () => {
+    // TODO: Replace RegisterForm for an internal interface
     const { values, handleChange, reset } = useForm<RegisterForm>({
         username: '',
         email: '',

@@ -33,19 +33,19 @@ export interface WalletStore {
     setCreditCards: (creditCards: CreditCard[]) => void;
     addCreditCard: (creditCard: CreditCard) => void;
     updateCreditCard: (creditCard: CreditCard) => void;
-    deleteCreditCard: (creditCardId: number) => void;
+    removeCreditCard: (creditCardId: number) => void;
 
     // Expenses
     setExpenses: (expenses: Expense[]) => void;
     addExpense: (expense: Expense) => void;
     updateExpense: (expense: Expense) => void;
-    deleteExpense: (expenseId: number) => void;
+    removeExpense: (expenseId: number) => void;
 
     // Periods
     setPeriods: (periods: Period[]) => void;
     addPeriod: (period: Period) => void;
     updatePeriod: (period: Period) => void;
-    deletePeriod: (periodId: string) => void;
+    removePeriod: (periodId: string) => void;
 
     // Others
     clear: () => void;

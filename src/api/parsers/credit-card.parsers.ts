@@ -1,7 +1,7 @@
 import { CreditCard } from '../../types';
-import { CreditCardResApi, NewCreditCardReqApi } from '../../types/api';
+import { CreditCardResApi, NewCreditCardReqApi, UpdateCreditCardReqApi } from '../../types/api';
 import { parseDateFromString, parseDateToString } from '../../helpers/date.helpers';
-import { NewCreditCard } from '../../types/forms';
+import { NewCreditCard, UpdateCreditCard } from '../../types/forms';
 
 export const parseCreditCardFromApi = (creditCard: CreditCardResApi): CreditCard => {
     return {
@@ -19,7 +19,7 @@ export const parseCreditCardFromApi = (creditCard: CreditCardResApi): CreditCard
     };
 };
 
-export const parseCreditCardToApi = (creditCard: NewCreditCard): NewCreditCardReqApi => {
+export const parseNewCreditCardToApi = (creditCard: NewCreditCard): NewCreditCardReqApi => {
     return {
         alias: creditCard.alias,
         limit: creditCard.limit,
@@ -27,4 +27,15 @@ export const parseCreditCardToApi = (creditCard: NewCreditCard): NewCreditCardRe
         next_closing_date: creditCard.nextClosingDate ? parseDateToString(creditCard.nextClosingDate) : '',
         next_expiring_date: creditCard.nextExpiringDate  ? parseDateToString(creditCard.nextExpiringDate) : '',
     };
+};
+
+export const parseUpdateCreditCardToApi = (creditCard: UpdateCreditCard): UpdateCreditCardReqApi => {
+    const response: UpdateCreditCardReqApi = {};
+    if (creditCard.alias) response['alias'] = creditCard.alias
+    if (creditCard.limit) response['limit'] = creditCard.limit
+    if (creditCard.mainCreditCardId) response['main_credit_card_id'] = creditCard.mainCreditCardId
+    if (creditCard.nextClosingDate) response['next_closing_date'] = parseDateToString(creditCard.nextClosingDate)
+    if (creditCard.nextExpiringDate) response['next_expiring_date'] = parseDateToString(creditCard.nextExpiringDate)
+
+    return response;
 };

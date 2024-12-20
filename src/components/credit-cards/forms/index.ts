@@ -1,1 +1,1 @@
-export * from './NewCreditCardForm';
+export * from './CreditCardForm';

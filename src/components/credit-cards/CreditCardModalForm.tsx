@@ -1,38 +1,46 @@
 import { Modal } from '@mui/material';
-import { useEffect } from 'react';
-import { NewCreditCardForm } from './forms';
-import { useWallet } from '../../hooks/useWallet';
-import { NewCreditCard } from '../../types/forms';
 import { enqueueSnackbar } from 'notistack';
 
-interface Props {
+import { CreditCardForm } from './forms';
+import { useWallet } from '../../hooks/useWallet';
+import { ICreditCardForm, NewCreditCard } from '../../types/forms';
+
+interface Props<T extends ICreditCardForm> {
     open: boolean;
     handleClose: () => void;
+    card: T;
+    ccId?: number;
 }
 
-export const CreditCardModalForm = ({ open, handleClose }: Props) => {
-    useEffect(() => {
-        console.log('mount');
-        return () => {
-            console.log('unmount');
-        };
-    });
-    const { addNewCreditCard } = useWallet();
-
-    const onSubmit = async (newCreditCard: NewCreditCard) => {
-        try {
-            await addNewCreditCard(newCreditCard)
-            enqueueSnackbar('Nueva Tarjeta de Crédito agregada', { variant: 'success' });
-            handleClose()
-        } catch (error) {
-            console.error(error)
-            enqueueSnackbar('Error al agregar nueva tarjeta de crédito', { variant: 'error' });
+export const CreditCardModalForm = <T extends ICreditCardForm>({ open, handleClose, card, ccId }: Props<T>) => {
+    const { addNewCreditCard, editCreditCard } = useWallet();
+    const isNew = !ccId;
+    const onSubmit = async (creditCardData: NewCreditCard) => {
+        if (isNew) {
+            try {
+                await addNewCreditCard(creditCardData);
+                enqueueSnackbar('Nueva Tarjeta de Crédito agregada', { variant: 'success' });
+                handleClose();
+            } catch (error) {
+                console.error(error);
+                enqueueSnackbar('Error al agregar nueva tarjeta de crédito', { variant: 'error' });
+            }
+        } else {
+            try {
+                await editCreditCard(creditCardData, ccId);
+                enqueueSnackbar('Tarjeta de Crédito editada', { variant: 'success' });
+                handleClose();
+            } catch (error) {
+                console.error(error);
+                enqueueSnackbar('Error al editar tarjeta de crédito', { variant: 'error' });
+            }
         }
-    }
+        
+    };
 
     return (
         <Modal closeAfterTransition open={open} onClose={handleClose} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
-            <NewCreditCardForm sx={style} onSubmit={onSubmit} />
+            <CreditCardForm sx={style} onSubmit={(newCreditCardData) => onSubmit(newCreditCardData as NewCreditCard)} initialValues={card} isNew={isNew} />
         </Modal>
     );
 };
