@@ -5,5 +5,6 @@ export * from './Loading';
 export * from './IconAnimated';
 export * from './ListItem';
 export * from './SelectField';
+export * from './AgreeActionDialog';
 
 export type MuiIcon = OverridableComponent<SvgIconTypeMap> & { muiName: string };
