@@ -7,8 +7,8 @@ import { IconAnimated } from '../shared';
 import { NavList } from './NavList';
 import { NavListItem } from './NavListItem';
 import { NavListActionItem } from './NavListActionItem';
-import { useAuth } from '../../hooks/useAuth';
 import { loadExpandMenu, saveExpandMenu } from '../../helpers';
+import { useAuth } from '../../hooks';
 
 export const Sidebar = () => {
     const [expandMenu, setExpandMenu] = useState<boolean>(loadExpandMenu());

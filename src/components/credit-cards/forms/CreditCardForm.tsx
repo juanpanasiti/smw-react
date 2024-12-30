@@ -4,9 +4,8 @@ import { Box, Button, FormControl, SxProps, TextField, Theme, Typography } from 
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
-import { useForm } from '../../../hooks';
+import { useForm, useWallet } from '../../../hooks';
 import { CreditCardOption, ICreditCardForm } from '../../../types/forms';
-import { useWallet } from '../../../hooks/useWallet';
 import { CreditCard } from '../../../types';
 import { SelectField } from '../../shared';
 

@@ -1,9 +1,8 @@
 import { TextField, Button, Typography, Box } from '@mui/material';
 import { Link } from 'react-router';
 
-import { useForm } from '../hooks/useForm';
 import { RegisterForm } from '../types';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth, useForm } from '../hooks';
 
 export const RegisterPage = () => {
     // TODO: Replace RegisterForm for an internal interface

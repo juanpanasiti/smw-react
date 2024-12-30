@@ -8,8 +8,8 @@ import { enqueueSnackbar } from 'notistack';
 import { CreditCard } from '../../types';
 import { formatCurrency, parseDateToShortString } from '../../helpers';
 import { CreditCardContainer } from './CreditCardContainer';
-import { useWallet } from '../../hooks/useWallet';
 import { AgreeActionDialog } from '../shared';
+import { useWallet } from '../../hooks';
 
 interface Props {
     creditCard: CreditCard;

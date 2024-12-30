@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router';
 import { LoginPage } from '../pages';
-import { useAuth } from '../hooks/useAuth';
 import { RegisterPage } from '../pages/RegisterPage';
+import { useAuth } from '../hooks';
 
 export const PublicRouter = () => {
     const { isLoggedIn } = useAuth();

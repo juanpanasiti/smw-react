@@ -2,8 +2,8 @@ import { Modal } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 
 import { CreditCardForm } from './forms';
-import { useWallet } from '../../hooks/useWallet';
 import { ICreditCardForm, NewCreditCard } from '../../types/forms';
+import { useWallet } from '../../hooks';
 
 interface Props<T extends ICreditCardForm> {
     open: boolean;

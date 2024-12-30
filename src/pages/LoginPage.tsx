@@ -1,9 +1,8 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { Link } from 'react-router';
 
-import { useForm } from '../hooks';
+import { useAuth, useForm } from '../hooks';
 import { LoginForm } from '../types';
-import { useAuth } from '../hooks/useAuth';
 
 export const LoginPage = () => {
     const { values, handleChange, reset } = useForm<LoginForm>({ username: '', password: '' });
