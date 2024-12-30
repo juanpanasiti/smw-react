@@ -32,6 +32,10 @@ export const Sidebar = () => {
                 flexDirection: 'column',
                 alignItems: 'start',
                 backgroundColor: '#101010',
+                height: '100vh',
+                position: 'sticky',
+                top: 0,
+                left: 0,
             }}
         >
             <IconAnimated value={expandMenu} handleClick={toggleMenu} FirstIcon={Menu} SecondIcon={MenuOpen} />

@@ -22,7 +22,7 @@ export const MainLayout = ({ children }: Props) => {
                 sx={{
                     padding: '1rem 1.5rem',
                     width: '100%',
-                    height: '100vh',
+                    minHeight: '100vh',
                     marginLeft: '0.5rem',
                 }}
             >
@@ -34,6 +34,5 @@ export const MainLayout = ({ children }: Props) => {
 
 const ContainerFake = styled.div`
     width: 100%;
-    height: 100vh;
     display: flex;
 `;
