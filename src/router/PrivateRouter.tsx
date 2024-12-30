@@ -1,13 +1,24 @@
-import { Navigate, Route, Routes } from 'react-router';
+import { useEffect } from 'react';
 
-import { useAuth } from '../hooks/useAuth';
-import { DashboardPage, ExpensesPage, StatementsPage } from '../pages';
-import { MainLayout } from '../layouts';
+import { Navigate, Route, Routes } from 'react-router';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
+import { DashboardPage, ExpensesPage, StatementsPage } from '../pages';
+import { MainLayout } from '../layouts';
+import { useAuth, useWallet } from '../hooks';
+
 export const PrivateRouter = () => {
     const { isLoggedIn } = useAuth();
+    const { setIsLoading, getDataFromApi } = useWallet();
+
+    useEffect(() => {
+        setIsLoading(true);
+        getDataFromApi();
+        return () => {
+            setIsLoading(false);
+        };
+    }, [getDataFromApi, setIsLoading]);
 
     if (!isLoggedIn) {
         return <Navigate to='/auth/login' />;

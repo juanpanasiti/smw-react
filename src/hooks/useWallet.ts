@@ -1,12 +1,16 @@
+import { useCallback, useState } from 'react';
+
 import { callCreateNewCreditCardApi, callGetCreditCardListApi, callUpdateCreditCardApi, callDeleteCreditCardApi } from '../api';
 import { useWalletStore } from '../store/wallet';
 import { NewCreditCard, UpdateCreditCard } from '../types/forms';
 
 export const useWallet = () => {
+    const [isLoading, setIsLoading] = useState(false);
+
     const creditCards = useWalletStore((store) => store.creditCards);
     const dataInitialized = useWalletStore((store) => store.hasInitializedData);
     const setDataInitialized = useWalletStore((store) => store.setInitializedData);
-    // const expenses = useWalletStore((store) => store.expenses);
+    const expenses = useWalletStore((store) => store.expenses);
     // const periods = useWalletStore((store) => store.periods);
     const setCreditCards = useWalletStore((store) => store.setCreditCards);
     const addCreditCard = useWalletStore((store) => store.addCreditCard);
@@ -21,13 +25,13 @@ export const useWallet = () => {
     // const updatePeriod = useWalletStore((store) => store.updatePeriod);
     // const deletePeriod = useWalletStore((store) => store.deletePeriod);
 
-    const getDataFromApi = async () => {
-        if (!dataInitialized) {
+    const getDataFromApi = useCallback(async () => {
+        if (!dataInitialized && !isLoading) {
             const creditCards = await callGetCreditCardListApi(10, 0);
             setCreditCards(creditCards);
             setDataInitialized();
         }
-    };
+    }, [dataInitialized, setDataInitialized, setCreditCards, isLoading]);
 
     const addNewCreditCard = async (creditCard: NewCreditCard) => {
         const newCreditCard = await callCreateNewCreditCardApi(creditCard);
@@ -45,10 +49,12 @@ export const useWallet = () => {
     };
 
     return {
+        isLoading,
         creditCards,
-        // expenses,
+        expenses,
         // periods,
 
+        setIsLoading,
         getDataFromApi,
         addNewCreditCard,
         editCreditCard,

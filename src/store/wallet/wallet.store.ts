@@ -1,6 +1,7 @@
 import { create } from 'zustand';
-import { WalletStore } from '../../types';
 import { devtools } from 'zustand/middleware';
+
+import { WalletStore } from '../../types';
 
 export const useWalletStore = create<WalletStore>()(
     devtools(
@@ -35,6 +36,7 @@ export const useWalletStore = create<WalletStore>()(
                     creditCards: [],
                     expenses: [],
                     periods: [],
+                    hasInitializedData: false,
                 }),
             setInitializedData: () => set({ hasInitializedData: true }),
         }),
