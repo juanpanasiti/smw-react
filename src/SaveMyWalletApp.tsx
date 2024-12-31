@@ -7,7 +7,6 @@ export const SaveMyWalletApp = () => {
     return (
         <BrowserRouter>
             <AppTheme>
-                <SnackbarProvider />
                 <SnackbarProvider maxSnack={5} autoHideDuration={3000}>
                     <AppRouter />
                 </SnackbarProvider>
