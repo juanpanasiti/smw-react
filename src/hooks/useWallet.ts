@@ -1,8 +1,9 @@
 import { useCallback, useState } from 'react';
 
-import { callCreateNewCreditCardApi, callGetCreditCardListApi, callUpdateCreditCardApi, callDeleteCreditCardApi } from '../api';
+import { callCreateNewCreditCardApi, getAllCreditCardsApi, callUpdateCreditCardApi, callDeleteCreditCardApi, getAllExpensesApi } from '../api';
 import { useWalletStore } from '../store/wallet';
 import { NewCreditCard, UpdateCreditCard } from '../types/forms';
+import { CreditCard } from '../types';
 
 export const useWallet = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +17,7 @@ export const useWallet = () => {
     const addCreditCard = useWalletStore((store) => store.addCreditCard);
     const updateCreditCard = useWalletStore((store) => store.updateCreditCard);
     const removeCreditCard = useWalletStore((store) => store.removeCreditCard);
-    // const setExpenses = useWalletStore((store) => store.setExpenses);
+    const setExpenses = useWalletStore((store) => store.setExpenses);
     // const addExpense = useWalletStore((store) => store.addExpense);
     // const updateExpense = useWalletStore((store) => store.updateExpense);
     // const deleteExpense = useWalletStore((store) => store.deleteExpense);
@@ -27,11 +28,13 @@ export const useWallet = () => {
 
     const getDataFromApi = useCallback(async () => {
         if (!dataInitialized && !isLoading) {
-            const creditCards = await callGetCreditCardListApi(10, 0);
+            const creditCards = await getAllCreditCardsApi();
+            const expenses = await getAllExpensesApi();
             setCreditCards(creditCards);
+            setExpenses(expenses);
             setDataInitialized();
         }
-    }, [dataInitialized, setDataInitialized, setCreditCards, isLoading]);
+    }, [dataInitialized, setDataInitialized, setCreditCards, setExpenses, isLoading]);
 
     const addNewCreditCard = async (creditCard: NewCreditCard) => {
         const newCreditCard = await callCreateNewCreditCardApi(creditCard);
@@ -48,6 +51,10 @@ export const useWallet = () => {
         removeCreditCard(ccId);
     };
 
+    const getCreditCardById = (ccId: number): CreditCard | undefined => {
+        return creditCards.find((cc) => cc.id === ccId) ;
+    };
+
     return {
         isLoading,
         creditCards,
@@ -59,5 +66,6 @@ export const useWallet = () => {
         addNewCreditCard,
         editCreditCard,
         deleteCreditCard,
+        getCreditCardById,
     };
 };

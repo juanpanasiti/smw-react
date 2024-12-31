@@ -5,14 +5,14 @@ import { ExpenseList } from '../components/expenses';
 import { useWallet } from '../hooks';
 
 export const ExpensesPage = () => {
-    const { creditCards } = useWallet();
+    const { creditCards, expenses } = useWallet();
     return (
         <>
             <Typography variant='h1'>Gastos</Typography>
             <Divider sx={{ marginY: 3 }} />
             <CreditCardList cards={creditCards} />
             <Divider sx={{ marginY: 3 }} />
-            <ExpenseList />
+            <ExpenseList expenses={expenses} />
         </>
     );
 };
