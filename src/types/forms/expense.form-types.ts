@@ -11,4 +11,7 @@ export interface NewExpense {
     accountId: number;
 }
 
+export type UpdateExpense = Partial<Pick<NewExpense, 'title' | 'ccName' | 'acquiredAt' | 'amount'>>;
+
+
 export type UpdateExpenseReqApi = Partial<Pick<NewExpense, 'title' | 'ccName' | 'acquiredAt' | 'amount'>>;
