@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
 
 export const mainTheme = createTheme({
     palette: {
@@ -7,7 +7,7 @@ export const mainTheme = createTheme({
             main: '#007566',
             light: '#8FC1B5',
             dark: '#265C4B',
-            contrastText: '#222222',
+            contrastText: '#ffffff',
         },
         secondary: {
             main: '#f44336',
@@ -46,6 +46,18 @@ export const mainTheme = createTheme({
             light: '#64b5f6',
             dark: '#0b72c4',
             contrastText: '#ffffff',
+        },
+        common: {
+            black: '#000000',
+            white: '#ffffff',
+        },
+        action: {
+            active: '#1976d2',
+            hover: '#e3f2fd',
+            selected: '#e3f2fd',
+            disabled: '#bdbdbd',
+            disabledBackground: '#bdbdbd',
+            focus: '#e3f2fd',
         },
     },
     typography: {
