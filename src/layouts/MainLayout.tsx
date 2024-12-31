@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
+
 import { useLocation } from 'react-router';
 import { styled } from 'styled-components';
-import { Sidebar } from '../components/navigation';
 import { Paper } from '@mui/material';
+
+import { Sidebar } from '../components/navigation';
 
 interface Props {
     children: React.ReactNode;
