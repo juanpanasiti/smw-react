@@ -6,7 +6,6 @@ import dayjs from 'dayjs';
 
 import { useForm, useWallet } from '../../../hooks';
 import { CreditCardOption, ICreditCardForm } from '../../../types/forms';
-import { CreditCard } from '../../../types';
 import { SelectField } from '../../shared';
 
 interface Props<T extends ICreditCardForm> {
@@ -19,8 +18,8 @@ export const CreditCardForm = React.forwardRef<HTMLDivElement, Props<ICreditCard
     // TODO: Transformar en un componente genérico, identificando si es para una nueva CC o una existente (update)
     const { values, changedValues, handleChange, reset } = useForm(initialValues);
 
-    const { creditCards } = useWallet();
-    const creditCardsOptions = getCreditCardOptions(creditCards);
+    const { getCreditCardOptions } = useWallet();
+    const creditCardsOptions = getCreditCardOptions();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -130,12 +129,4 @@ const containerProps = {
     boxShadow: 3,
 };
 
-const getCreditCardOptions = (creditCards: CreditCard[]): CreditCardOption[] => {
-    return creditCards
-        .filter((cc) => cc.mainCreditCardId === null)
-        .map((cc) => ({
-            id: cc.id,
-            alias: cc.alias,
-        }));
-};
 const DATE_FORMAT = 'DD-MM-YYYY';

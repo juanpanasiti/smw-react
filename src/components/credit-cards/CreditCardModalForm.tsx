@@ -35,12 +35,22 @@ export const CreditCardModalForm = <T extends ICreditCardForm>({ open, handleClo
                 enqueueSnackbar('Error al editar tarjeta de crédito', { variant: 'error' });
             }
         }
-        
     };
 
     return (
-        <Modal closeAfterTransition open={open} onClose={handleClose} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
-            <CreditCardForm sx={style} onSubmit={(newCreditCardData) => onSubmit(newCreditCardData as NewCreditCard)} initialValues={card} isNew={isNew} />
+        <Modal
+            closeAfterTransition
+            open={open}
+            onClose={handleClose}
+            aria-labelledby='credit-card-modal-title'
+            aria-describedby='credit-card-modal-description'
+        >
+            <CreditCardForm
+                sx={style}
+                onSubmit={(newCreditCardData) => onSubmit(newCreditCardData as NewCreditCard)}
+                initialValues={card}
+                isNew={isNew}
+            />
         </Modal>
     );
 };
