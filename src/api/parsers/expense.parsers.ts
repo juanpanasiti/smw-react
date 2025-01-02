@@ -1,4 +1,4 @@
-import { parseDateFromString } from '../../helpers';
+import { parseDateFromString, parseDateToString } from '../../helpers';
 import { Expense } from '../../types';
 import { ExpenseResApi, NewExpenseReqApi, UpdateExpenseReqApi } from '../../types/api';
 import { NewExpense, UpdateExpense } from '../../types/forms';
@@ -28,11 +28,11 @@ export const parseNewExpenseToApi = (expense: NewExpense): NewExpenseReqApi => {
     return {
         title: expense.title,
         cc_name: expense.ccName,
-        acquired_at: expense.acquiredAt,
+        acquired_at: parseDateToString(expense.acquiredAt),
         amount: expense.amount,
         type: expense.type,
         installments: expense.installments,
-        first_payment_date: expense.firstPaymentDate,
+        first_payment_date: parseDateToString(expense.firstPaymentDate),
         account_id: expense.accountId,
     };
 };
@@ -42,7 +42,7 @@ export const parseUpdateExpenseToApi = (expense: UpdateExpense): UpdateExpenseRe
     if (expense.title) response.title = expense.title;
     if (expense.ccName) response.cc_name = expense.ccName;
     if (expense.amount) response.amount = expense.amount;
-    if (expense.acquiredAt) response.acquired_at = expense.acquiredAt;
+    if (expense.acquiredAt) response.acquired_at = parseDateToString(expense.acquiredAt);
 
     return response;
 };

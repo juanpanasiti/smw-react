@@ -146,10 +146,10 @@ export const ExpenseSearchForm = ({ searchFilter, setSearchFilter, pageLimit, se
 
             {/* Expense Status */}
             <FormControl fullWidth>
-                <InputLabel id='expense-type-label'>Estado</InputLabel>
+                <InputLabel id='expense-status-label'>Estado</InputLabel>
                 <Select
-                    labelId='expense-type-label'
-                    id='expense-type'
+                    labelId='expense-status-label'
+                    id='expense-status'
                     value={searchFilter.query.status || ''}
                     label='Estado'
                     onChange={(e) => handleExpenseStatusSelected(e.target.value as ExpenseStatusEnum)}

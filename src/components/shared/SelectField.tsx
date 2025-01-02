@@ -6,12 +6,13 @@ interface Props<T, U> {
     idField: keyof T;
     labelField: keyof T;
     value?: U;
+    disabled?: boolean;
     onChange: (value: U) => void;
 }
 
-export function SelectField<T,U>({ label, options, idField, labelField, value, onChange }: Props<T, U>) {
+export function SelectField<T,U>({ label, options, idField, labelField, value, onChange, disabled }: Props<T, U>) {
     return (
-        <TextField select label={label} value={value || ''} fullWidth onChange={(e) => onChange(e.target.value as U)}>
+        <TextField disabled={disabled} select label={label} value={value || ''} fullWidth onChange={(e) => onChange(e.target.value as U)}>
             <MenuItem value={undefined}> ------- </MenuItem>
             {options.map((option: T) => (
                 <MenuItem key={String(option[idField])} value={option[idField] as string | number}>

@@ -8,6 +8,7 @@ import {
     getAllExpensesApi,
     callCreateNewExpenseApi,
     callUpdateExpenseApi,
+    callDeleteExpenseApi,
 } from '../api';
 import { useWalletStore } from '../store/wallet';
 import { CreditCardOption, NewCreditCard, NewExpense, UpdateCreditCard, UpdateExpense } from '../types/forms';
@@ -28,7 +29,7 @@ export const useWallet = () => {
     const setExpenses = useWalletStore((store) => store.setExpenses);
     const addExpense = useWalletStore((store) => store.addExpense);
     const updateExpense = useWalletStore((store) => store.updateExpense);
-    // const deleteExpense = useWalletStore((store) => store.deleteExpense);
+    const removeExpense = useWalletStore((store) => store.removeExpense);
     // const setPeriods = useWalletStore((store) => store.setPeriods);
     // const addPeriod = useWalletStore((store) => store.addPeriod);
     // const updatePeriod = useWalletStore((store) => store.updatePeriod);
@@ -81,6 +82,11 @@ export const useWallet = () => {
         updateExpense(updatedExpense);
     };
 
+    const deleteExpense = async (expenseId: number) => {
+        await callDeleteExpenseApi(expenseId);
+        removeExpense(expenseId);
+    };
+
     return {
         isLoading,
         creditCards,
@@ -98,5 +104,6 @@ export const useWallet = () => {
         // Expense
         addNewExpense,
         editExpense,
+        deleteExpense,
     };
 };
