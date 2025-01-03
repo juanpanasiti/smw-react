@@ -1,6 +1,6 @@
 import { parseDateFromString, parseDateToString } from '../../helpers';
-import { Expense } from '../../types';
-import { ExpenseResApi, NewExpenseReqApi, UpdateExpenseReqApi } from '../../types/api';
+import { Expense, Payment } from '../../types';
+import { ExpenseResApi, NewExpenseReqApi, PaymentResApi, UpdateExpenseReqApi } from '../../types/api';
 import { NewExpense, UpdateExpense } from '../../types/forms';
 
 export const parseExpenseFromApi = (expense: ExpenseResApi): Expense => {
@@ -21,6 +21,7 @@ export const parseExpenseFromApi = (expense: ExpenseResApi): Expense => {
         installmentsRemaining: expense.installments_pending,
         createdAt: parseDateFromString(expense.created_at),
         updatedAt: parseDateFromString(expense.updated_at),
+        payments: expense.payments.map((payment) => parsePaymentFromApi(payment, expense.account_id)),
     };
 };
 
@@ -46,3 +47,19 @@ export const parseUpdateExpenseToApi = (expense: UpdateExpense): UpdateExpenseRe
 
     return response;
 };
+
+
+export const parsePaymentFromApi = (payment: PaymentResApi, accountId: number): Payment => {
+    return {
+        id: payment.id,
+        status: payment.status,
+        amount: payment.amount,
+        noInstallment: payment.no_installment,
+        month: payment.month,
+        year: payment.year,
+        expenseId: payment.expense_id,
+        createdAt: parseDateFromString(payment.created_at),
+        updatedAt: parseDateFromString(payment.updated_at),
+        accountId,
+    }
+}

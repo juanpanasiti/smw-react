@@ -83,6 +83,7 @@ export interface Expense {
     installmentsRemaining: number;
     createdAt: Date;
     updatedAt: Date;
+    payments: Payment[];
 }
 
 export enum ExpenseTypeEnum {
@@ -99,7 +100,12 @@ export interface Period {
     id: string;
     month: number;
     year: number;
+    status: PeriodStatusEnum;
     payments: Payment[];
+}
+
+export interface PeriodDictionary {
+    [key: string]: Period;
 }
 
 export interface Payment {
@@ -121,4 +127,11 @@ export enum PaymentStatusEnum {
     PAID = 'paid',
     CANCELED = 'canceled',
     SIMULATED = 'simulated',
+}
+
+export const FINISHED_PAYMENT_STATUSES = [PaymentStatusEnum.PAID, PaymentStatusEnum.CANCELED]
+
+export enum PeriodStatusEnum {
+    PENDING = 'pending',
+    DONE = 'done',
 }
