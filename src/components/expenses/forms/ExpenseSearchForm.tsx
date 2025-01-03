@@ -4,9 +4,9 @@ import { styled } from 'styled-components';
 import { Checkbox, FormControl, InputAdornment, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
 import { Search } from '@mui/icons-material';
 
-import { Expense, ExpenseStatusEnum, ExpenseTypeEnum } from '../../types';
-import { Filter, FilterOption } from '../../types/forms';
-import { useWallet } from '../../hooks';
+import { Expense, ExpenseStatusEnum, ExpenseTypeEnum } from '../../../types';
+import { Filter, FilterOption } from '../../../types/forms';
+import { useWallet } from '../../../hooks';
 
 interface Props {
     searchFilter: Filter<Expense>;
@@ -19,7 +19,6 @@ const options: FilterOption<Expense>[] = [
     { id: 'title', label: 'Título' },
     { id: 'ccName', label: 'Nombre resumen' },
     { id: 'amount', label: 'Monto' },
-    //     status: ExpenseStatusEnum;
 ];
 export const ExpenseSearchForm = ({ searchFilter, setSearchFilter, pageLimit, setPageLimit }: Props) => {
     const { creditCards } = useWallet();

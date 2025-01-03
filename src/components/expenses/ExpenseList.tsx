@@ -5,12 +5,12 @@ import { AddShoppingCart } from '@mui/icons-material';
 
 import { Expense, ExpenseTypeEnum } from '../../types';
 import { useFilter, usePagination } from '../../hooks';
-import { ExpenseSearchForm } from './ExpenseSearchForm';
 import PaginationNav from '../shared/PaginationNav';
 import { ExpenseTable } from './ExpenseTable';
 import { Fab } from '../shared';
 import { ExpenseModalForm } from './ExpenseModalForm';
 import { IExpenseForm } from '../../types/forms';
+import { ExpenseSearchForm } from './forms';
 
 interface Props {
     expenses: Expense[];
