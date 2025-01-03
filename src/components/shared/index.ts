@@ -8,5 +8,6 @@ export * from './SelectField';
 export * from './AgreeActionDialog';
 export * from './PaginationNav';
 export * from './Fab';
+export * from './StyledTable';
 
 export type MuiIcon = OverridableComponent<SvgIconTypeMap> & { muiName: string };

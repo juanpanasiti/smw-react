@@ -1,20 +1,18 @@
 import { useState } from 'react';
 
-import {Paper, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow } from '@mui/material';
-import { styled } from 'styled-components';
+import { Paper, Table, TableBody, TableContainer, TableHead, TableRow } from '@mui/material';
 
 import { Expense } from '../../types';
 import { ExpenseModalForm } from './ExpenseModalForm';
 import { ExpenseTableRow } from './ExpenseTableRow';
+import { StyledTableCell } from '../shared';
 
 interface Props {
     expenses: Expense[];
 }
 export const ExpenseTable = ({ expenses }: Props) => {
     const [expenseSelected, setExpenseSelected] = useState<Expense | null>(null);
-    
 
-    
     return (
         <>
             <TableContainer component={Paper}>
@@ -33,7 +31,7 @@ export const ExpenseTable = ({ expenses }: Props) => {
                     </TableHead>
                     <TableBody>
                         {expenses.map((expense) => (
-                            <ExpenseTableRow key={expense.id} expense={expense} handleEdit={() => setExpenseSelected(expense)}  />
+                            <ExpenseTableRow key={expense.id} expense={expense} handleEdit={() => setExpenseSelected(expense)} />
                         ))}
                     </TableBody>
                 </Table>
@@ -46,19 +44,6 @@ export const ExpenseTable = ({ expenses }: Props) => {
                     expenseId={expenseSelected.id}
                 />
             )}
-            
         </>
     );
 };
-
-const StyledTableCell = styled(TableCell)(() => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: '#000',
-        color: '#FFF',
-    },
-    [`&.${tableCellClasses.body}`]: {
-        fontSize: 14,
-    },
-}));
-
-

@@ -1,14 +1,13 @@
 import { useState } from 'react';
 
 import { Delete, Edit, EventRepeat, ShoppingBag, Visibility } from '@mui/icons-material';
-import { Button, ButtonGroup, TableCell, tableCellClasses, TableRow, Tooltip } from '@mui/material';
-import { styled } from 'styled-components';
+import { Button, ButtonGroup, Tooltip } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 
 import { Expense, ExpenseTypeEnum } from '../../types';
 import { formatCurrency, parseDateToString } from '../../helpers';
 import { useWallet } from '../../hooks';
-import { AgreeActionDialog } from '../shared';
+import { AgreeActionDialog, StyledTableCell, StyledTableRow } from '../shared';
 
 interface Props {
     expense: Expense;
@@ -33,7 +32,7 @@ export const ExpenseTableRow = ({ expense, handleEdit }: Props) => {
     };
     return (
         <>
-            <StyledTableRow key={expense.id}>
+            <StyledTableRow>
                 <Tooltip title={expense.ccName} placement='left'>
                     <StyledTableCell component='th' scope='row'>
                         {expense.title}
@@ -77,24 +76,3 @@ export const ExpenseTableRow = ({ expense, handleEdit }: Props) => {
         </>
     );
 };
-
-const StyledTableRow = styled(TableRow)(() => {
-    return {
-        '&:nth-of-type(odd)': {
-            backgroundColor: '#222',
-        },
-        '&:last-child td, &:last-child th': {
-            border: 0,
-        },
-    };
-});
-
-const StyledTableCell = styled(TableCell)(() => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: '#000',
-        color: '#FFF',
-    },
-    [`&.${tableCellClasses.body}`]: {
-        fontSize: 14,
-    },
-}));
