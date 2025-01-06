@@ -20,9 +20,7 @@ export const ExpenseList = ({ expenses }: Props) => {
     const [pageLimit, setPageLimit] = useState(10);
     const { filteredList, filter, setFilter } = useFilter<Expense>(expenses);
     const { currentPage, currentPageNumber, totalPages, goPage } = usePagination(filteredList, pageLimit);
-    const [openModal, setOpenModal] = useState(false)
-
-
+    const [openModal, setOpenModal] = useState(false);
 
     return (
         <>
@@ -48,4 +46,4 @@ const newExpense: IExpenseForm = {
     firstPaymentDate: new Date(),
     installments: 1,
     type: ExpenseTypeEnum.PURCHASE,
-}
+};

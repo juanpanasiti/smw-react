@@ -1,9 +1,10 @@
+import { useState } from 'react';
+
 import { Collapse, Typography } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { Period } from '../../types';
 import { StatementItem } from './StatementItem';
-import { useState } from 'react';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 interface Props {
     periods: Period[];
@@ -13,7 +14,7 @@ interface Props {
 }
 export const StatementList = ({ periods, title, collapse, handleVisibility }: Props) => {
     const [periodSelected, setPeriodSelected] = useState<string>('');
-    const handleChange = (panel: string) => (e: React.SyntheticEvent, isExpanded: boolean) => {
+    const handleChange = (panel: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
         setPeriodSelected(isExpanded ? panel : '');
     };
 

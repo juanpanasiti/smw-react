@@ -64,7 +64,7 @@ export const ExpenseSearchForm = ({ searchFilter, setSearchFilter, pageLimit, se
 
     const handlePageLimitSelected = (limit: number) => {
         setPageLimit(limit);
-    }
+    };
     return (
         <ContainerFake>
             {/* Filter text */}

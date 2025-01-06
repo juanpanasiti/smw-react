@@ -1,4 +1,5 @@
 import { Paper, Table, TableBody, TableContainer, TableHead, TableRow } from '@mui/material';
+
 import { StyledTableCell } from '../shared';
 import { PaymentTableRow } from './PaymentTableRow';
 import { FullPayment } from '../../types';

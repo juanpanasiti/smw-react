@@ -1,8 +1,10 @@
 import { useState } from 'react';
+
+import { Divider } from '@mui/material';
+
 import { StatementList } from '../components/statements';
 import { useWallet } from '../hooks';
 import { PeriodStatusEnum } from '../types';
-import { Divider } from '@mui/material';
 
 export const StatementsPage = () => {
     const [showPendingOnes, setShowPendingOnes] = useState(true);
@@ -19,7 +21,7 @@ export const StatementsPage = () => {
                 handleVisibility={() => setShowPendingOnes(!showPendingOnes)}
                 collapse={showPendingOnes}
             />
-            <Divider sx={{margin:'1rem 0'}}/>
+            <Divider sx={{ margin: '1rem 0' }} />
             <StatementList periods={doneOnes} title='Pagados' handleVisibility={() => setShowDoneOnes(!showDoneOnes)} collapse={showDoneOnes} />
         </div>
     );

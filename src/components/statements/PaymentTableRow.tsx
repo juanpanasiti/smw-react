@@ -1,45 +1,43 @@
-import { ExpenseTypeEnum, Payment } from '../../types';
-import { useWallet } from '../../hooks';
-import { StyledTableCell, StyledTableRow } from '../shared';
 import { Button, ButtonGroup, Tooltip } from '@mui/material';
-import { formatCurrency, parseDateToString } from '../../helpers';
 import { Delete, Edit, Visibility } from '@mui/icons-material';
 
+import { ExpenseTypeEnum, FullPayment } from '../../types';
+import { useWallet } from '../../hooks';
+import { StyledTableCell, StyledTableRow } from '../shared';
+import { formatCurrency, parseDateToString } from '../../helpers';
+
 interface Props {
-    payment: Payment;
+    payment: FullPayment;
 }
 
 export const PaymentTableRow = ({ payment }: Props) => {
-    const { getCreditCardById, getExpenseById } = useWallet();
+    const { getExpenseById } = useWallet();
     const expense = getExpenseById(payment.expenseId);
-    const creditCard = getCreditCardById(expense?.accountId || 0);
     const acquiredAt = expense?.type === ExpenseTypeEnum.PURCHASE ? parseDateToString(expense.acquiredAt) : '---';
     const installment = expense?.type === ExpenseTypeEnum.PURCHASE ? `${payment.noInstallment}/${expense?.installments}` : '---';
     return (
         <>
             <StyledTableRow>
-                <Tooltip title={expense?.ccName} placement='left'>
+                <Tooltip title={payment.expenseCcName} placement='left'>
                     <StyledTableCell component='th' scope='row'>
-                        {expense?.title}
+                        {payment.expenseTitle}
                     </StyledTableCell>
                 </Tooltip>
-                <StyledTableCell align='right'>{creditCard?.alias || '?'}</StyledTableCell>
+                <StyledTableCell align='right'>{payment.creditCardAlias}</StyledTableCell>
 
                 <StyledTableCell align='right'>{formatCurrency(payment.amount)}</StyledTableCell>
                 <StyledTableCell align='right'>{acquiredAt}</StyledTableCell>
                 <StyledTableCell align='right'>{installment}</StyledTableCell>
-                <StyledTableCell align='right'>
-                    {payment.status}
-                </StyledTableCell>
+                <StyledTableCell align='right'>{payment.status}</StyledTableCell>
                 <StyledTableCell align='right'>
                     <ButtonGroup size='small' aria-label='Small button group'>
                         <Button color='info'>
                             <Visibility />
                         </Button>
-                        <Button color='warning' >
+                        <Button color='warning'>
                             <Edit />
                         </Button>
-                        <Button color='error' >
+                        <Button color='error'>
                             <Delete />
                         </Button>
                     </ButtonGroup>
@@ -48,5 +46,3 @@ export const PaymentTableRow = ({ payment }: Props) => {
         </>
     );
 };
-
-

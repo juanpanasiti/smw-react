@@ -138,7 +138,7 @@ export enum PaymentStatusEnum {
     SIMULATED = 'simulated',
 }
 
-export const FINISHED_PAYMENT_STATUSES = [PaymentStatusEnum.PAID, PaymentStatusEnum.CANCELED]
+export const FINISHED_PAYMENT_STATUSES = [PaymentStatusEnum.PAID, PaymentStatusEnum.CANCELED];
 
 export enum PeriodStatusEnum {
     PENDING = 'pending',

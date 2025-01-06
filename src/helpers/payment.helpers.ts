@@ -1,8 +1,18 @@
-import { CreditCard, Expense, ExpenseTypeEnum, FINISHED_PAYMENT_STATUSES, FullPayment, Payment, Period, PeriodDictionary, PeriodStatusEnum } from '../types';
+import {
+    CreditCard,
+    Expense,
+    ExpenseTypeEnum,
+    FINISHED_PAYMENT_STATUSES,
+    FullPayment,
+    Payment,
+    Period,
+    PeriodDictionary,
+    PeriodStatusEnum,
+} from '../types';
 
 export const getPeriods = (fullPaymentList: FullPayment[]): Period[] => {
     const periodsDict: PeriodDictionary = {};
-    
+
     fullPaymentList.forEach((payment) => {
         const periodId = `${payment.year}-${payment.month}`;
         if (!periodsDict[periodId]) {
@@ -31,7 +41,7 @@ export const sortPeriods = (periods: Period[]): Period[] => {
     });
 };
 
-export const getFullPayment = (payment: Payment, expenses: Expense[], creditCards: CreditCard[] ): FullPayment => {
+export const getFullPayment = (payment: Payment, expenses: Expense[], creditCards: CreditCard[]): FullPayment => {
     const expense = expenses.find((expense) => expense.id === payment.expenseId);
     const creditCard = creditCards.find((cc) => cc.id === payment.accountId);
     return {
