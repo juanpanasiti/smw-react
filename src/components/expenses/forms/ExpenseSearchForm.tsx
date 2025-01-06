@@ -180,5 +180,4 @@ export const ExpenseSearchForm = ({ searchFilter, setSearchFilter, pageLimit, se
 
 const ContainerFake = styled.section`
     display: flex;
-    /* background-color: crimson; */
 `;
