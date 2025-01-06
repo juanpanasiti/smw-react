@@ -7,7 +7,7 @@ import { Expense, ExpenseTypeEnum } from '../../types';
 import { useFilter, usePagination } from '../../hooks';
 import PaginationNav from '../shared/PaginationNav';
 import { ExpenseTable } from './ExpenseTable';
-import { Fab } from '../shared';
+import { Fab, NoContentMessage } from '../shared';
 import { ExpenseModalForm } from './ExpenseModalForm';
 import { IExpenseForm } from '../../types/forms';
 import { ExpenseSearchForm } from './forms';
@@ -31,7 +31,7 @@ export const ExpenseList = ({ expenses }: Props) => {
             <ExpenseSearchForm searchFilter={filter} setSearchFilter={setFilter} pageLimit={pageLimit} setPageLimit={setPageLimit} />
             {/* tabla */}
             {currentPage && currentPage.length !== 0 && <ExpenseTable expenses={currentPage} />}
-            {(!currentPage || currentPage.length === 0) && <div>No content!</div>}
+            {(!currentPage || currentPage.length === 0) && <NoContentMessage />}
             <PaginationNav totalPages={totalPages} currentPage={currentPageNumber} handlePageChange={goPage} />
             <Fab handleClick={() => setOpenModal(true)} icon={<AddShoppingCart />} color='primary' />
             {openModal && <ExpenseModalForm open={openModal} handleClose={() => setOpenModal(false)} expense={newExpense} />}
