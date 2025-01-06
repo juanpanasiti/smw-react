@@ -89,6 +89,7 @@ export interface Expense {
 export enum ExpenseTypeEnum {
     PURCHASE = 'purchase',
     SUBSCRIPTION = 'subscription',
+    UNKNOWN = 'unknown',
 }
 
 export enum ExpenseStatusEnum {
@@ -101,7 +102,7 @@ export interface Period {
     month: number;
     year: number;
     status: PeriodStatusEnum;
-    payments: Payment[];
+    payments: FullPayment[];
 }
 
 export interface PeriodDictionary {
@@ -119,6 +120,14 @@ export interface Payment {
     accountId: number;
     createdAt: Date;
     updatedAt: Date;
+}
+
+export interface FullPayment extends Payment {
+    expenseTitle: string;
+    expenseCcName: string;
+    expenseType: ExpenseTypeEnum;
+    creditCardAlias: string;
+    creditCardId: number;
 }
 
 export enum PaymentStatusEnum {

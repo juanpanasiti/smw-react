@@ -1,10 +1,10 @@
 import { Paper, Table, TableBody, TableContainer, TableHead, TableRow } from '@mui/material';
 import { StyledTableCell } from '../shared';
 import { PaymentTableRow } from './PaymentTableRow';
-import { Payment } from '../../types';
+import { FullPayment } from '../../types';
 
 interface Props {
-    payments: Payment[];
+    payments: FullPayment[];
 }
 
 export const PaymentTable = ({ payments }: Props) => {

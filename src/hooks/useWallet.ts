@@ -13,7 +13,7 @@ import {
 import { useWalletStore } from '../store/wallet';
 import { CreditCardOption, NewCreditCard, NewExpense, UpdateCreditCard, UpdateExpense } from '../types/forms';
 import { CreditCard, Expense } from '../types';
-import { getPeriods, sortPeriods } from '../helpers';
+import { getFullPayment, getPeriods, sortPeriods } from '../helpers';
 
 export const useWallet = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +40,8 @@ export const useWallet = () => {
         if (!dataInitialized && !isLoading) {
             const creditCards = await getAllCreditCardsApi();
             const expenses = await getAllExpensesApi();
-            const periods = sortPeriods(getPeriods(expenses))
+            const fullPaymentList = expenses.flatMap((expense) => expense.payments.map((payment) => getFullPayment(payment, expenses, creditCards)));
+            const periods = sortPeriods(getPeriods(fullPaymentList));
             setCreditCards(creditCards);
             setExpenses(expenses);
             setPeriods(periods);
@@ -93,7 +94,6 @@ export const useWallet = () => {
     const getExpenseById = (expenseId: number): Expense | undefined => {
         return expenses.find((expense) => expense.id === expenseId);
     };
-
 
     return {
         isLoading,
