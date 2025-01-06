@@ -18,7 +18,7 @@ export const usePagination = <T>(originalList: T[] = [], pageLimit: number = 10)
     };
 
     return {
-        currentPage: pages[currentPageNumber - 1],
+        currentPage: pages[currentPageNumber - 1] || [],
         currentPageNumber,
         totalPages: pages.length,
         goPage,
