@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, Modal, TextField, Typography } from '@mui/material';
+import { Box, Button, FormControl, Modal, SxProps, TextField, Theme, Typography } from '@mui/material';
 import { FullPayment } from '../../../types';
 import { useState } from 'react';
 
@@ -7,9 +7,10 @@ interface Props {
     handleSubmit: (amount: number) => void;
     open: boolean;
     payment: FullPayment;
+    sx?: SxProps<Theme>;
 }
 
-export const UpdateAmountModalForm = ({ handleClose, open, payment, handleSubmit }: Props) => {
+export const UpdateAmountModalForm = ({ handleClose, open, payment, handleSubmit, sx = {} }: Props) => {
     const [newAmount, setNewAmount] = useState(payment.amount);
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -31,7 +32,7 @@ export const UpdateAmountModalForm = ({ handleClose, open, payment, handleSubmit
                 margin: 'auto',
             }}
         >
-            <Box tabIndex={-1} component='form' onSubmit={onSubmit}>
+            <Box component='form' onSubmit={onSubmit} sx={{ ...containerProps, ...sx }}>
                 <Typography variant='h4' gutterBottom>
                     {`Actualizar monto de ${payment.expenseTitle} (${payment.amount})`}
                 </Typography>
@@ -65,6 +66,16 @@ export const UpdateAmountModalForm = ({ handleClose, open, payment, handleSubmit
                     </Button>
                 </Box>
             </Box>
+            
         </Modal>
     );
 };
+const containerProps = {
+    mx: 'auto',
+    mt: 5,
+    p: 3,
+    backgroundColor: 'background.paper',
+    borderRadius: 2,
+    boxShadow: 3,
+};
+  

@@ -84,14 +84,6 @@ export const PaymentTableRow = ({ payment }: Props) => {
                         <Button color='info' onClick={() => setShowUpdateAmountModal(true)}>
                             <PriceChange />
                         </Button>
-                        {showUpdateAmountModal && (
-                            <UpdateAmountModalForm
-                                handleClose={() => setShowUpdateAmountModal(false)}
-                                open={showUpdateAmountModal}
-                                payment={payment}
-                                handleSubmit={handleAmountUpdate}
-                            />
-                        )}
 
                         {payment.expenseType === ExpenseTypeEnum.SUBSCRIPTION && (
                             <Button color='info'>
@@ -104,6 +96,16 @@ export const PaymentTableRow = ({ payment }: Props) => {
                     </ButtonGroup>
                 </StyledTableCell>
             </StyledTableRow>
+
+            {/* Modals */}
+            {showUpdateAmountModal && (
+                <UpdateAmountModalForm
+                    handleClose={() => setShowUpdateAmountModal(false)}
+                    open={showUpdateAmountModal}
+                    payment={payment}
+                    handleSubmit={handleAmountUpdate}
+                />
+            )}
         </>
     );
 };
