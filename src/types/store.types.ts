@@ -27,7 +27,7 @@ export interface WalletStore {
     hasInitializedData: boolean;
     creditCards: CreditCard[];
     expenses: Expense[];
-    periods: Period[];
+    // periods: Period[];
 
     // Credit Cards
     setCreditCards: (creditCards: CreditCard[]) => void;
@@ -41,11 +41,10 @@ export interface WalletStore {
     updateExpense: (expense: Expense) => void;
     removeExpense: (expenseId: number) => void;
 
-    // Periods
-    setPeriods: (periods: Period[]) => void;
-    addPeriod: (period: Period) => void;
-    updatePeriod: (period: Period) => void;
-    removePeriod: (periodId: string) => void;
+    // Payments
+    addPayment: (payment: Payment) => void;
+    updatePayment: (payment: Payment) => void;
+    removePayment: (paymentId: number, expenseId: number) => void;
 
     // Others
     clear: () => void;

@@ -10,7 +10,6 @@ export const useWalletStore = create<WalletStore>()(
             hasInitializedData: false,
             creditCards: [],
             expenses: [],
-            periods: [],
 
             // CreditCards
             setCreditCards: (creditCards) => set({ creditCards }),
@@ -24,18 +23,37 @@ export const useWalletStore = create<WalletStore>()(
             updateExpense: (expense) => set({ expenses: get().expenses.map((e) => (e.id === expense.id ? expense : e)) }),
             removeExpense: (expenseId) => set({ expenses: get().expenses.filter((e) => e.id !== expenseId) }),
 
-            // Periods
-            setPeriods: (periods) => set({ periods }),
-            addPeriod: (period) => set({ periods: [...get().periods, period] }),
-            updatePeriod: (period) => set({ periods: get().periods.map((p) => (p.id === period.id ? period : p)) }),
-            removePeriod: (periodId) => set({ periods: get().periods.filter((p) => p.id !== periodId) }),
+            // Payments
+            addPayment: (payment) =>
+                set({ expenses: get().expenses.map((e) => (e.id === payment.expenseId ? { ...e, payments: [...e.payments, payment] } : e)) }),
+            updatePayment: (payment) =>
+                set({
+                    expenses: get().expenses.map((e) =>
+                        e.id === payment.expenseId
+                            ? {
+                                  ...e,
+                                  payments: e.payments.map((p) => (p.id === payment.id ? payment : p)),
+                              }
+                            : e
+                    ),
+                }),
+            removePayment: (paymentId, expenseId) =>
+                set({
+                    expenses: get().expenses.map((e) =>
+                        e.id === expenseId
+                            ? {
+                                  ...e,
+                                  payments: e.payments.filter((p) => p.id !== paymentId),
+                              }
+                            : e
+                    ),
+                }),
 
             // Clear Data
             clear: () =>
                 set({
                     creditCards: [],
                     expenses: [],
-                    periods: [],
                     hasInitializedData: false,
                 }),
             setInitializedData: () => set({ hasInitializedData: true }),

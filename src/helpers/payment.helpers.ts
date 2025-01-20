@@ -10,7 +10,7 @@ import {
     PeriodStatusEnum,
 } from '../types';
 
-export const getPeriods = (fullPaymentList: FullPayment[]): Period[] => {
+export const getPeriodFullList = (fullPaymentList: FullPayment[]): Period[] => {
     const periodsDict: PeriodDictionary = {};
 
     fullPaymentList.forEach((payment) => {
