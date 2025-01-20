@@ -16,7 +16,6 @@ export const ExpenseModalForm = <T extends IExpenseForm>({ open, handleClose, ex
     const { addNewExpense, editExpense } = useWallet()
     const isNew = !expenseId;
     const onSubmit = async (expenseData: IExpenseForm) => {
-        console.log(expenseData);
         if (isNew) {
             try {
                 await addNewExpense(expenseData);

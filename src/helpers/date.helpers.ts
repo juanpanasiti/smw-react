@@ -6,8 +6,8 @@ export const parseDateToShortString = (date: Date): string => {
 
 export const parseDateToString = (date: Date): string => {
     const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Asegura que el mes tenga 2 dígitos
-    const day = date.getDate().toString().padStart(2, '0'); // Asegura que el día tenga 2 dígitos
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
 };
 
@@ -17,4 +17,11 @@ export const parseDateFromString = (dateString: string): Date => {
         throw new Error('Invalid date format');
     }
     return parsedDate;
+};
+
+export const parseMonthAndYear = (date: Date): { month: number; year: number } => {
+    return {
+        month: date.getMonth() + 1,
+        year: date.getFullYear(),
+    };
 };

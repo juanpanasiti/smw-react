@@ -4,9 +4,9 @@ import { Block, DeleteForever, Done, DoneAll, EditCalendar, Pending, PriceChange
 import { ExpenseTypeEnum, FullPayment, PaymentStatusEnum } from '../../types';
 import { useWallet } from '../../hooks';
 import { StyledTableCell, StyledTableRow } from '../shared';
-import { formatCurrency, parseDateToString } from '../../helpers';
+import { formatCurrency, parseDateToString, parseMonthAndYear } from '../../helpers';
 import { useState } from 'react';
-import { UpdateAmountModalForm } from './forms/UpdateAmountModalForm';
+import { UpdateAmountModalForm, UpdatePaymentDateModalForm } from './forms';
 
 interface Props {
     payment: FullPayment;
@@ -14,6 +14,7 @@ interface Props {
 
 export const PaymentTableRow = ({ payment }: Props) => {
     const [showUpdateAmountModal, setShowUpdateAmountModal] = useState<boolean>(false);
+    const [showUpdatePaymentDateModal, setShowUpdatePaymentDateModal] = useState<boolean>(false);
     const { getExpenseById, editPurchasePayment, editSubscriptionPayment } = useWallet();
     const expense = getExpenseById(payment.expenseId);
     const acquiredAt = expense?.type === ExpenseTypeEnum.PURCHASE ? parseDateToString(expense.acquiredAt) : '---';
@@ -32,6 +33,14 @@ export const PaymentTableRow = ({ payment }: Props) => {
             editPurchasePayment({ amount }, payment.expenseId, payment.id);
         } else {
             editSubscriptionPayment({ amount }, payment.expenseId, payment.id, payment.accountId);
+        }
+    };
+    const handlePaymentDateUpdate = (newDate: Date) => {
+        const newPaymentDate = parseMonthAndYear(newDate);
+        if (payment.expenseType === ExpenseTypeEnum.PURCHASE) {
+            editPurchasePayment(newPaymentDate, payment.expenseId, payment.id);
+        } else {
+            editSubscriptionPayment(newPaymentDate, payment.expenseId, payment.id, payment.accountId);
         }
     };
 
@@ -90,7 +99,7 @@ export const PaymentTableRow = ({ payment }: Props) => {
                                 <DeleteForever />
                             </Button>
                         )}
-                        <Button color='info'>
+                        <Button color='info' onClick={() => setShowUpdatePaymentDateModal(true)}>
                             <EditCalendar />
                         </Button>
                     </ButtonGroup>
@@ -104,6 +113,14 @@ export const PaymentTableRow = ({ payment }: Props) => {
                     open={showUpdateAmountModal}
                     payment={payment}
                     handleSubmit={handleAmountUpdate}
+                />
+            )}
+            {showUpdatePaymentDateModal && (
+                <UpdatePaymentDateModalForm
+                    handleClose={() => setShowUpdatePaymentDateModal(false)}
+                    open={showUpdatePaymentDateModal}
+                    payment={payment}
+                    handleSubmit={handlePaymentDateUpdate}
                 />
             )}
         </>

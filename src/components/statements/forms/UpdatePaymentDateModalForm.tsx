@@ -1,23 +1,25 @@
-import { Box, Button, FormControl, Modal, SxProps, TextField, Theme, Typography } from '@mui/material';
+import { Box, Button, FormControl, Modal, SxProps, Theme, Typography } from '@mui/material';
 import { FullPayment } from '../../../types';
 import { useState } from 'react';
+import { DatePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 
 interface Props {
     handleClose: () => void;
-    handleSubmit: (amount: number) => void;
+    handleSubmit: (date: Date) => void;
     open: boolean;
     payment: FullPayment;
     sx?: SxProps<Theme>;
 }
 
-export const UpdateAmountModalForm = ({ handleClose, open, payment, handleSubmit, sx = {} }: Props) => {
-    const [newAmount, setNewAmount] = useState(payment.amount);
+export const UpdatePaymentDateModalForm = ({ handleClose, open, payment, handleSubmit, sx = {} }: Props) => {
+    const [newPaymentDate, setNewPaymentDate] = useState(new Date(payment.year, payment.month - 1, 1));
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        handleSubmit(newAmount);
+        handleSubmit(newPaymentDate);
     };
     const reset = () => {
-        setNewAmount(payment.amount);
+        setNewPaymentDate(new Date(payment.year, payment.month - 1, 1));
     };
     return (
         <Modal
@@ -37,23 +39,16 @@ export const UpdateAmountModalForm = ({ handleClose, open, payment, handleSubmit
                     {`Actualizar fecha de pago de ${payment.expenseTitle} (${payment.amount})`}
                 </Typography>
 
-                <FormControl fullWidth sx={{ m: 1 }}>
-                    <TextField
-                        fullWidth
-                        label='Monto'
-                        type='number'
-                        slotProps={{
-                            htmlInput: {
-                                step: '0.01',
-                                min: 0,
-                                defaultValue: 0,
-                            },
+                <FormControl fullWidth margin='normal'>
+                    <DatePicker
+                        label='Fecha de 1er pago'
+                        value={dayjs(newPaymentDate)}
+                        onChange={(date) => {
+                            if (date && date.toDate() !== newPaymentDate) {
+                                setNewPaymentDate(date?.toDate());
+                            }
                         }}
-                        value={newAmount}
-                        autoComplete='off'
-                        onChange={(e) => setNewAmount(+e.target.value)}
-                        margin='normal'
-                        required
+                        format={DATE_FORMAT}
                     />
                 </FormControl>
 
@@ -66,7 +61,6 @@ export const UpdateAmountModalForm = ({ handleClose, open, payment, handleSubmit
                     </Button>
                 </Box>
             </Box>
-            
         </Modal>
     );
 };
@@ -78,4 +72,5 @@ const containerProps = {
     borderRadius: 2,
     boxShadow: 3,
 };
-  
+
+const DATE_FORMAT = 'DD-MM-YYYY';
