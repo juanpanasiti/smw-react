@@ -130,7 +130,7 @@ export interface FullPayment extends Payment {
 }
 
 export enum PaymentStatusEnum {
-    PENDING = 'pending',
+    UNCONFIRMED = 'unconfirmed',
     CONFIRMED = 'confirmed',
     PAID = 'paid',
     CANCELED = 'canceled',

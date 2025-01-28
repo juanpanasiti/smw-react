@@ -75,8 +75,8 @@ export const PaymentTableRow = ({ payment }: Props) => {
                             <DoneAll />
                         </Button>
                         <Button
-                            disabled={payment.status === PaymentStatusEnum.PENDING}
-                            onClick={() => handleStatusUpdate(PaymentStatusEnum.PENDING)}
+                            disabled={payment.status === PaymentStatusEnum.UNCONFIRMED}
+                            onClick={() => handleStatusUpdate(PaymentStatusEnum.UNCONFIRMED)}
                             color='warning'
                         >
                             <Pending />
@@ -133,7 +133,7 @@ const getPaymentStatusIcon = (status: PaymentStatusEnum) => {
             return <Done color='info' />;
         case PaymentStatusEnum.PAID:
             return <DoneAll color='success' />;
-        case PaymentStatusEnum.PENDING:
+        case PaymentStatusEnum.UNCONFIRMED:
             return <Pending color='warning' />;
         case PaymentStatusEnum.CANCELED:
             return <Block color='error' />;
