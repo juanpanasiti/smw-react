@@ -30,5 +30,5 @@ export const callUpdateSubscriptionPayment = async (
 };
 
 export const callDeleteSubscriptionPayment = async (expenseId: number, paymentId: number): Promise<void> => {
-    await apiClient.delete(`${Endpoints.EXPENSES}/${expenseId}/payments/${paymentId}`);
+    await apiClient.delete(`${Endpoints.SUBSCRIPTIONS}/${expenseId}/payments/${paymentId}`);
 };

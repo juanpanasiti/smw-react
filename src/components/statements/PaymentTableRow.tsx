@@ -3,7 +3,7 @@ import { Block, DeleteForever, Done, DoneAll, EditCalendar, Pending, PriceChange
 
 import { ExpenseTypeEnum, FullPayment, PaymentStatusEnum } from '../../types';
 import { useWallet } from '../../hooks';
-import { StyledTableCell, StyledTableRow } from '../shared';
+import { AgreeActionDialog, StyledTableCell, StyledTableRow } from '../shared';
 import { formatCurrency, parseDateToString, parseMonthAndYear } from '../../helpers';
 import { useState } from 'react';
 import { UpdateAmountModalForm, UpdatePaymentDateModalForm } from './forms';
@@ -15,7 +15,8 @@ interface Props {
 export const PaymentTableRow = ({ payment }: Props) => {
     const [showUpdateAmountModal, setShowUpdateAmountModal] = useState<boolean>(false);
     const [showUpdatePaymentDateModal, setShowUpdatePaymentDateModal] = useState<boolean>(false);
-    const { getExpenseById, editPurchasePayment, editSubscriptionPayment } = useWallet();
+    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+    const { getExpenseById, editPurchasePayment, editSubscriptionPayment, deleteSubscriptionPayment } = useWallet();
     const expense = getExpenseById(payment.expenseId);
     const acquiredAt = expense?.type === ExpenseTypeEnum.PURCHASE ? parseDateToString(expense.acquiredAt) : '---';
     const installment = expense?.type === ExpenseTypeEnum.PURCHASE ? `${payment.noInstallment}/${expense?.installments}` : '---';
@@ -44,20 +45,33 @@ export const PaymentTableRow = ({ payment }: Props) => {
         }
     };
 
+    const handleDeleteSubscriptionPayment = () => {
+        deleteSubscriptionPayment(payment.expenseId, payment.id);
+    };
+
+    const onDeleteClick = () => {
+        setShowDeleteDialog(true);
+    };
+
+    const fontStyle: React.CSSProperties | undefined = payment.expenseType === ExpenseTypeEnum.PURCHASE && payment.noInstallment === expense?.installments ? ({
+        color: 'green',
+        fontWeight: 'bold',
+    }) : undefined
+
     return (
         <>
             <StyledTableRow>
                 <Tooltip title={payment.expenseCcName} placement='left'>
-                    <StyledTableCell component='th' scope='row'>
+                    <StyledTableCell component='th' scope='row' style={fontStyle} >
                         {payment.expenseTitle}
                     </StyledTableCell>
                 </Tooltip>
-                <StyledTableCell align='right'>{payment.creditCardAlias}</StyledTableCell>
+                <StyledTableCell align='right' style={fontStyle}>{payment.creditCardAlias} </StyledTableCell>
 
-                <StyledTableCell align='right'>{formatCurrency(payment.amount)}</StyledTableCell>
-                <StyledTableCell align='right'>{acquiredAt}</StyledTableCell>
-                <StyledTableCell align='right'>{installment}</StyledTableCell>
-                <StyledTableCell align='right'>{getPaymentStatusIcon(payment.status)}</StyledTableCell>
+                <StyledTableCell align='right' style={fontStyle}>{formatCurrency(payment.amount)} </StyledTableCell>
+                <StyledTableCell align='right' style={fontStyle}>{acquiredAt} </StyledTableCell>
+                <StyledTableCell align='right' style={fontStyle}>{installment} </StyledTableCell>
+                <StyledTableCell align='right' style={fontStyle}>{getPaymentStatusIcon(payment.status)} </StyledTableCell>
                 <StyledTableCell align='right'>
                     <ButtonGroup size='small' aria-label='Small button group'>
                         <Button
@@ -95,7 +109,7 @@ export const PaymentTableRow = ({ payment }: Props) => {
                         </Button>
 
                         {payment.expenseType === ExpenseTypeEnum.SUBSCRIPTION && (
-                            <Button color='info'>
+                            <Button color='info' onClick={() => onDeleteClick()}>
                                 <DeleteForever />
                             </Button>
                         )}
@@ -123,6 +137,15 @@ export const PaymentTableRow = ({ payment }: Props) => {
                     handleSubmit={handlePaymentDateUpdate}
                 />
             )}
+            {showDeleteDialog && (
+                            <AgreeActionDialog
+                                open={showDeleteDialog}
+                                title={`Confirma borrar el gasto "${payment.expenseTitle}" de ${formatCurrency(payment.amount)}?`}
+                                handleAgree={handleDeleteSubscriptionPayment}
+                                handleClose={() => setShowDeleteDialog(false)}
+                                description='Esta acción no se puede deshacer.'
+                            />
+                        )}
         </>
     );
 };

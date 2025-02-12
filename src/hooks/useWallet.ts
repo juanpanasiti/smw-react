@@ -11,6 +11,7 @@ import {
     callDeleteExpenseApi,
     callUpdatePurchasePayment,
     callUpdateSubscriptionPayment,
+    callDeleteSubscriptionPayment,
 } from '../api';
 import { useWalletStore } from '../store/wallet';
 import {
@@ -40,6 +41,7 @@ export const useWallet = () => {
     const updateExpense = useWalletStore((store) => store.updateExpense);
     const removeExpense = useWalletStore((store) => store.removeExpense);
     // const addPayment = useWalletStore((store) => store.addPayment);
+    const removePayment = useWalletStore((store) => store.removePayment);
     const updatePayment = useWalletStore((store) => store.updatePayment);
 
     const getDataFromApi = useCallback(async () => {
@@ -108,6 +110,11 @@ export const useWallet = () => {
         updatePayment(payment);
     };
 
+    const deleteSubscriptionPayment = async (subscriptionId: number, paymentId: number) => {
+        await callDeleteSubscriptionPayment(subscriptionId, paymentId);
+        removePayment(paymentId, subscriptionId)
+    };
+
     return {
         isLoading,
         creditCards,
@@ -130,5 +137,6 @@ export const useWallet = () => {
         // Payments
         editPurchasePayment,
         editSubscriptionPayment,
+        deleteSubscriptionPayment
     };
 };

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import { ArrowDownward } from '@mui/icons-material';
 
-import { FINISHED_PAYMENT_STATUSES, FullPayment, Period } from '../../types';
+import { CONFIRMED_PAYMENT_STATUSES, FullPayment, Period } from '../../types';
 import { formatCurrency } from '../../helpers';
 import { PaymentTable } from './PaymentTable';
 import { useFilter, usePagination } from '../../hooks';
@@ -25,7 +25,7 @@ export const StatementItem = ({ period, expanded, handleChange }: Props) => {
     let totalPaid: number = 0;
     let totalAmount: number = 0;
     period.payments.forEach((payment) => {
-        totalPaid += FINISHED_PAYMENT_STATUSES.includes(payment.status) ? payment.amount : 0;
+        totalPaid += CONFIRMED_PAYMENT_STATUSES.includes(payment.status) ? payment.amount : 0;
         totalAmount += payment.amount;
     });
     return (

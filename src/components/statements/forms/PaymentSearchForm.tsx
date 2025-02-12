@@ -147,7 +147,7 @@ export const PaymentSearchForm = ({ searchFilter, setSearchFilter, pageLimit, se
                     onChange={(e) => handlePaymentStatusSelected(e.target.value as PaymentStatusEnum)}
                 >
                     <MenuItem value=''>Cualquiera</MenuItem>
-                    <MenuItem value='pending'>Pendiente</MenuItem>
+                    <MenuItem value='unconfirmed'>Pendiente</MenuItem>
                     <MenuItem value='confirmed'>Confirmado</MenuItem>
                     <MenuItem value='paid'>Pagado</MenuItem>
                     <MenuItem value='canceled'>Cancelado</MenuItem>
