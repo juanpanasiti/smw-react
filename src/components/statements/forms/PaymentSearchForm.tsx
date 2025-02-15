@@ -6,7 +6,7 @@ import { Search } from '@mui/icons-material';
 
 import { ExpenseTypeEnum, FullPayment, PaymentStatusEnum } from '../../../types';
 import { Filter, FilterOption } from '../../../types/forms';
-import { useWallet } from '../../../hooks';
+import { useWalletStore } from '../../../store/wallet';
 
 interface Props {
     searchFilter: Filter<FullPayment>;
@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const PaymentSearchForm = ({ searchFilter, setSearchFilter, pageLimit, setPageLimit }: Props) => {
-    const { creditCards } = useWallet();
+    const { creditCards } = useWalletStore();
 
     const handleFieldListChange = (selected: (keyof FullPayment)[]) => {
         setSearchFilter({ ...searchFilter, fields: selected });

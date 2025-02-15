@@ -9,7 +9,7 @@ import { CreditCard } from '../../types';
 import { formatCurrency, parseDateToShortString } from '../../helpers';
 import { CreditCardContainer } from './CreditCardContainer';
 import { AgreeActionDialog } from '../shared';
-import { useWallet } from '../../hooks';
+import { useWalletMigrations } from '../../hooks';
 
 interface Props {
     creditCard: CreditCard;
@@ -18,7 +18,7 @@ interface Props {
 
 export const CreditCardCard = ({ creditCard, handleOnEditClick }: Props) => {
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-    const { deleteCreditCard } = useWallet();
+    const { deleteCreditCard } = useWalletMigrations();
     const handleDelete = () => {
         try {
             deleteCreditCard(creditCard.id);

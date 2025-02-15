@@ -13,12 +13,14 @@ export const useWalletStore = create<WalletStore>()(
 
             // CreditCards
             setCreditCards: (creditCards) => set({ creditCards }),
+            getCreditCard: (creditCardId) => get().creditCards.find((cc) => cc.id === creditCardId),
             addCreditCard: (creditCard) => set({ creditCards: [...get().creditCards, creditCard] }),
             updateCreditCard: (creditCard) => set({ creditCards: get().creditCards.map((c) => (c.id === creditCard.id ? creditCard : c)) }),
             removeCreditCard: (creditCardId) => set({ creditCards: get().creditCards.filter((c) => c.id !== creditCardId) }),
 
             // Expenses
             setExpenses: (expenses) => set({ expenses }),
+            getExpense: (expenseId) => get().expenses.find((e) => e.id === expenseId),
             addExpense: (expense) => set({ expenses: [...get().expenses, expense] }),
             updateExpense: (expense) => set({ expenses: get().expenses.map((e) => (e.id === expense.id ? expense : e)) }),
             removeExpense: (expenseId) => set({ expenses: get().expenses.filter((e) => e.id !== expenseId) }),
@@ -57,6 +59,10 @@ export const useWalletStore = create<WalletStore>()(
                     hasInitializedData: false,
                 }),
             setInitializedData: () => set({ hasInitializedData: true }),
+            getCreditCardOptions: (filterMain = true) =>
+                get()
+                    .creditCards.filter((cc) => (filterMain ? cc.isEnabled : true))
+                    .map((cc) => ({ value: cc.id, label: cc.alias, limit: cc.limit, totalSpent: cc.totalSpent })),
         }),
 
         { name: 'WalletStore' }

@@ -1,3 +1,5 @@
+import { CreditCardOption } from "./forms";
+
 export interface UserData {
     id: number;
     username: string;
@@ -31,12 +33,14 @@ export interface WalletStore {
 
     // Credit Cards
     setCreditCards: (creditCards: CreditCard[]) => void;
+    getCreditCard: (id: number) => CreditCard | undefined;
     addCreditCard: (creditCard: CreditCard) => void;
     updateCreditCard: (creditCard: CreditCard) => void;
     removeCreditCard: (creditCardId: number) => void;
 
     // Expenses
     setExpenses: (expenses: Expense[]) => void;
+    getExpense: (id: number) => Expense | undefined;
     addExpense: (expense: Expense) => void;
     updateExpense: (expense: Expense) => void;
     removeExpense: (expenseId: number) => void;
@@ -49,6 +53,7 @@ export interface WalletStore {
     // Others
     clear: () => void;
     setInitializedData: () => void;
+    getCreditCardOptions: (filterMain?: boolean) => CreditCardOption[],
 }
 
 export interface CreditCard {

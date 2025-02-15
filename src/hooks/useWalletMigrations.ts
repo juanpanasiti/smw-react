@@ -1,37 +1,25 @@
 import { useCallback, useState } from 'react';
-
 import {
     callCreateNewCreditCardApi,
-    getAllCreditCardsApi,
-    callUpdateCreditCardApi,
-    callDeleteCreditCardApi,
-    getAllExpensesApi,
     callCreateNewExpenseApi,
-    callUpdateExpenseApi,
+    callDeleteCreditCardApi,
     callDeleteExpenseApi,
+    callDeleteSubscriptionPayment,
+    callUpdateCreditCardApi,
+    callUpdateExpenseApi,
     callUpdatePurchasePayment,
     callUpdateSubscriptionPayment,
-    callDeleteSubscriptionPayment,
+    getAllCreditCardsApi,
+    getAllExpensesApi,
 } from '../api';
 import { useWalletStore } from '../store/wallet';
-import {
-    CreditCardOption,
-    NewCreditCard,
-    NewExpense,
-    UpdateCreditCard,
-    UpdateExpense,
-    UpdatePurchasePayment,
-    UpdateSubscriptionPayment,
-} from '../types/forms';
-import { CreditCard, Expense } from '../types';
+import { NewCreditCard, NewExpense, UpdateCreditCard, UpdateExpense, UpdatePurchasePayment, UpdateSubscriptionPayment } from '../types/forms';
 
-export const useWallet = () => {
+export const useWalletMigrations = () => {
     const [isLoading, setIsLoading] = useState(false);
 
-    const creditCards = useWalletStore((store) => store.creditCards);
     const dataInitialized = useWalletStore((store) => store.hasInitializedData);
     const setDataInitialized = useWalletStore((store) => store.setInitializedData);
-    const expenses = useWalletStore((store) => store.expenses);
     const setCreditCards = useWalletStore((store) => store.setCreditCards);
     const addCreditCard = useWalletStore((store) => store.addCreditCard);
     const updateCreditCard = useWalletStore((store) => store.updateCreditCard);
@@ -40,19 +28,18 @@ export const useWallet = () => {
     const addExpense = useWalletStore((store) => store.addExpense);
     const updateExpense = useWalletStore((store) => store.updateExpense);
     const removeExpense = useWalletStore((store) => store.removeExpense);
-    // const addPayment = useWalletStore((store) => store.addPayment);
     const removePayment = useWalletStore((store) => store.removePayment);
     const updatePayment = useWalletStore((store) => store.updatePayment);
 
     const getDataFromApi = useCallback(async () => {
-        if (!dataInitialized && !isLoading) {
-            const creditCards = await getAllCreditCardsApi();
-            const expenses = await getAllExpensesApi();
-            setCreditCards(creditCards);
-            setExpenses(expenses);
-            setDataInitialized();
-        }
-    }, [dataInitialized, setDataInitialized, setCreditCards, setExpenses, isLoading]);
+            if (!dataInitialized && !isLoading) {
+                const creditCards = await getAllCreditCardsApi();
+                const expenses = await getAllExpensesApi();
+                setCreditCards(creditCards);
+                setExpenses(expenses);
+                setDataInitialized();
+            }
+        }, [dataInitialized, setDataInitialized, setCreditCards, setExpenses, isLoading]);
 
     const addNewCreditCard = async (creditCard: NewCreditCard) => {
         const newCreditCard = await callCreateNewCreditCardApi(creditCard);
@@ -63,22 +50,9 @@ export const useWallet = () => {
         const updatedCreditCard = await callUpdateCreditCardApi(creditCard, ccId);
         updateCreditCard(updatedCreditCard);
     };
-
     const deleteCreditCard = async (ccId: number) => {
         await callDeleteCreditCardApi(ccId);
         removeCreditCard(ccId);
-    };
-
-    const getCreditCardById = (ccId: number): CreditCard | undefined => {
-        return creditCards.find((cc) => cc.id === ccId);
-    };
-
-    const getCreditCardOptions = (filterMain: boolean = true): CreditCardOption[] => {
-        const response = filterMain ? creditCards.filter((cc) => cc.mainCreditCardId === null) : creditCards;
-        return response.map((cc) => ({
-            id: cc.id,
-            alias: cc.alias,
-        }));
     };
 
     const addNewExpense = async (expense: NewExpense) => {
@@ -96,10 +70,6 @@ export const useWallet = () => {
         removeExpense(expenseId);
     };
 
-    const getExpenseById = (expenseId: number): Expense | undefined => {
-        return expenses.find((expense) => expense.id === expenseId);
-    };
-
     const editPurchasePayment = async (paymentData: UpdatePurchasePayment, purchaseId: number, paymentId: number) => {
         const expense = await callUpdatePurchasePayment(paymentData, paymentId, purchaseId);
         updateExpense(expense);
@@ -112,31 +82,24 @@ export const useWallet = () => {
 
     const deleteSubscriptionPayment = async (subscriptionId: number, paymentId: number) => {
         await callDeleteSubscriptionPayment(subscriptionId, paymentId);
-        removePayment(paymentId, subscriptionId)
+        removePayment(paymentId, subscriptionId);
     };
 
     return {
-        isLoading,
-        creditCards,
-        expenses,
-        // periods,
-
-        setIsLoading,
+        // init
         getDataFromApi,
-        // CreditCard
+        setIsLoading,
+        // Credit Cards
         addNewCreditCard,
         editCreditCard,
         deleteCreditCard,
-        getCreditCardById,
-        getCreditCardOptions,
-        // Expense
+        // Expenses
         addNewExpense,
         editExpense,
         deleteExpense,
-        getExpenseById,
         // Payments
         editPurchasePayment,
         editSubscriptionPayment,
-        deleteSubscriptionPayment
+        deleteSubscriptionPayment,
     };
 };

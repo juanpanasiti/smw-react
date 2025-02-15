@@ -3,7 +3,7 @@ import { enqueueSnackbar } from 'notistack';
 
 import { CreditCardForm } from './forms';
 import { ICreditCardForm, NewCreditCard } from '../../types/forms';
-import { useWallet } from '../../hooks';
+import { useWalletMigrations } from '../../hooks';
 
 interface Props<T extends ICreditCardForm> {
     open: boolean;
@@ -13,7 +13,7 @@ interface Props<T extends ICreditCardForm> {
 }
 
 export const CreditCardModalForm = <T extends ICreditCardForm>({ open, handleClose, card, ccId }: Props<T>) => {
-    const { addNewCreditCard, editCreditCard } = useWallet();
+    const { addNewCreditCard, editCreditCard } = useWalletMigrations();
     const isNew = !ccId;
     const onSubmit = async (creditCardData: NewCreditCard) => {
         if (isNew) {

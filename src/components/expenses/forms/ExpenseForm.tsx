@@ -5,10 +5,11 @@ import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
 import { IExpenseForm } from '../../../types/forms';
-import { useForm, useWallet } from '../../../hooks';
+import { useForm } from '../../../hooks';
 import { CreditCardOption } from '../../../types/forms';
 import { SelectField } from '../../shared';
 import { ExpenseTypeEnum } from '../../../types';
+import { useWalletStore } from '../../../store/wallet';
 
 interface Props<T extends IExpenseForm> {
     sx?: SxProps<Theme>;
@@ -20,7 +21,7 @@ interface Props<T extends IExpenseForm> {
 export const ExpenseForm = React.forwardRef<HTMLDivElement, Props<IExpenseForm>>(({ sx = {}, onSubmit, initialValues, isNew = false }, ref) => {
     const { values, changedValues, handleChange, reset } = useForm(initialValues);
 
-    const { getCreditCardOptions } = useWallet();
+    const { getCreditCardOptions } = useWalletStore();
     const creditCardsOptions = getCreditCardOptions(false);
 
     const handleSubmit = (e: React.FormEvent) => {

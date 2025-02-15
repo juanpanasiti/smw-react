@@ -3,7 +3,7 @@ import { enqueueSnackbar } from 'notistack';
 
 import { IExpenseForm } from '../../types/forms';
 import { ExpenseForm } from './forms';
-import { useWallet } from '../../hooks';
+import { useWalletMigrations } from '../../hooks';
 
 interface Props<T extends IExpenseForm> {
     open: boolean;
@@ -13,7 +13,7 @@ interface Props<T extends IExpenseForm> {
 }
 
 export const ExpenseModalForm = <T extends IExpenseForm>({ open, handleClose, expense, expenseId }: Props<T>) => {
-    const { addNewExpense, editExpense } = useWallet()
+    const { addNewExpense, editExpense } = useWalletMigrations()
     const isNew = !expenseId;
     const onSubmit = async (expenseData: IExpenseForm) => {
         if (isNew) {

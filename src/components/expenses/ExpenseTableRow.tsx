@@ -6,8 +6,9 @@ import { enqueueSnackbar } from 'notistack';
 
 import { Expense, ExpenseTypeEnum } from '../../types';
 import { formatCurrency, parseDateToString } from '../../helpers';
-import { useWallet } from '../../hooks';
+import { useWalletMigrations } from '../../hooks';
 import { AgreeActionDialog, StyledTableCell, StyledTableRow } from '../shared';
+import { useWalletStore } from '../../store/wallet';
 
 interface Props {
     expense: Expense;
@@ -15,7 +16,8 @@ interface Props {
 }
 export const ExpenseTableRow = ({ expense, handleEdit }: Props) => {
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-    const { getCreditCardById, deleteExpense } = useWallet();
+    const { deleteExpense } = useWalletMigrations();
+    const { getCreditCard } = useWalletStore()
 
     const handleDelete = () => {
         try {
@@ -38,7 +40,7 @@ export const ExpenseTableRow = ({ expense, handleEdit }: Props) => {
                         {expense.title}
                     </StyledTableCell>
                 </Tooltip>
-                <StyledTableCell align='right'>{getCreditCardById(expense.accountId)?.alias || '?'}</StyledTableCell>
+                <StyledTableCell align='right'>{getCreditCard(expense.accountId)?.alias || '?'}</StyledTableCell>
                 <Tooltip title={expense.type} placement='right'>
                     <StyledTableCell align='right'>{expense.type === ExpenseTypeEnum.PURCHASE ? <ShoppingBag /> : <EventRepeat />}</StyledTableCell>
                 </Tooltip>

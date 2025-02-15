@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react';
 import { Divider } from '@mui/material';
 
 import { StatementList } from '../components/statements';
-import { useWallet } from '../hooks';
 import { Period, PeriodStatusEnum } from '../types';
 import { getFullPayment, getPeriodFullList, sortPeriods } from '../helpers';
+import { useWalletStore } from '../store/wallet';
 
 export const StatementsPage = () => {
     const [showPendingOnes, setShowPendingOnes] = useState(true);
     const [showDoneOnes, setShowDoneOnes] = useState(false);
-    const { creditCards, expenses } = useWallet();
+    const { creditCards, expenses } = useWalletStore();
     const [periods, setperiods] = useState<Period[]>([]);
 
     useEffect(() => {

@@ -4,9 +4,10 @@ import { Box, Button, FormControl, SxProps, TextField, Theme, Typography } from 
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
-import { useForm, useWallet } from '../../../hooks';
+import { useForm } from '../../../hooks';
 import { CreditCardOption, ICreditCardForm } from '../../../types/forms';
 import { SelectField } from '../../shared';
+import { useWalletStore } from '../../../store/wallet';
 
 interface Props<T extends ICreditCardForm> {
     sx?: SxProps<Theme>;
@@ -18,7 +19,7 @@ export const CreditCardForm = React.forwardRef<HTMLDivElement, Props<ICreditCard
     // TODO: Transformar en un componente genérico, identificando si es para una nueva CC o una existente (update)
     const { values, changedValues, handleChange, reset } = useForm(initialValues);
 
-    const { getCreditCardOptions } = useWallet();
+    const { getCreditCardOptions } = useWalletStore();
     const creditCardsOptions = getCreditCardOptions();
 
     const handleSubmit = (e: React.FormEvent) => {

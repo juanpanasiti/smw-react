@@ -16,9 +16,6 @@ export const useAuth = () => {
             const userData = await callRenewTokenApi();
             setUserData(userData);
         } catch (error) {
-            clearAllData();
-            enqueueSnackbar(`${error}`, { variant: 'error' });
-            console.debug(error);
             throw new Error(`Error calling renewToken API: ${error}`);
             
         }

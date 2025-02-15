@@ -3,10 +3,10 @@ import styled from 'styled-components';
 
 import { CreditCardList } from '../components/credit-cards';
 import { ExpenseList } from '../components/expenses';
-import { useWallet } from '../hooks';
+import { useWalletStore } from '../store/wallet';
 
 export const ExpensesPage = () => {
-    const { creditCards, expenses } = useWallet();
+    const { creditCards, expenses } = useWalletStore();
     return (
         <ContainerFake>
             <Typography variant='h1'>Gastos</Typography>

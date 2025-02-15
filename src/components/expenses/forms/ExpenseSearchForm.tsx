@@ -6,7 +6,7 @@ import { Search } from '@mui/icons-material';
 
 import { Expense, ExpenseStatusEnum, ExpenseTypeEnum } from '../../../types';
 import { Filter, FilterOption } from '../../../types/forms';
-import { useWallet } from '../../../hooks';
+import { useWalletStore } from '../../../store/wallet';
 
 interface Props {
     searchFilter: Filter<Expense>;
@@ -21,7 +21,7 @@ const options: FilterOption<Expense>[] = [
     { id: 'amount', label: 'Monto' },
 ];
 export const ExpenseSearchForm = ({ searchFilter, setSearchFilter, pageLimit, setPageLimit }: Props) => {
-    const { creditCards } = useWallet();
+    const { creditCards } = useWalletStore();
     const handleFieldListChange = (selected: (keyof Expense)[]) => {
         setSearchFilter({ ...searchFilter, fields: selected });
     };
