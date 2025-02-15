@@ -3,3 +3,4 @@ export * from './date.helpers';
 export * from './currency.helpers';
 export * from './pagination.helpers';
 export * from './payment.helpers';
+export * from './chart.helpers';
