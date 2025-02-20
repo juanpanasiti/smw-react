@@ -1,46 +1,61 @@
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
-import { CreditCard } from '../types';
+import { CreditCard, Expense } from '../types';
 import { useWalletStore } from '../store/wallet';
+import { FlexContainerColumn } from '../components/shared';
+import { CreditCardList } from '../components/credit-cards';
+import { ExpenseList } from '../components/expenses';
 
 export const CreditCardPage = () => {
     const { id } = useParams();
-    const { getCreditCard } = useWalletStore();
+    const { getCreditCard, getExtensionCreditCards, getExpensesByCreditCardIds, hasInitializedData } = useWalletStore();
     const [creditCard, setCreditCard] = useState<CreditCard | undefined>(undefined);
-    const [loading, setLoading] = useState(true);
+    const [extensionCreditCards, setExtensionCreditCards] = useState<CreditCard[]>([]);
+    const [expenses, setExpenses] = useState<Expense[]>([])
+    
+    const [loading, setLoading] = useState(!hasInitializedData);
     const [error, setError] = useState(false);
 
     useEffect(() => {
         if (creditCard) return;
+        if (!hasInitializedData) return;
         if (!id || +id < 1) {
             setLoading(false);
             setError(true);
-            console.log('error por no id');
             return;
         }
 
         const ccFound = getCreditCard(+id);
-        console.log(ccFound);
-
         if (!ccFound) {
             setLoading(false);
             setError(true);
-            console.log('error por no cc');
             return;
         }
 
+        const extensions = getExtensionCreditCards(+id)
+        const creditCardIds = extensions.map((cc) => cc.id);
+        creditCardIds.push(+id);
+
         setLoading(false);
-        setError(false)
+        setError(false);
         setCreditCard(ccFound);
-    }, [getCreditCard, id, creditCard]);
+        setExtensionCreditCards(extensions);
+        setExpenses(getExpensesByCreditCardIds(creditCardIds));
+    }, [getCreditCard, getExtensionCreditCards, getExpensesByCreditCardIds, id, creditCard, hasInitializedData]);
 
     if (loading) {
         return <div>Loading...</div>;
     }
 
-    if (error) {
+    if (error || !creditCard) {
         return <div>Error</div>;
     }
 
-    return <div>Credit card {creditCard?.alias}</div>;
+    return (
+        <FlexContainerColumn>
+            <CreditCardList cards={[creditCard, ...extensionCreditCards]} />
+            <ExpenseList expenses={expenses} />
+
+        </FlexContainerColumn>
+    );
 };
