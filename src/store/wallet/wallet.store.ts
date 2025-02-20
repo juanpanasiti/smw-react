@@ -15,6 +15,7 @@ export const useWalletStore = create<WalletStore>()(
             setCreditCards: (creditCards) => set({ creditCards }),
             getCreditCard: (creditCardId) => get().creditCards.find((cc) => cc.id === creditCardId),
             getMainCreditCards: () => get().creditCards.filter((cc) => cc.mainCreditCardId === null),
+            getExtensionCreditCards: (creditCardId) => get().creditCards.filter(cc=> cc.mainCreditCardId === creditCardId),
             addCreditCard: (creditCard) => set({ creditCards: [...get().creditCards, creditCard] }),
             updateCreditCard: (creditCard) => set({ creditCards: get().creditCards.map((c) => (c.id === creditCard.id ? creditCard : c)) }),
             removeCreditCard: (creditCardId) => set({ creditCards: get().creditCards.filter((c) => c.id !== creditCardId) }),
@@ -22,6 +23,7 @@ export const useWalletStore = create<WalletStore>()(
             // Expenses
             setExpenses: (expenses) => set({ expenses }),
             getExpense: (expenseId) => get().expenses.find((e) => e.id === expenseId),
+            getExpensesByCreditCardIds: (creditCardIds) => get().expenses.filter((e) => creditCardIds.includes(e.accountId)),
             addExpense: (expense) => set({ expenses: [...get().expenses, expense] }),
             updateExpense: (expense) => set({ expenses: get().expenses.map((e) => (e.id === expense.id ? expense : e)) }),
             removeExpense: (expenseId) => set({ expenses: get().expenses.filter((e) => e.id !== expenseId) }),

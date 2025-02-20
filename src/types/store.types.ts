@@ -33,8 +33,9 @@ export interface WalletStore {
 
     // Credit Cards
     setCreditCards: (creditCards: CreditCard[]) => void;
-    getCreditCard: (id: number) => CreditCard | undefined;
+    getCreditCard: (creditCardId: number) => CreditCard | undefined;
     getMainCreditCards: () => CreditCard[];
+    getExtensionCreditCards: (creditCardId: number) => CreditCard[];
     addCreditCard: (creditCard: CreditCard) => void;
     updateCreditCard: (creditCard: CreditCard) => void;
     removeCreditCard: (creditCardId: number) => void;
@@ -42,6 +43,7 @@ export interface WalletStore {
     // Expenses
     setExpenses: (expenses: Expense[]) => void;
     getExpense: (id: number) => Expense | undefined;
+    getExpensesByCreditCardIds: (creditCardIds: number[]) => Expense[];
     addExpense: (expense: Expense) => void;
     updateExpense: (expense: Expense) => void;
     removeExpense: (expenseId: number) => void;
