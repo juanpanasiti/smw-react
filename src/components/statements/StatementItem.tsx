@@ -19,7 +19,7 @@ interface Props {
 
 export const StatementItem = ({ period, expanded, handleChange }: Props) => {
     const [pageLimit, setPageLimit] = useState(10);
-    const { filteredList, filter, setFilter } = useFilter<FullPayment>(period.payments);
+    const { filteredList, filter, setFilter } = useFilter<FullPayment>(period.payments, ['amount', 'expenseCcName', 'expenseTitle']);
     const { currentPage, currentPageNumber, totalPages, goPage } = usePagination(filteredList, pageLimit);
 
     let totalPaid: number = 0;
