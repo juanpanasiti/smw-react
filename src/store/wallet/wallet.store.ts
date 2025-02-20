@@ -14,6 +14,7 @@ export const useWalletStore = create<WalletStore>()(
             // CreditCards
             setCreditCards: (creditCards) => set({ creditCards }),
             getCreditCard: (creditCardId) => get().creditCards.find((cc) => cc.id === creditCardId),
+            getMainCreditCards: () => get().creditCards.filter((cc) => cc.mainCreditCardId === null),
             addCreditCard: (creditCard) => set({ creditCards: [...get().creditCards, creditCard] }),
             updateCreditCard: (creditCard) => set({ creditCards: get().creditCards.map((c) => (c.id === creditCard.id ? creditCard : c)) }),
             removeCreditCard: (creditCardId) => set({ creditCards: get().creditCards.filter((c) => c.id !== creditCardId) }),
@@ -62,7 +63,7 @@ export const useWalletStore = create<WalletStore>()(
             getCreditCardOptions: (filterMain = true) =>
                 get()
                     .creditCards.filter((cc) => (filterMain ? cc.isEnabled : true))
-                    .map((cc) => ({ value: cc.id, label: cc.alias, limit: cc.limit, totalSpent: cc.totalSpent })),
+                    .map(({ id, alias }) => ({ id, alias })),
         }),
 
         { name: 'WalletStore' }

@@ -6,7 +6,9 @@ import { ExpenseList } from '../components/expenses';
 import { useWalletStore } from '../store/wallet';
 
 export const ExpensesPage = () => {
-    const { creditCards, expenses } = useWalletStore();
+    const { getMainCreditCards, expenses } = useWalletStore();
+    const creditCards = getMainCreditCards();
+
     return (
         <ContainerFake>
             <Typography variant='h1'>Gastos</Typography>

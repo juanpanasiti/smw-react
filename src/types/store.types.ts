@@ -34,6 +34,7 @@ export interface WalletStore {
     // Credit Cards
     setCreditCards: (creditCards: CreditCard[]) => void;
     getCreditCard: (id: number) => CreditCard | undefined;
+    getMainCreditCards: () => CreditCard[];
     addCreditCard: (creditCard: CreditCard) => void;
     updateCreditCard: (creditCard: CreditCard) => void;
     removeCreditCard: (creditCardId: number) => void;
