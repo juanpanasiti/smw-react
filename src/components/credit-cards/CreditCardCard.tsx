@@ -10,6 +10,7 @@ import { formatCurrency, parseDateToShortString } from '../../helpers';
 import { CreditCardContainer } from './CreditCardContainer';
 import { AgreeActionDialog } from '../shared';
 import { useWalletMigrations } from '../../hooks';
+import { Link, useLocation } from 'react-router';
 
 interface Props {
     creditCard: CreditCard;
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export const CreditCardCard = ({ creditCard, handleOnEditClick }: Props) => {
+    const location = useLocation();
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const { deleteCreditCard } = useWalletMigrations();
     const handleDelete = () => {
@@ -30,11 +32,13 @@ export const CreditCardCard = ({ creditCard, handleOnEditClick }: Props) => {
     };
 
     const onDeleteClick = () => {
-        setShowDeleteDialog(true)
-    }
+        setShowDeleteDialog(true);
+    };
 
     return (
-        <CreditCardContainer>
+        <CreditCardContainer
+            sx={{ backgroundColor: (theme) => (creditCard.mainCreditCardId ? theme.palette.primary.dark : theme.palette.secondary.dark) }}
+        >
             <Typography variant='h5' padding='0.5rem'>
                 {creditCard.alias}
             </Typography>
@@ -59,9 +63,13 @@ export const CreditCardCard = ({ creditCard, handleOnEditClick }: Props) => {
                     </AmountsContainer>
                 </Box>
                 <Box sx={{ width: '60px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '5px' }}>
-                    <IconButton aria-label='show' size='medium' color='info'>
-                        <Visibility fontSize='inherit' />
-                    </IconButton>
+                    {location.pathname.includes('expenses') && (
+                        <Link to={`/credit-card/${creditCard.id}`}>
+                            <IconButton aria-label='show' size='medium' color='info'>
+                                <Visibility fontSize='inherit' />
+                            </IconButton>
+                        </Link>
+                    )}
                     <IconButton aria-label='edit' size='medium' color='warning' onClick={handleOnEditClick}>
                         <Edit fontSize='inherit' />
                     </IconButton>
