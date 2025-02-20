@@ -1,27 +1,21 @@
 import { Divider, Typography } from '@mui/material';
-import styled from 'styled-components';
 
 import { CreditCardList } from '../components/credit-cards';
 import { ExpenseList } from '../components/expenses';
 import { useWalletStore } from '../store/wallet';
+import { FlexContainerColumn } from '../components/shared';
 
 export const ExpensesPage = () => {
     const { getMainCreditCards, expenses } = useWalletStore();
     const creditCards = getMainCreditCards();
 
     return (
-        <ContainerFake>
+        <FlexContainerColumn>
             <Typography variant='h1'>Gastos</Typography>
             <Divider sx={{ marginY: 3 }} />
-            <CreditCardList cards={creditCards} />
+            <CreditCardList cards={creditCards} show={false} />
             <Divider sx={{ marginY: 3 }} />
             <ExpenseList expenses={expenses} />
-        </ContainerFake>
+        </FlexContainerColumn>
     );
 };
-
-const ContainerFake = styled.div`
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-`;
