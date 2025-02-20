@@ -9,6 +9,7 @@ import { formatCurrency, getLastPaymentPeriod, parseDateToString } from '../../h
 import { useWalletMigrations } from '../../hooks';
 import { AgreeActionDialog, StyledTableCell, StyledTableRow } from '../shared';
 import { useWalletStore } from '../../store/wallet';
+import { ExpenseModalShow } from './ExpenseModalShow';
 
 interface Props {
     expense: Expense;
@@ -16,6 +17,7 @@ interface Props {
 }
 export const ExpenseTableRow = ({ expense, handleEdit }: Props) => {
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+    const [showModal, setShowModal] = useState(false)
     const { deleteExpense } = useWalletMigrations();
     const { getCreditCard } = useWalletStore()
 
@@ -32,6 +34,10 @@ export const ExpenseTableRow = ({ expense, handleEdit }: Props) => {
     const onDeleteClick = () => {
         setShowDeleteDialog(true);
     };
+
+    const handleShow = () => {
+        setShowModal(true)
+    }
     return (
         <>
             <StyledTableRow>
@@ -55,7 +61,7 @@ export const ExpenseTableRow = ({ expense, handleEdit }: Props) => {
                 </StyledTableCell>
                 <StyledTableCell align='right'>
                     <ButtonGroup size='small' aria-label='Small button group'>
-                        <Button color='info'>
+                        <Button color='info' onClick={handleShow}>
                             <Visibility />
                         </Button>
                         <Button color='warning' onClick={handleEdit}>
@@ -76,6 +82,8 @@ export const ExpenseTableRow = ({ expense, handleEdit }: Props) => {
                     description='Esta acción no se puede deshacer y burrará todos los gastos y pagos asociados a la tarjeta.'
                 />
             )}
+
+            {showModal && <ExpenseModalShow expense={expense} creditCard={getCreditCard(expense.accountId)!} handleClose={() => setShowModal(false)} open={showModal} />}
         </>
     );
 };

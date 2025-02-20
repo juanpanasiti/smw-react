@@ -1,27 +1,24 @@
-import { Button, ButtonGroup, Tooltip } from '@mui/material';
+import { Button, ButtonGroup } from '@mui/material';
 import { Block, DeleteForever, Done, DoneAll, EditCalendar, Pending, PriceChange } from '@mui/icons-material';
 
-import { ExpenseTypeEnum, FullPayment, PaymentStatusEnum } from '../../types';
+import { Expense, ExpenseTypeEnum, FullPayment, PaymentStatusEnum } from '../../types';
 import { useWalletMigrations } from '../../hooks';
 import { AgreeActionDialog, StyledTableCell, StyledTableRow } from '../shared';
-import { formatCurrency, getPaymentStatusIcon, parseDateToString, parseMonthAndYear } from '../../helpers';
+import { formatCurrency, getPaymentStatusIcon, parseMonthAndYear } from '../../helpers';
 import { useState } from 'react';
-import { UpdateAmountModalForm, UpdatePaymentDateModalForm } from './forms';
-import { useWalletStore } from '../../store/wallet';
+import { UpdateAmountModalForm, UpdatePaymentDateModalForm } from '../statements/forms';
 
 interface Props {
     payment: FullPayment;
+    expense: Expense;
 }
 
-export const PaymentTableRow = ({ payment }: Props) => {
+export const ExpensePaymentTableRow = ({ payment, expense }: Props) => {
     const [showUpdateAmountModal, setShowUpdateAmountModal] = useState<boolean>(false);
     const [showUpdatePaymentDateModal, setShowUpdatePaymentDateModal] = useState<boolean>(false);
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const { editPurchasePayment, editSubscriptionPayment, deleteSubscriptionPayment } = useWalletMigrations();
-    const { getExpense } = useWalletStore();
-    const expense = getExpense(payment.expenseId);
-    const acquiredAt = expense?.type === ExpenseTypeEnum.PURCHASE ? parseDateToString(expense.acquiredAt) : '---';
-    const installment = expense?.type === ExpenseTypeEnum.PURCHASE ? `${payment.noInstallment}/${expense?.installments}` : '---';
+    const installment = expense.type === ExpenseTypeEnum.PURCHASE ? `${payment.noInstallment}/${expense?.installments}` : '---';
 
     const handleStatusUpdate = (status: PaymentStatusEnum) => {
         if (payment.expenseType === ExpenseTypeEnum.PURCHASE) {
@@ -66,24 +63,11 @@ export const PaymentTableRow = ({ payment }: Props) => {
     return (
         <>
             <StyledTableRow>
-                <Tooltip title={payment.expenseCcName} placement='left'>
-                    <StyledTableCell component='th' scope='row' style={fontStyle}>
-                        {payment.expenseTitle}
-                    </StyledTableCell>
-                </Tooltip>
-                <StyledTableCell align='right' style={fontStyle}>
-                    {payment.creditCardAlias}{' '}
-                </StyledTableCell>
-
                 <StyledTableCell align='right' style={fontStyle}>
                     {formatCurrency(payment.amount)}{' '}
                 </StyledTableCell>
-                <StyledTableCell align='right' style={fontStyle}>
-                    {acquiredAt}{' '}
-                </StyledTableCell>
-                <StyledTableCell align='right' style={fontStyle}>
-                    {installment}{' '}
-                </StyledTableCell>
+                <StyledTableCell align='right' style={fontStyle}>{installment}</StyledTableCell>
+                <StyledTableCell align='right' style={fontStyle}>{payment.month}/{payment.year}</StyledTableCell>
                 <StyledTableCell align='right' style={fontStyle}>
                     {getPaymentStatusIcon(payment.status)}{' '}
                 </StyledTableCell>
