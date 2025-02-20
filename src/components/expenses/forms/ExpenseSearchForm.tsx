@@ -97,7 +97,6 @@ export const ExpenseSearchForm = ({ searchFilter, setSearchFilter, pageLimit, se
                     onChange={({ target }) => handleFieldListChange(target.value as (keyof Expense)[])}
                     input={<OutlinedInput label='Campos' />}
                     renderValue={(selected) => selected.join(', ')}
-                    // MenuProps={MenuProps}
                 >
                     {options.map((option) => (
                         <MenuItem key={option.id} value={option.id}>
