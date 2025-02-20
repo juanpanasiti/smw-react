@@ -4,11 +4,11 @@ import { Filter } from '../types/forms';
 
 
 
-export const useFilter = <T extends object>(originalList: T[]) => {
+export const useFilter = <T extends object>(originalList: T[], defaultFields: (keyof T)[] = []) => {
     const [filteredList, setFilteredList] = useState(originalList);
     const [filter, setFilter] = useState<Filter<T>>({
         text: '',
-        fields: [],
+        fields: defaultFields,
         query: {},
     });
 
