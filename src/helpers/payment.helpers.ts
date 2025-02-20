@@ -53,3 +53,13 @@ export const getFullPayment = (payment: Payment, expenses: Expense[], creditCard
         creditCardId: creditCard?.id || 0,
     };
 };
+
+export const getLastPaymentPeriod = (payments: Payment[]): string => {
+    const lastPayment = payments.sort((a, b) => {
+        if (a.year !== b.year) {
+            return b.year - a.year;
+        }
+        return b.month - a.month;
+    })[0];
+    return `${lastPayment.month}-${lastPayment.year}`;
+};
