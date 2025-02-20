@@ -24,6 +24,7 @@ export const ExpenseTable = ({ expenses }: Props) => {
                             <StyledTableCell align='right'>Tipo</StyledTableCell>
                             <StyledTableCell align='right'>Monto</StyledTableCell>
                             <StyledTableCell align='right'>F. Compra</StyledTableCell>
+                            <StyledTableCell align='right'>Ult. Pago</StyledTableCell>
                             <StyledTableCell align='right'>Cuotas</StyledTableCell>
                             <StyledTableCell align='right'>% Pagado</StyledTableCell>
                             <StyledTableCell align='right'>Opciones</StyledTableCell>

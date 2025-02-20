@@ -5,7 +5,7 @@ import { Button, ButtonGroup, Tooltip } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 
 import { Expense, ExpenseTypeEnum } from '../../types';
-import { formatCurrency, parseDateToString } from '../../helpers';
+import { formatCurrency, getLastPaymentPeriod, parseDateToString } from '../../helpers';
 import { useWalletMigrations } from '../../hooks';
 import { AgreeActionDialog, StyledTableCell, StyledTableRow } from '../shared';
 import { useWalletStore } from '../../store/wallet';
@@ -46,11 +46,12 @@ export const ExpenseTableRow = ({ expense, handleEdit }: Props) => {
                 </Tooltip>
                 <StyledTableCell align='right'>{formatCurrency(expense.amount)}</StyledTableCell>
                 <StyledTableCell align='right'>{parseDateToString(expense.acquiredAt)}</StyledTableCell>
+                <StyledTableCell align='right'>{getLastPaymentPeriod(expense.payments)}</StyledTableCell>
                 <StyledTableCell align='right'>
                     {expense.type === ExpenseTypeEnum.PURCHASE ? `${expense.installmentsPaid}/${expense.installments}` : '---'}
                 </StyledTableCell>
                 <StyledTableCell align='right'>
-                    {expense.type === ExpenseTypeEnum.PURCHASE ? `${Math.round(expense.totalPaid / expense.amount) * 100}%` : '---'}
+                    {expense.type === ExpenseTypeEnum.PURCHASE ? `${Math.round(expense.totalPaid / expense.amount * 100)}%` : '---'}
                 </StyledTableCell>
                 <StyledTableCell align='right'>
                     <ButtonGroup size='small' aria-label='Small button group'>
