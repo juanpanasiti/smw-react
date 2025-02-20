@@ -10,5 +10,6 @@ export * from './PaginationNav';
 export * from './Fab';
 export * from './StyledTable';
 export * from './NoContentMessage';
+export * from './FlexContainerColumn';
 
 export type MuiIcon = OverridableComponent<SvgIconTypeMap> & { muiName: string };
