@@ -10,11 +10,12 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 interface Props {
     cards: CreditCard[];
+    show?: boolean
 }
 
-export const CreditCardList = ({ cards }: Props) => {
+export const CreditCardList = ({ cards, show=true }: Props) => {
     const [creditCardSelected, setCreditCardSelected] = useState<CreditCard | null>(null);
-    const [showCreditCards, setShowCreditCards] = useState<boolean>(true);
+    const [showCreditCards, setShowCreditCards] = useState<boolean>(show);
     const toggleBoxVisibility = () => {
         setShowCreditCards((prev) => !prev);
     };
@@ -22,7 +23,7 @@ export const CreditCardList = ({ cards }: Props) => {
     return (
         <>
             <Typography variant='h3'>
-                Tarjetas de Crédito <span onClick={toggleBoxVisibility}>{showCreditCards ? <VisibilityOff /> : <Visibility />}</span>
+                Tarjetas de Crédito ({cards.length}) <span onClick={toggleBoxVisibility}>{showCreditCards ? <VisibilityOff /> : <Visibility />}</span>
             </Typography>
             
             <Collapse in={showCreditCards}>
