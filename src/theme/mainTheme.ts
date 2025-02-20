@@ -10,11 +10,12 @@ export const mainTheme = createTheme({
             contrastText: '#ffffff',
         },
         secondary: {
-            main: '#f44336',
-            light: '#ff7961',
-            dark: '#ba000d',
+            main: '#1E88E5',
+            light: '#90CAF9',
+            dark: '#1565C0',
             contrastText: '#ffffff',
         },
+
         background: {
             paper: '#303030',
             default: '#212121',
@@ -22,6 +23,7 @@ export const mainTheme = createTheme({
         text: {
             primary: '#ffffff',
             secondary: '#c7c7c7',
+            disabled: '#bdbdbd',
         },
         error: {
             main: '#f44336',
@@ -52,12 +54,12 @@ export const mainTheme = createTheme({
             white: '#ffffff',
         },
         action: {
-            active: '#1976d2',
-            hover: '#e3f2fd',
-            selected: '#e3f2fd',
-            disabled: '#bdbdbd',
-            disabledBackground: '#bdbdbd',
-            focus: '#e3f2fd',
+            active: '#007566',
+            hover: '#8FC1B5',
+            selected: '#B3E5C2',
+            disabled: '#A1A1A1',
+            disabledBackground: '#E0E0E0',
+            focus: '#B3E5C2',
         },
     },
     typography: {
