@@ -63,10 +63,12 @@ export interface CreditCard {
     id: number;
     alias: string;
     limit: number;
+    financingLimit: number;
     userId: number;
     mainCreditCardId: number;
     closingDay: Date;
     dueDay: Date;
+    subtotalSpent: number;
     totalSpent: number;
     isEnabled: boolean;
     createdAt: Date;

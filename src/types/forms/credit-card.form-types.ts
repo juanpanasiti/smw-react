@@ -1,6 +1,7 @@
 export interface NewCreditCard {
     alias: string;
     limit: number;
+    financingLimit: number;
     mainCreditCardId?: number;
     nextClosingDate?: Date;
     nextExpiringDate?: Date;

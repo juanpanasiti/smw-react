@@ -81,6 +81,23 @@ export const CreditCardForm = React.forwardRef<HTMLDivElement, Props<ICreditCard
                 required
             />
 
+            {/* Financing Limit */}
+            <TextField
+                fullWidth
+                label='Financing Limit'
+                type='number'
+                slotProps={{
+                    htmlInput: {
+                        step: '0.01',
+                    },
+                }}
+                value={values.financingLimit || ''}
+                autoComplete='off'
+                onChange={(e) => handleChange('financingLimit', +e.target.value)}
+                margin='normal'
+                required
+            />
+
             {/* Closing Date */}
             <FormControl fullWidth margin='normal'>
                 <DatePicker

@@ -21,6 +21,7 @@ export const CreditCardCard = ({ creditCard, handleOnEditClick }: Props) => {
     const location = useLocation();
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const { deleteCreditCard } = useWalletMigrations();
+    const inExpensePage = location.pathname.includes('expenses');
     const handleDelete = () => {
         try {
             deleteCreditCard(creditCard.id);
@@ -55,15 +56,15 @@ export const CreditCardCard = ({ creditCard, handleOnEditClick }: Props) => {
                     </DatesContainer>
                     <AmountsContainer>
                         <Typography variant='body1'>
-                            <b>Próximo</b> {formatCurrency(creditCard.totalSpent)}
+                            <b>Próximo</b> {formatCurrency(inExpensePage ? creditCard.totalSpent : creditCard.subtotalSpent)}
                         </Typography>
                         <Typography variant='body1'>
-                            <b>Monto últ. ctas</b> {formatCurrency(creditCard.totalSpent)}
+                            <b>Monto últ. ctas</b> {formatCurrency(0)}
                         </Typography>
                     </AmountsContainer>
                 </Box>
                 <Box sx={{ width: '60px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '5px' }}>
-                    {location.pathname.includes('expenses') && (
+                    {inExpensePage && (
                         <Link to={`/credit-card/${creditCard.id}`}>
                             <IconButton aria-label='show' size='medium' color='info'>
                                 <Visibility fontSize='inherit' />
