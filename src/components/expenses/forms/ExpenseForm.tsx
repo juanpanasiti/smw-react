@@ -102,7 +102,6 @@ export const ExpenseForm = React.forwardRef<HTMLDivElement, Props<IExpenseForm>>
                 slotProps={{
                     htmlInput: {
                         step: '0.01',
-                        min: 0,
                         defaultValue: 0,
                     },
                 }}
